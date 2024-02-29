@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # File:   note.sh
-# Author: Marco Plaitano
 # Date:   15 Feb 2024
 # Brief:  Add a new note.
 
