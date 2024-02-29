@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="canonical" href="https://earendelmir.xyz/archive/2023/44.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="With a simple shell script it is possible to print a random quote every time a new terminal is launched. For this to work I assume the existence of a file containing the pool of quotes to choose from...">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe via RSS" href="https://earendelmir.xyz/feed.xml">
+
+  <meta property="og:title" content="A bash script for random quote on shell login">
+  <meta property="twitter:title" content="A bash script for random quote on shell login">
+  <meta property="og:description" content="With a simple shell script it is possible to print a random quote every time a new terminal is launched. For this to work I assume the existence of a file containing the pool of quotes to choose from...">
+  <meta property="twitter:description" content="With a simple shell script it is possible to print a random quote every time a new terminal is launched. For this to work I assume the existence of a file containing the pool of quotes to choose from...">
+  <meta property="og:url" content="https://earendelmir.xyz/archive/2023/44.html">
+  <meta property="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="/style/post.css">
+  <link rel="stylesheet" href="/style/code-syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/style/code-syntax-dark.css" media="(prefers-color-scheme: dark">
+  <title>A bash script for random quote on shell login</title>
+</head>
+
+<body>
+  <header id="banner">
+    <h1 translate="no">earendelmir</h1>
+    <nav>
+      <a lang="en" class="navbar-item" href="/">Home</a>
+      <a lang="en" class="navbar-item" href="/about/">About</a>
+      <a lang="en" class="navbar-item" href="/archive/">Archive</a>
+      <a lang="en" class="navbar-item" href="/notes/">Notes</a>
+      <a lang="en" class="navbar-item" href="/more/">More</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="h-entry post-body">
+      <a class="u-uid u-url" href="https://earendelmir.xyz/archive/2023/44.html" hidden></a>
+      <h1 class="p-name post-title">A bash script for random quote on shell login</h1>
+      <p lang="en" class="post-info">
+        <time class="dt-published" datetime="2023-11-28">28 Nov 2023</time>&#160; · &#160;3 min&#160; · &#160;<a href="/archive/#development">#development</a>
+      </p>
+      <div class="p-author h-card" hidden>
+        <a class="u-uid u-url p-name" href="https://earendelmir.xyz">earendelmir</a>
+        <a class="u-photo" href="https://earendelmir.xyz/images/profile.jpg">(Photo)</a>
+      </div>
+      <div class="e-content">
+      <p>With a few lines of bash scripting you can print a random quote every time a new terminal is launched.</p>
+      <p>First things first: the quotes. These should be stored in a text file; every line contains a single, entire quote
+        — use the <code>\n</code> escape character to signal that a quote should be split on multiple lines.<br>
+        Here is an example of what the contents of said file might look like, with four quotes from different films:</p>
+
+      <pre><code class="language-plaintext">A wizard is never late, nor is he early, he arrives precisely when he means to.
+May the Force be with you.
+All that is gold does not glitter<b>\n</b>Not all those who wander are lost.
+Keep your friends close, but your enemies closer.</code></pre>
+
+      <p>Notice the use of <code>\n</code> in the third one.</p>
+
+      <p>Now that we have the quotes, we can generate a random integer that corresponds to a line inside the file — i.e.
+        a random quote.<br>
+        In Bash, a random integer can be obtained with the <code>$RANDOM</code> variable. This, however, will give a
+        number in the range <code>0</code> to <code>32767</code> which, unless you have a file of 32767
+        lines exactly<sup class="footnote-ref" id="fnref-1">[<a href="#fn-1">1</a>]</sup>, is not ideal.</p>
+
+      <pre><code class="language-bash">echo $RANDOM   # output: 10226</code></pre>
+
+      <p>We need to limit our randomness between 1 and our maximum: the number of quotes.<br>
+        First, let's count the number of lines in our file:</p>
+
+      <pre><code class="language-bash">num_lines=$(wc -l &lt; /path/to/quotes.txt)</code></pre>
+
+      <p>Then, let's generate a random integer inside this range:</p>
+
+      <pre><code class="language-bash">random_num=$(( RANDOM % num_lines + 1 ))</code></pre>
+
+      <p>The addition of <code>+1</code> is needed to handle two edge cases: when <code>$RANDOM</code> is either <code>0</code>
+        or equal to <code>$num_lines</code>. In these scenarios the modulo operation would yield <code>0</code>, which is
+        an invalid line number. Additionally, the <code>+1</code> ensures that the maximum range value, <code>$num_lines</code>
+        (the last line in the file) can be obtained.</p>
+
+      <p>All that is left now is to extract the corresponding line from the file and print it:</p>
+
+      <pre><code class="language-bash">line=$(head -$random_num /path/to/quotes.txt | tail -1)
+printf "%b\n" "$line"</code></pre>
+
+      <p>You can put these lines in a script or directly in the shell's config file (e.g. bashrc, zshrc, ...) and a
+        different quote will appear above the first prompt every time a new shell is opened.</p>
+
+      <h2>future improvements</h2>
+      <p>which you might find useful and/or fun but I'm too lazy to show:</p>
+      <ul>
+        <li>put the file path in a variable</li>
+        <li>check that the file exists</li>
+        <li>check that the file is not empty</li>
+        <li>customize the printf with quotes, italic font...</li>
+        <li>add a check to avoid getting the same quote twice in a row</li>
+      </ul>
+
+      <p>One thing I realized while writing is that the code won't work if the file is more than 32767 lines long. By
+        "won't work" I mean it will never access those exceeding lines.<br>
+        And even though I doubt anyone could ever collect more than 30 thousands quotes, I thought it would be nice to
+        address this problem.<br>
+        One way to fix it would be:</p>
+
+      <pre><code class="language-bash">random_num=$(( RANDOM * num_lines / 32767 + 1 ))</code></pre>
+
+      <section class="footnotes">
+        <hr>
+        <ol>
+          <li id="fn-1"><p>Less than that is a waste, more would be useless since higher line numbers would never be generated. <a class="footnote" href="#fnref-1">&#8617;&#xFE0E;</a></p></li>
+        </ol>
+      </section>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <hr>
+    <p><a tabindex="0" onclick="document.body.scrollTop=0;document.documentElement.scrollTop=0;">↑ <span lang="en">Back to Top</span></a></p>
+    <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Reply with
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
+    <p><span translate="no">© 2023-2024 earendelmir</span></p>
+  </footer>
+</body>
+
+<script src="/scripts/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="canonical" href="https://earendelmir.xyz/archive/template.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Full post template">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe via RSS" href="https://earendelmir.xyz/feed.xml">
+
+  <meta property="og:title" content="Template Page - earendelmir">
+  <meta property="twitter:title" content="Template Page - earendelmir">
+  <meta property="og:description" content="Full post template">
+  <meta property="twitter:description" content="Full post template">
+  <meta property="og:url" content="https://earendelmir.xyz">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="/style/post.css">
+  <!-- REMOVE IF NOT USING CODE SNIPPETS -->
+  <link rel="stylesheet" href="/style/code-syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/style/code-syntax-dark.css" media="(prefers-color-scheme: dark">
+  <title>TITLE - earendelmir</title>
+</head>
+
+<body>
+  <header id="banner">
+    <h1 translate="no">earendelmir</h1>
+    <nav>
+      <a lang="en" class="navbar-item" href="/">Home</a>
+      <a lang="en" class="navbar-item" href="/about/">About</a>
+      <a lang="en" class="navbar-item" href="/archive/">Archive</a>
+      <a lang="en" class="navbar-item" href="/notes/">Notes</a>
+      <a lang="en" class="navbar-item" href="/more/">More</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="h-entry post-body">
+      <a class="u-uid u-url" href="https://earendelmir.xyz/archive/template.html" hidden></a>
+      <h1 class="p-name post-title">TITLE</h1>
+      <p lang="en" class="post-info">
+        <time class="dt-published" datetime="YYYY-MM-DD">DD MMMM YYYY</time>&#160; · &#160;NUM min&#160; · &#160;<a href="/archive/#TAG">#TAG</a>
+      </p>
+      <div class="p-author h-card" hidden>
+        <a class="u-uid u-url p-name" href="https://earendelmir.xyz">earendelmir</a>
+        <a class="u-photo" href="https://earendelmir.xyz/images/profile.jpg">(Photo)</a>
+      </div>
+      <div class="e-content">
+        <p>Ciao!<br>
+          Questo è il primo paragrafo. In teoria dovrebbero esserci scritte tante belle cose tipo che il sole è giallo.<br>
+          Uso i line break <b>&lt;br&gt;</b> per andare a capo. Per lasciare uno spazio tra paragrafi chiudo
+          <b>&lt;p&gt;&lt;/p&gt;</b>.</p>
+
+        <p>Ecco, ora ho creato un nuovo paragrafo lasciando lo spazio sopra. Ah, c'è anche una nota a piè di pagina qui
+          <sup class="footnote-ref" id="fnref-1">[<a href="#fn-1">1</a>]</sup>.<br>
+          Per lasciare ancora più spazio uso <b>&lt;br&gt;</b> Fuori da un paragrafo. Lo vedi prima della nuova sezione,
+          sotto a tutto, dove dice this is a new section, oppure prima delle note a piè di pagina.</p>
+
+        <p>Ora ci metto una bella foto con <code>loading</code> property messa a <i>lazy</i>. Ha già il margine sopra e sotto.</p>
+
+        <div class="img-div">
+          <img src="/images/immaginebella.webp" alt="img_bella" style="width:500px;height:500px;" loading="lazy">
+          <figcaption>didascalia</figcaption>
+        </div>
+
+        <p>Continuo a parlare sotto la foto come niente fosse. Questo è un link ad un
+          <a href="/archive/2023/1.html">altro post</a>. Questo invece è un link a una pagina esterna
+          <a href="https://www.google.com" target="_blank" rel="noopener">google</a>.<br>
+          Ora invece ti decanto una poesia — può essere pure una citazione eh, non c'è molta differenza:</p>
+
+        <blockquote>
+          Nel mezzo del cammin di nostra vita<br>
+          mi ritrovai per una selva oscura,<br>
+          che la diritta via era smarrita.
+        </blockquote>
+
+        <p>Nota come ho scritto un <a href="https://en.wikipedia.org/wiki/Dash#Em_dash">em dash</a> poco sopra. Per farlo:</p>
+        <ol>
+          <li>Premi <code>Ctrl+Shift+u</code></li>
+          <li>Scrivi <code>2014</code> sul keypad</li>
+          <li>Premi <code>ENTER</code></li>
+        </ol>
+        <p>Per finire, proviamo ad inserire prima di tutto del testo extra, giusto per riempire qualche riga in piú
+          di un paragrafo eee alla fine aggiungo un esempio di codice, inline tipo <code>int c = 4;</code> e a blocco
+          tipo:</p>
+        <pre><code class="language-bash">if [[ -n $BASH ]]; then
+      echo "hello world"
+  fi</code></pre>
+
+        <br><hr>
+        <h2>This is a new section</h2>
+        <p>Hello! Here, there and everywhere!</p>
+
+        <section class="footnotes">
+          <hr>
+          <ol>
+            <li id="fn-1"><p>Nota, con un link per tornare su. <a class="footnote" href="#fnref-1">&#8617;&#xFE0E;</a></p></li>
+          </ol>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <hr>
+    <p><a tabindex="0" onclick="document.body.scrollTop=0;document.documentElement.scrollTop=0;">↑ <span lang="en">Back to Top</span></a></p>
+    <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Reply with
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
+    <p><span translate="no">© 2023-2024 earendelmir</span></p>
+  </footer>
+</body>
+
+<!-- REMOVE IF NOT USING CODE SNIPPETS -->
+<script src="/scripts/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</html>

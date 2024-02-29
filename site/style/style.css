@@ -1,0 +1,276 @@
+/* ***** VARIABLES ***** */
+:root {
+  --color-background: #F8F9FA;
+  --color-text: #212529;
+  --color-text2: #616C75;
+  --color-text2-underline: #616C75AA;
+  --color-accent: #D2373C;
+  --color-grey: #6C757D;
+  --color-hr: #DEE2E6;
+  --color-footer-hr: #A3ACB5;
+  --color-note-border: #A3ACB599;
+  /* Code colors taken from /style/code-syntax.css to match highlight.js */
+  --color-code-fg: #2F3337;
+  --color-code-bg: #F8F9FA;
+  --image-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+  --font-sans-serif: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  --font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  --font-monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+}
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #18191A;
+    --color-text: #D0D7DE;
+    --color-text2: #89949D;
+    --color-text2-underline: #89949DDD;
+    --color-accent: #DF9568;
+    /* --color-accent: #51b4f6; */
+    /* --color-accent: #4fa8e2; */
+    /* --color-accent: #5ea5d4; */
+    /* --color-accent: #4597cd; */
+    /* --color-accent: #3899da; */
+    /* --color-accent: #40a3e5; */
+    --color-grey: #555D66;
+    --color-hr: #555D66;
+    --color-footer-hr: #555D66;
+    --color-note-border: #555D6699;
+    --color-code-fg: #D0D7DE;
+    --color-code-bg: #18191A;
+  }
+}
+
+/* ***** LOWERCASE ***** */
+h1, h2, h3, h4, h5,
+.navbar-item,
+#tags-list li,
+.posts-list li,
+.pages-list li a,
+.post-info
+{
+  text-transform: lowercase;
+}
+
+
+/* ***** MAIN ***** */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-size: 62.5%;
+  font-family: var(--font-sans-serif);
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+/* Disable smooth scrolling if reduced motion is active */
+@media (prefers-reduced-motion:reduce) {
+  html {scroll-behavior: auto;}
+}
+
+body {
+  font-size: 1.8rem;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 3rem;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 1.8em;
+}
+main h1 {
+  font-size: 1.85em;
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+}
+h2 {
+  font-size: 1.5em;
+  line-height: 1.1;
+  margin: 1.2em 0 1.5rem;
+}
+h3 {
+  font-size: 1.3em;
+  line-height: 1.1;
+  margin: 1em 0 1rem;
+}
+h4,
+h5,
+h6 {
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+}
+
+hr {
+  border-color: var(--color-hr);
+}
+
+
+/* ***** HEADER ***** */
+header#banner {
+  margin-bottom: 2.5rem;
+}
+
+header#banner h1 {
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
+header#banner nav a {
+  color: var(--color-text2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-text2-underline);
+  text-decoration-thickness: 1px;
+  margin: 0;
+  margin-right: 1rem;
+  font-size: 1.1em;
+}
+header#banner nav a#navbar-curr-page {
+  text-decoration: none;
+}
+
+
+/* ***** LINKS ***** */
+a {
+  cursor: pointer;
+  color: var(--color-accent);
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+a:active:not(#navbar-curr-page) {
+  filter: brightness(80%);
+}
+
+a[target="_blank"]::after {
+  /* u21aa ufe0e  second one is invisible: to avoid glyph turning into emoji */
+  content: "↪︎";
+  display: inline-block;
+  margin-left: 0.3em;
+  margin-right: 0.2em;
+}
+
+#navbar-curr-page {
+  cursor: default;
+}
+
+
+/* ***** LIST ***** */
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+ul li:not(:last-child) {
+  padding-bottom: 0.8rem;
+}
+
+details summary {
+  cursor: pointer;
+}
+summary *:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+/* Make summary title appear in the same line of the toggle button. */
+details summary>* {
+  display: inline;
+  padding-left: 0.3rem;
+}
+
+
+/* ***** TEXT & PARAGRAPHS ***** */
+p {
+  color: var(--color-text);
+  text-align: left;
+  margin: 0;
+}
+main {
+  line-height: 1.6;
+}
+main p + p {
+  margin-top: 1em;
+}
+main p.post-info + p {
+  margin-top: 0;
+}
+
+
+/* ***** FOOTER ***** */
+/* Stretch main to fill all remaining space towards the bottom of the page. */
+main {
+  flex: 1;
+}
+
+footer {
+  width: 100%;
+  margin: 5.6rem 0 1.2rem;
+  font-size: 1.6rem;
+}
+footer hr {
+    border-style: dashed;
+    border-color: var(--color-footer-hr);
+}
+footer p {
+  color: var(--color-text2);
+}
+footer a {
+  color: var(--color-text2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-text2-underline);
+  text-decoration-thickness: 1px;
+}
+
+
+/* ***** DESKTOP VERSION ***** */
+@media screen and (min-width:770px) {
+  body {
+    width: 750px;
+  }
+  header#banner h1 {
+    margin-top: 1.5rem;
+  }
+}
+
+
+/* ***** MOBILE VERSION ***** */
+@media screen and (max-width:500px) {
+  /* To keep footer at the bottom of the page while considering mobile height
+   * space occupied by browser's tabs. */
+  body {
+    height: 100%;
+    min-height: 100%;
+    padding: 0 2.4rem;
+  }
+  footer {
+    margin-bottom: 0;
+    padding-bottom: 1.5rem;
+  }
+}
+
+@media screen and (max-width:370px) {
+  body {
+    padding: 0 1.5rem;
+  }
+}

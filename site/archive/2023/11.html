@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="canonical" href="https://earendelmir.xyz/archive/2023/11.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="In this post I'll try to explain how I set up my Bash shell and show how to obtain a similar configuration for an ever improving workflow.">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe via RSS" href="https://earendelmir.xyz/feed.xml">
+
+  <meta property="og:title" content="My Bash setup">
+  <meta property="twitter:title" content="My Bash setup">
+  <meta property="og:description" content="In this post I'll try to explain how I set up my Bash shell and show how to obtain a similar configuration for an ever improving workflow.">
+  <meta property="twitter:description" content="In this post I'll try to explain how I set up my Bash shell and show how to obtain a similar configuration for an ever improving workflow.">
+  <meta property="og:url" content="https://earendelmir.xyz/archive/2023/11.html">
+  <meta property="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="/style/post.css">
+  <link rel="stylesheet" href="/style/code-syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/style/code-syntax-dark.css" media="(prefers-color-scheme: dark">
+  <title>My Bash setup</title>
+
+  <style>
+    ol {
+      margin-bottom: 3rem;
+    }
+    ol ul {
+      padding-left: 3rem;
+      list-style-type: lower-alpha;
+    }
+    li:not(:last-child) {
+      padding-bottom: 0.8rem;
+    }
+    ul li:first-child {
+      padding-top: 0.8rem;
+    }
+    h2, h3 {
+      margin-top: 1em;
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header id="banner">
+    <h1 translate="no">earendelmir</h1>
+    <nav>
+      <a lang="en" class="navbar-item" href="/">Home</a>
+      <a lang="en" class="navbar-item" href="/about/">About</a>
+      <a lang="en" class="navbar-item" href="/archive/">Archive</a>
+      <a lang="en" class="navbar-item" href="/notes/">Notes</a>
+      <a lang="en" class="navbar-item" href="/more/">More</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="h-entry post-body">
+      <a class="u-uid u-url" href="https://earendelmir.xyz/archive/2023/11.html" hidden></a>
+      <h1 class="p-name post-title">My Bash setup</h1>
+      <p lang="en" class="post-info">
+        <time class="dt-published" datetime="2023-02-23">23 Feb 2023</time>&#160; · &#160;14 min&#160; · &#160;<a href="/archive/#development">#development</a>
+      </p>
+      <div class="p-author h-card" hidden>
+        <a class="u-uid u-url p-name" href="https://earendelmir.xyz">earendelmir</a>
+        <a class="u-photo" href="https://earendelmir.xyz/images/profile.jpg">(Photo)</a>
+      </div>
+      <div class="e-content">
+      <p>In this post I'll try to explain how I set up my Bash shell and show how to obtain a similar configuration
+        for an ever improving workflow.</p>
+      <h2>Table of contents</h2>
+      <ol>
+        <li><a href="#section-the-shells">The shells</a>
+          <ul>
+            <li><a href="#section-the-shells-login-shell">Login shell</a></li>
+            <li><a href="#section-the-shells-non-login-shell">Non-Login shell</a></li>
+            <li><a href="#section-the-shells-non-interactive-shell">Non-Interactive shell</a></li>
+          </ul>
+        </li>
+        <li><a href="#section-profile">~/.profile</a></li>
+        <li><a href="#section-bashrc">~/.bashrc</a>
+          <ul>
+            <li><a href="#section-bashrc-options">Options</a></li>
+            <li><a href="#section-bashrc-history">History</a></li>
+            <li><a href="#section-bashrc-completion">Completion</a></li>
+            <li><a href="#section-bashrc-prompt">Prompt</a></li>
+            <li><a href="#section-bashrc-aliases">Aliases (~/.bash_aliases)</a></li>
+            <li><a href="#section-bashrc-functions">Functions (~/.bash_functions)</a></li>
+          </ul>
+        </li>
+      </ol>
+
+      <hr>
+      <h2 id="section-the-shells">The shells</h2>
+      <p>The most important thing is the one I learnt last, and that is the difference between the shells, from
+        which derives the need for different configuration files.<br>
+        The first time the terminal application is launched after boot, or when a new SSH connection is established,
+        Bash will create a <b>login interactive shell</b>; every other instance of Bash after the first one is a
+        <b>non-login interactive shell</b>. Finally, scripts run in <b>non-login non-interactive shells</b>.</p>
+
+      <h3 id="section-the-shells-login-shell">Login shell</h3>
+      <p>This sources the <code>/etc/profile</code> file first and I deemed it best not to modify this file in
+        any way. Luckily, it then also looks for one of the following readable files and sources the first one it finds:</p>
+      <ul style="margin: 6px auto;">
+        <li><code>~/.bash_profile</code></li>
+        <li><code>~/.bash_login</code></li>
+        <li><code>~/.profile</code></li>
+      </ul>
+      <p>I can definitely create/modify these without fear of messing anything up. I chose <code>profile</code>
+        for name consistency but, from my understanding, they are all equal. This file will be used to define the
+        <i>environment</i>, that usually means defining <code class="language-bash">PATH</code> and the other global
+        variables; these settings are set only once but they will be inherited by all child shells (non-login ones).<br>
+        Worth mentioning, although I have never found the need for it, is the <code>~/.bash_logout</code> file,
+        sourced when a login shell is exited; mine is the default one which simply clears the screen
+        (useful in <i>ttys</i>).</p>
+
+      <h3 id="section-the-shells-non-login-shell">Non-Login shell</h3>
+      <p>This shell inherits the profile configuration from login but it actually only reads the <code>~/.bashrc</code>
+        file.<br>
+        Here I can set up all the aliases, define the functions and set the options that I wish to be loaded
+        in each new shell, so that any change in the configuration will immediately take effect when a new terminal
+        is launched.</p>
+
+      <h3 id="section-the-shells-non-interactive-shell">Non-Interactive shell</h3>
+      <p>Scripts run in non-interactive shells (this can be changed by adding the <code>-i</code> option to the
+        <i>shebang</i>) and they do not read any configuration file. However, some variables can still be inherited
+        from parent shells, if set with the <code class="language-bash">export</code> modifier.</p>
+
+      <br><hr>
+      <h2 id="section-profile">~/.profile</h2>
+      <p>As written above, here I set all the variables that I only need to read once; these have values that I'm
+        sure I won't need to change frequently (or ever).<br>
+      For example, I set the terminal codes to change the font style and color, useful especially when creating
+        the <code>PS1</code> prompt.</p>
+      <pre><code class="language-bash">export RESET="\e[00m"
+
+export ITALIC="\e[03m"
+export UNDERLINE="\e[04m"
+export BLINK="\e[05m"
+export HIGHLIGHT="\e[07m"
+export HIDDEN="\e[08m"
+export CROSS="\e[09m"
+
+export WHITE="\e[01;20m"
+export BLACK="\e[00;30m"
+export RED="\e[01;31m"
+export GREEN="\e[01;32m"
+export YELLOW="\e[01;33m"
+export BLUE="\e[01;34m"
+export MAGENTA="\e[01;35m"
+export CYAN="\e[01;36m"</code></pre>
+      <p>By using <code class="language-bash">export</code> I'm making sure that these variables will be accessible
+        by all child shells.<br>
+        Next I define default applications and notable directories, to be used in aliases and scripts:</p>
+      <pre><code class="language-bash"># Default applications
+export BROWSER="firefox"
+export EDITOR="nvim"
+export PAGER="less"
+export TERMINAL="alacritty"
+# Directories
+export CODE_DIR="$HOME/Desktop"
+export SCRIPTS_DIR="$CODE_DIR/scripts"
+export DOTFILES_DIR="$CODE_DIR/dotfiles"
+export WALLPAPERS_DIR="$HOME/Pictures/wallpapers"</code></pre>
+      <p>Some other options: the output format of the <code>time</code> command, the prompt to display when invoking
+        sudo privileges and the default options for the <code>fzf</code> utility.</p>
+      <pre><code class="language-bash">export TIMEFORMAT=$'\nreal %3R\tuser %3U\tsys %3S'
+export SUDO_PROMPT="Password: "
+export FZF_DEFAULT_OPTS="-i --cycle --scroll-off=2 --keep-right"</code></pre>
+      <p>Finally, configuring the <code>PATH</code> variable to add my local bin and the one containing my custom
+        scripts, defined above, with all of its subfolders.</p>
+      <pre><code class="language-bash">[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
+
+if [[ -d "$SCRIPTS_DIR" ]]; then
+    for subdir in `find "$SCRIPTS_DIR" -type d -not -path '*.git*'`; do
+        PATH="$subdir:$PATH"
+    done
+fi</code></pre>
+      <p>Now, <b>login</b> and <b>non-login</b> shells should behave at the exact same manner since they both are
+        interactive. For this reason, at the end of my profile I also read the <code>~/.bashrc</code> file.</p>
+
+      <br><hr>
+      <h2 id="section-bashrc">~/.bashrc</h2>
+      <p>Here go all the shell's options, aliases, functions and the more <i>"variable"</i> variables but first, a
+        check is made to stop the sourcing of this file if the current shell is not interactive:</p>
+      <pre><code class="language-bash"># If not running interactively, do nothing.
+case $- in
+    *i*) ;;
+    *) return ;;
+esac</code></pre>
+      <p>Now, the real configuration can begin.</p>
+
+      <h3 id="section-bashrc-options">Options</h3>
+      <p>These are all the shell options I enabled.
+        <a target="_blank" rel="noopener" href="https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html">This guide</a>
+        gives a more detailed overview of all of them.</p>
+      <pre><code class="language-bash"># Disable Ctrl+S and Ctrl+Q (they would freeze/unfreeze the terminal).
+stty -ixon
+# Set VI mode (pressing ESC key enables NORMAL mode).
+set -o vi
+# Check and update LINES and COLUMNS after each command.
+shopt -s checkwinsize
+# Allow usage of comments in the interactive shell. (enabled by default)
+shopt -s interactive_comments
+# Autocorrect spelling errors when using cd command.
+shopt -s cdspell
+# Automatically expand directory globs and fix typos whilst completing.
+# Note, this works in conjuction with the cdspell option listed above.
+shopt -s direxpand dirspell
+# Enable the ** globstar recursive pattern in directory expansions.
+shopt -s globstar
+# Print background jobs that are still running before exiting.
+shopt -s checkjobs</code></pre>
+
+      <h3 id="section-bashrc-history">History</h3>
+      <p>These are the options related to the shell's history:</p>
+      <pre><code class="language-bash"># Append to the history file instead of overwriting.
+shopt -s histappend
+# Save multi-line commands in one history entry.
+shopt -s cmdhist
+# Set bash history to ignore duplicates and commands starting with spaces.
+export HISTCONTROL=ignoreboth
+# Number of entries to save in the history file.
+HISTFILESIZE=10000
+HISTSIZE=10000
+# Move history file to cache folder.
+export HISTFILE=$HOME/.cache/.bash_history
+# Commands to ignore when saving history.
+# ? means any command of just one character.
+export HISTIGNORE="?:clear:pwd:ls:ll:la:rm*"</code></pre>
+
+      <h3 id="section-bashrc-completion">Completion</h3>
+      <p>Sourcing these files enables TAB-Completion both for Bash and Git commands.</p>
+      <pre><code class="language-bash">if ! shopt -oq posix; then
+    # Bash Completion
+    if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+        source /usr/share/bash-completion/bash_completion
+    elif [[ -f /etc/bash_completion ]]; then
+        source /etc/bash_completion
+    fi
+    # Git Completion
+    if [[ -f /usr/share/bash-completion/completions/git ]]; then
+        source /usr/share/bash-completion/completions/git
+        export GIT_COMPLETION_SHOW_ALL=1
+    fi
+fi</code></pre>
+
+      <h3 id="section-bashrc-prompt">Prompt</h3>
+      <p>This is what my prompt normally looks like:</p>
+      <pre><code class="nohighlight" style="background-color: #1B1C1C; color: #FFFFFF; padding: 4px 10px;"><b><span style="color: #90D44E;">user</span> <span style="color: #85C7F2;">~/Desktop/scripts</span></b> $</code></pre>
+      <p>And this is that same prompt displaying all the optional info:</p>
+      <pre><code class="nohighlight" style="background-color: #1B1C1C; color: #FFFFFF; padding: 4px 10px;"><b><span style="color: #FFED65;">1m25s</span> <span style="color: #EF2929;">1</span> <span style="color: #90D44E;">user@home-pc</span> <span style="color: #85C7F2;">../foo/bar/viz/bin</span> <span style="color:#F397D6;">(main +%)</span></b> $</code></pre>
+      <p>The first chunk, in yellow, shows the execution time of the last command; it is only displayed when it
+        exceeds a certain threshold.<br>
+        Then, in red, the error code of the last command, in case it failed.<br>
+        In green there's the username and — only if the current shell is accessed via SSH — the hostname; I don't
+        need to always see it if I'm working on my machine, I find it to be a waste of space.<br>
+        In blue there's the current path, truncated at a depth of 4.<br>
+        In magenta is displayed some information about the git repository I am currently in.<br>
+        Finally, the prompt symbol; <code>$</code> for regular users, <code>#</code> for root.</p>
+      <br>
+      <p>As you can see it is not that fancy: no colored background, no icons or unicode characters but it does
+        the job without distracting me, and it does not occupy too much space.<br>
+        This is its declaration; note how it uses colors already defined elsewhere (in my case they are in
+        <code>~/.profile</code>, as shown above).</p>
+      <pre><code class="language-bash">PS1="\[$YELLOW\]"'${cmd_time}'             # execution time
+PS1+="\[$RED\]\`error_return\`"            # error code
+PS1+="\[$GREEN\]\u"                        # username
+[[ -n $SSH_CONNECTION ]] && PS1+="@\h"     # hostname
+PS1+=" \[$BLUE\]\w"                        # path
+PS1+="\[$MAGENTA\]"'$(__git_ps1 " (%s)")'  # git info
+PS1+="\[$RESET\] \\$ "                     # prompt symbol</code></pre>
+      <p>Going backwards, to get the git info to show up, these lines have to be added to the <code>bashrc</code> file:</p>
+      <pre><code class="language-bash">source /etc/bash_completion.d/git-prompt
+# Separator between branch name and all the other indicators.
+export GIT_PS1_STATESEPARATOR=' '
+# Show unstaged (*) and staged (+) changes.
+export GIT_PS1_SHOWDIRTYSTATE=1
+# Show if there are any untracked files (%).
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+# Show if something is stashed ($).
+export GIT_PS1_SHOWSTASHSTATE=1
+# Hide git prompt if current subdirectory is ignored by repository.
+export GIT_PS1_HIDE_IF_PWD_IGNORED=1
+# Show differences between HEAD and its upstream.
+# "&lt;" behind, "&gt;" ahead, "&lt;&gt;" diverged, "=" no difference.
+export GIT_PS1_SHOWUPSTREAM="auto"</code></pre>
+      <p>To truncate the path at a depth of 4 (or any other N):</p>
+      <pre><code class="language-bash">PROMPT_DIRTRIM=4</code></pre>
+      <p>To display the error code of the last command I invoke a function called <code>error_return</code>. This
+        has to be declared somewhere in the <code>bashrc</code> or sourced from any other file. The code for it is
+        pretty straight forward:</p>
+      <pre><code class="language-bash">function error_return {
+    retval=$?        # exit status
+    case $retval in
+        0|130|146) ;; # show nothing if success, Ctrl+C or Ctrl+Z
+        *) echo "$retval " ;; # in any other case, print error code
+    esac
+}</code></pre>
+      <p>Now, displaying the execution time of the command is the trickiest part.<br>
+        It needs these two functions to save timestamp of start and end, calculate the difference and format
+        the output string to be displayed.</p>
+      <pre><code class="language-bash"># Get time of execution start.
+function cmd_timer_start {
+    cmd_start=${timer:=$SECONDS}
+}
+
+function cmd_timer_stop {
+    # Get time of execution end.
+    cmd_time=$(( SECONDS - cmd_start ))
+    # Get minutes and seconds of running time.
+    local min=$((cmd_time / 60))
+    local sec=$((cmd_time % 60))
+    # Format output string based on the values of minutes and seconds.
+    if [[ $min -gt 0 ]]; then
+        if [[ $sec -gt 0 ]]; then
+            cmd_time="${min}m${sec}s "  # '1m25s '
+        else
+            cmd_time="${min}m "         # '2m '
+    else
+        # Only show output if command took more than 5 seconds to run.
+        if [[ $sec -ge 5 ]]; then
+            cmd_time="${sec}s "         # '34s '
+        else
+            unset cmd_time              # empty
+    fi
+    unset timer
+}</code></pre>
+      <p>Then, these lines have to be added to the file to let Bash know it has to run these two commands:</p>
+      <pre><code class="language-bash"># Start the timer at the beginning of every command.
+trap 'cmd_timer_start' DEBUG
+
+# Stop the timer at the end of every command, before printing the prompt.
+if [[ -z $PROMPT_COMMAND ]]; then
+    PROMPT_COMMAND="cmd_timer_stop"
+elif [[ $PROMPT_COMMAND != *cmd_timer_stop ]]; then
+    PROMPT_COMMAND="$PROMPT_COMMAND; cmd_timer_stop"
+fi</code></pre>
+
+      <h3 id="section-bashrc-aliases">Aliases (~/.bash_aliases)</h3>
+      <p>I usually keep these in a separate file and source it in my bashrc, just to keep things tidier.</p>
+      <pre><code class="language-bash">if [[ -f $HOME/.bash_aliases ]]
+    then source $HOME/.bash_aliases
+fi</code></pre>
+      <p>Over the years I have collected a hundred different aliases to ease and speed up my work; some are of my
+        invention, others (<i>most</i>) are taken from various sources online (blog posts, YouTube videos, tutorials
+        and guides, etc).<br>
+        What follows is a list of some of the aliases I <i>use/am proud of</i> the most.</p>
+      <pre><code class="language-bash">alias ..='cd ..'
+alias ls='ls --group-directories-first --color=auto -q'
+alias la='ls -Av'       # all files
+alias ll='ls -Aohv'     # all files, columns
+alias lt='ll -tr'       # sort by modification time
+alias lsize='ll -Sr'    # sort by size
+
+alias mkdir='mkdir -p'
+alias cp='cp -r'
+alias mv='mv -iv'
+alias du='du -h'
+alias df='df -Th'
+alias grep='grep --color=auto -i --exclude-dir=.git'
+alias pgrep='pgrep -i'
+alias hg='history | grep'
+alias diff='git diff --no-index --color-words'
+alias please='sudo `history -p !!`' # repeat last command with sudo
+
+alias reload='exec bash -l' # reload shell to apply config changes
+alias profile='$EDITOR $HOME/.profile'
+alias bashrc='$EDITOR $HOME/.bashrc'
+alias aliases='$EDITOR $HOME/.bash_aliases'
+alias functions='$EDITOR $HOME/.bash_functions'
+
+# typos
+alias mkdri='mkdir'
+alias mdkir='mkdir'
+alias dc='cd'
+alias moer='more'
+alias exti='exit'</code></pre>
+
+      <h3 id="section-bashrc-functions">Functions (~/.bash_functions)</h3>
+      <p>The same considerations made above for the aliases also apply here: separate file, not all mine.</p>
+
+      <p>Here are some of them.</p>
+      <pre><code class="language-bash"> # Extract any compressed file.
+function extract {
+    archive="$1"
+    if [[ -f "$archive" ]] ; then
+        case "$archive" in
+            *.tar.gz)  tar xvzf "$archive" &gt; /dev/null  ;;
+            *.tar.xz)  tar -xf "$archive" &gt; /dev/null   ;;
+            *.rar)     rar x "$archive" &gt; /dev/null     ;;
+            *.gz)      gunzip "$archive" &gt; /dev/null    ;;
+            *.tar)     tar xvf "$archive" &gt; /dev/null   ;;
+            *.tgz)     tar xvzf "$archive" &gt; /dev/null  ;;
+            *.zip)     unzip "$archive" &gt; /dev/null     ;;
+            *.7z)      7z x "$archive" &gt; /dev/null      ;;
+            *)         echo "Don't know how to extract '$archive'." ;;
+        esac
+    else
+        echo "Archive '$archive' not found."
+    fi
+}
+
+# Create .TAR.GZ from given directory.
+function maketar { tar cvzf "${1%%/}.tar.gz" "${1%%/}/" }
+
+# Create ZIP of a file or folder.
+function makezip { zip -r "${1%%/}.zip" "$1" }
+
+# Find the given string in the files of the current directory.
+function findstring { grep -i --color=auto -rnT -B1 -A1 './' -e "$1" }
+
+# Open given file or directory with the default application.
+function open {
+    # If no argument given, open current folder in file explorer.
+    [[ -n $1 ]] && element="$1" || element=.
+    xdg-open "$element" &>/dev/null & disown
+}</code></pre>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <hr>
+    <p><a tabindex="0" onclick="document.body.scrollTop=0;document.documentElement.scrollTop=0;">↑ <span lang="en">Back to Top</span></a></p>
+    <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Reply with
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
+    <p><span translate="no">© 2023-2024 earendelmir</span></p>
+  </footer>
+</body>
+
+<script src="/scripts/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</html>

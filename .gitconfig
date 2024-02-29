@@ -1,0 +1,7 @@
+[commit]
+    gpgsign = true
+[credential]
+    helper = netrc -f ~/.local/share/passwords/github/token-earendelmir.gpg
+[user]
+    name = earendelmir
+    email = earendelmir@proton.me

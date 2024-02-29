@@ -1,0 +1,41 @@
+.h-entry {
+  margin: 0;
+  padding: 1.2em;
+  display: grid;
+  border: solid var(--color-note-border) 1px;
+}
+.h-entry time {
+  font-style: italic;
+  font-size: smaller;
+  color: var(--color-text2);
+  margin-top: 1rem;
+  text-align: right;
+}
+@media screen and (max-width: 450px) {
+  .h-entry {
+    border-width: 0 0 1px 0;
+    padding: 1.2em 0;
+  }
+  .h-entry:nth-child(2) {
+    padding-top: 0;
+  }
+}
+@media screen and (min-width: 451px) {
+  main h1 {
+    margin-bottom: 2.2rem;
+  }
+  .h-entry:not(:last-of-type) {
+    border-bottom: none;
+  }
+}
+
+.page-switcher {
+  color: var(--color-text2);
+  margin-top: 3rem;
+  text-align: center;
+}
+.page-switcher a {
+  color: var(--color-text2);
+  text-decoration: underline;
+  margin: 0 0.5rem;
+}

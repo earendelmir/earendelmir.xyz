@@ -1,0 +1,23 @@
+{
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false,
+        "editor.renderWhitespace": "boundary",
+        "editor.rulers": [
+            {
+                "column": 110
+            }
+        ],
+    },
+    "[xsl]": {
+        "editor.autoClosingBrackets": "never",
+        "files.trimFinalNewlines": true,
+        "editor.rulers": [
+            {
+                "column": 110
+            }
+        ],
+    },
+    "livePreview.customExternalBrowser": "Firefox",
+    "livePreview.serverRoot": "./site",
+    "livePreview.defaultPreviewPath": "./site"
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="canonical" href="https://earendelmir.xyz/archive/2023/3.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="How to list all apt packages available for installation and select the desired one(s) with fzf.">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe via RSS" href="https://earendelmir.xyz/feed.xml">
+
+  <meta property="og:title" content="Finding packages to install with fzf">
+  <meta property="twitter:title" content="Finding packages to install with fzf">
+  <meta property="og:description" content="How to list all apt packages available for installation and select the desired one(s) with fzf.">
+  <meta property="twitter:description" content="How to list all apt packages available for installation and select the desired one(s) with fzf.">
+  <meta property="og:url" content="https://earendelmir.xyz/archive/2023/3.html">
+  <meta property="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="/style/post.css">
+  <link rel="stylesheet" href="/style/code-syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/style/code-syntax-dark.css" media="(prefers-color-scheme: dark">
+  <title>Finding packages to install with fzf</title>
+</head>
+
+<body>
+  <header id="banner">
+    <h1 translate="no">earendelmir</h1>
+    <nav>
+      <a lang="en" class="navbar-item" href="/">Home</a>
+      <a lang="en" class="navbar-item" href="/about/">About</a>
+      <a lang="en" class="navbar-item" href="/archive/">Archive</a>
+      <a lang="en" class="navbar-item" href="/notes/">Notes</a>
+      <a lang="en" class="navbar-item" href="/more/">More</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="h-entry post-body">
+      <a class="u-uid u-url" href="https://earendelmir.xyz/archive/2023/3.html" hidden></a>
+      <h1 class="p-name post-title">Finding packages to install with fzf</h1>
+      <p lang="en" class="post-info">
+        <time class="dt-published" datetime="2023-01-20">20 Jan 2023</time>&#160; · &#160;3 min&#160; · &#160;<a href="/archive/#development">#development</a>
+      </p>
+      <div class="p-author h-card" hidden>
+        <a class="u-uid u-url p-name" href="https://earendelmir.xyz">earendelmir</a>
+        <a class="u-photo" href="https://earendelmir.xyz/images/profile.jpg">(Photo)</a>
+      </div>
+      <div class="e-content">
+      <p><a href="https://github.com/junegunn/fzf">fzf</a>
+        is a general-purpose command-line fuzzy finder that takes any list of strings as input, performs incremental
+        fuzzy search based on the user's input and returns the selected item(s).</p>
+
+      <p>One of the ways in which I employ this program is to look for a package to install on my machine when I
+        don't know its name. This happens a lot when trying to install a program and an error occurs, saying a
+        core library is missing. I don't seem to be able to ever remember what package these libraries correspond to
+        (is it <i>libev-dev</i> or <i>libx-dev</i>, <i>libev-xcb-dev...</i>, ugh!) what versions I can install, or
+        even if there are any available.</p>
+
+      <p>On distributions shipping <code>apt</code> as default package manager, the <code>apt-cache dump</code>
+        command will output all the available packages. The problem is that this command would actually print a lot
+        more than just a simple list; it shows, for each package, the description, version, dependencies, ... and,
+        even if using a pager like <code>less</code>, it becomes impossible to find something.<br>
+        To only output the actual names of the packages:</p>
+      <pre><code class="language-bash">apt-cache dump | grep "Package:" | awk '{print $2}'</code></pre>
+      <p>Here, with <code>grep</code> I am only selecting the lines containing the packages' names and, by piping
+        these into <code>awk</code>, I can decide to only print the second item of each line, thus discarding the
+        "Package:" part.<br>
+        This list of names can now be fed to <code>fzf</code> so that I can <i>fuzzy find</i> what I am looking for:</p>
+      <pre><code class="language-bash">packages=`apt-cache dump | grep "Package:" | awk '{print $2}' | \
+            fzf -m --prompt="Select packages: "`</code></pre>
+      <p>Notice the <code>-m</code> flag, it allows for multiple selection. What this means is that, before
+        pressing <code>Return</code> to select the item under the cursor, I can press <code>Tab</code> or
+        <code>Shift+Tab</code> to "save for selection" the current item and fzf won't return the output just yet,
+        so that I can keep searching and selecting other items.</p>
+
+      <p>At the end of the selection process the <code>packages</code> variable will either be empty (in which
+        case nothing more has to be done), or it will contain the list of selected packages, ready to be installed
+        with the most famous apt command:</p>
+      <pre><code class="language-bash">sudo apt install $packages</code></pre>
+
+      <p>The code for the entire script is the following:</p>
+      <pre><code class="language-bash">#!/bin/bash
+packages=`apt-cache dump | grep Package: | awk '{print $2}' | \
+          fzf -m --prompt="Select packages: "`
+
+if [[ -z $packages ]]; then
+    echo "No packages selected." ; exit
+fi
+sudo apt install $packages
+</code></pre>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <hr>
+    <p><a tabindex="0" onclick="document.body.scrollTop=0;document.documentElement.scrollTop=0;">↑ <span lang="en">Back to Top</span></a></p>
+    <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Reply with
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
+    <p><span translate="no">© 2023-2024 earendelmir</span></p>
+  </footer>
+</body>
+
+<script src="/scripts/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</html>

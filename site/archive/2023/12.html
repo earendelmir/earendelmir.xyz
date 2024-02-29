@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="canonical" href="https://earendelmir.xyz/archive/2023/12.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="A reference on GPG and its commands for my future self to come back to.">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe via RSS" href="https://earendelmir.xyz/feed.xml">
+
+  <meta property="og:title" content="GPG cheat sheet">
+  <meta property="twitter:title" content="GPG cheat sheet">
+  <meta property="og:description" content="A reference on GPG and its commands for my future self to come back to.">
+  <meta property="twitter:description" content="A reference on GPG and its commands for my future self to come back to.">
+  <meta property="og:url" content="https://earendelmir.xyz/archive/2023/12.html">
+  <meta property="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="/style/post.css">
+  <link rel="stylesheet" href="/style/code-syntax-light.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/style/code-syntax-dark.css" media="(prefers-color-scheme: dark">
+  <title>GPG cheat sheet</title>
+
+  <style>
+    ol {
+      margin-bottom: 3rem;
+    }
+    h2, h3 {
+      margin-top: 1em;
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header id="banner">
+    <h1 translate="no">earendelmir</h1>
+    <nav>
+      <a lang="en" class="navbar-item" href="/">Home</a>
+      <a lang="en" class="navbar-item" href="/about/">About</a>
+      <a lang="en" class="navbar-item" href="/archive/">Archive</a>
+      <a lang="en" class="navbar-item" href="/notes/">Notes</a>
+      <a lang="en" class="navbar-item" href="/more/">More</a>
+    </nav>
+  </header>
+
+  <main>
+    <article class="h-entry post-body">
+      <a class="u-uid u-url" href="https://earendelmir.xyz/archive/2023/12.html" hidden></a>
+      <h1 class="p-name post-title">GPG cheat sheet</h1>
+      <p lang="en" class="post-info">
+        <time class="dt-published" datetime="2023-02-24">24 Feb 2023</time>&#160; · &#160;4 min&#160; · &#160;<a href="/archive/#development">#development</a>
+      </p>
+      <div class="p-author h-card" hidden>
+        <a class="u-uid u-url p-name" href="https://earendelmir.xyz">earendelmir</a>
+        <a class="u-photo" href="https://earendelmir.xyz/images/profile.jpg">(Photo)</a>
+      </div>
+      <div class="e-content">
+      <p>This post is mainly a reference for my future self to come back to in order to find all the commands
+        I might need relative to GPG key management.</p>
+      <h2>Table of contents</h2>
+      <ol>
+        <li><a href="#section-gnupg-dir">The gnupg directory</a></li>
+        <li><a href="#section-show-keys">Show the keys</a></li>
+        <li><a href="#section-create-key-pair">Create a new key pair</a></li>
+        <li><a href="#section-delete-key-pair">Delete a key pair</a></li>
+        <li><a href="#section-get-public-key-text-block">Get Public Key text block</a></li>
+        <li><a href="#section-encrypt">Encrypt files</a></li>
+        <li><a href="#section-decrypt">Decrypt files</a></li>
+        <li><a href="#section-backup-restore">Backup & Restore</a></li>
+        <li><a href="#section-configuration">Configuration</a></li>
+      </ol>
+
+      <hr>
+      <h2 id="section-gnupg-dir">The gnupg directory</h2>
+      <p>This is where all the files are stored. Its default location is <code>~/.gnupg</code>. I prefer moving it
+        out of sight by adding this line to the shell's config file:</p>
+      <pre><code class="language-bash">export GNUPGHOME="$HOME/.local/share/gnupg"</code></pre>
+      <p>If a <code>~/.gnupg</code> directory already existed before, I can simply move it to this new location.</p>
+
+      <br><hr>
+      <h2 id="section-show-keys">Show the keys</h2>
+      <p>To see all the keys stored:</p>
+      <pre><code class="language-plaintext">gpg --list-secret-keys --keyid-format LONG</code></pre>
+      <p>The output will be, for each key:</p>
+      <pre><code class="language-plaintext">sec   rsa3072/AABBCC112233ABCD 2023-02-24 [SC]
+      QWERTYUIOP01234567ABCDEFAABBCC112233ABCD
+uid                 [ultimate] User (comment) &lt;mail@account.com&gt;
+ssb   rsa3072/1A2B3C4D5E6F7G8H 2023-02-24 [E]</code></pre>
+      <p>Where:</p>
+      <ul style="margin-top: 1rem; margin-bottom: 0;">
+        <li>The <b>sec</b> line shows:
+          <ul>
+            <li><b>rsa3072</b>: details about encryption</li>
+            <li><b>AABBCC112233ABCD</b>: key ID</li>
+            <li>creation date of that key</li>
+            <li><b>S</b>: key can be used for Signatures</li>
+            <li><b>C</b>: key can be used for Certification</li>
+          </ul>
+        </li>
+        <li>Next line shows the key fingerprint</li>
+        <li>The <b>uid</b> line shows owner's <b>name</b>, <b>comment</b> and <b>mail account</b></li>
+        <li>Finally the <b>ssb</b> line shows the subkey. <b>E</b> means it can be used for Encryption</li>
+      </ul>
+
+      <br><hr>
+      <h2 id="section-create-key-pair">Create a new key pair</h2>
+      <pre><code class="language-plaintext">gpg --full-generate-key</code></pre>
+      <p>It will ask to insert:</p>
+      <ul style="margin-top: 1rem;">
+        <li>Encryption type (can leave default RSA + RSA)</li>
+        <li>Key length (4096 is preferred: the longer it is the more secure)</li>
+        <li>Expiration time (can leave default = no expiration)</li>
+        <li>Name</li>
+        <li>Email</li>
+        <li>Comment (can be left blank)</li>
+        <li>Passphrase</li>
+      </ul>
+      <p>The <b>passphrase</b> is probably the most important field.<br>
+        It acts just like a password: the user will be asked to provide it when they want to decrypt a file
+        (previously encrypted with their key).<br>
+        This passphrase <b>must not</b> be forgotten/lost otherwise the user will no longer be able to access their
+        files.<br>
+        At the same time, it must not be kept in a public place/file where anybody could read it. If another person
+        were to get hold of it they would be able to access all of the private data and, even worse, steal the user's
+        digital identity.</p>
+
+      <br><hr>
+      <h2 id="section-delete-key-pair">Delete a key pair</h2>
+      <p>It is required that the <i>private</i> key is deleted first.</p>
+      <pre><code class="language-plaintext">gpg --delete-secret-key ID</code></pre>
+      <p><code>ID</code> can either be the key's id (in this case <code>AABBCC112233ABCD</code>, or the fingerprint
+        on the next line) or the user's (Name). What happens if a user has multiple keys I don't know. I'll keep
+        using the key's id.<br>
+        Now the <i>public</i> key can be deleted too, using the same ID.</p>
+      <pre><code class="language-plaintext">gpg --delete-key ID</code></pre>
+
+      <br><hr>
+      <h2 id="section-get-public-key-text-block">Get Public Key text block</h2>
+      <p>Useful to share the public key.</p>
+      <pre><code class="language-plaintext">gpg --armor --export KeyID</code></pre>
+
+      <br><hr>
+      <h2 id="section-encrypt">Encrypt files</h2>
+      <pre><code class="language-plaintext">gpg -o file.gpg --encrypt -r email@account.com plain.txt</code></pre>
+      <p>With the <code>-o</code> option I specify the output file (<code>gpg</code> extension is a convention).<br>
+        With <code>-r</code> I specify the <i>recipient</i>: the user whose public key will be used to encrypt.
+        This allows only the owner of the correspondent private key to be able to decrypt the file.</p>
+
+      <br><hr>
+      <h2 id="section-decrypt">Decrypt files</h2>
+      <pre><code class="language-plaintext">gpg -o plain.txt --decrypt file.gpg</code></pre>
+
+      <br><hr>
+      <h2 id="section-backup-restore">Backup & Restore</h2>
+      <p>Create backup copy of public keys, secret keys, and trust database:</p>
+      <pre><code class="language-plaintext">gpg --export --export-options backup --output public.gpg
+gpg --export-secret-keys --export-options backup --output private.gpg
+gpg --export-ownertrust > trust.gpg</code></pre>
+      <p>Then, get these files on the new machine and import them:</p>
+      <pre><code class="language-plaintext">gpg --import public.gpg
+gpg --import private.gpg
+gpg --import-ownertrust trust.gpg</code></pre>
+
+      <br><hr>
+      <h2 id="section-configuration">Configuration</h2>
+      <p>There are 2 configuration files to edit.</p>
+      <h3>gpg.conf</h3>
+      <p>This file has to be put in <code class="language-bash">$GNUPGHOME/gpg.conf</code>. A list of all the options
+        can be found at
+        <a target="_blank" rel="noopener" href="https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html#GPG-Configuration-Options">this website</a>.</p>
+
+      <h3>gpg-agent.conf</h3>
+      <p>The second one is <code class="language-bash">$GNUPGHOME/gpg-agent.conf</code>.<br>
+        What I can define here is for how long I can access my secret documents without having to re-enter the
+        passphrase. I set this time interval to 5 hours.<br>
+        Equally important is the program to use as pinentry; I can specify a custom script that determines whether
+        to use a tty or GUI pinentry based on whether the program requesting the passphrase is running in
+        a terminal or not.</p>
+      <pre><code class="language-plaintext">default-cache-ttl 18000
+max-cache-ttl 18000
+pinentry-program /path/to/pinentry_auto.sh</code></pre>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <hr>
+    <p><a tabindex="0" onclick="document.body.scrollTop=0;document.documentElement.scrollTop=0;">↑ <span lang="en">Back to Top</span></a></p>
+    <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Reply with
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
+    <p><span translate="no">© 2023-2024 earendelmir</span></p>
+  </footer>
+</body>
+
+<script src="/highlight3/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</html>

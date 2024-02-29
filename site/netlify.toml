@@ -1,0 +1,587 @@
+[[headers]]
+    for = "/feed.xml"
+    [headers.values]
+        Content-Type = "application/xml; charset=utf-8"
+        X-Content-Type-Options = "nosniff"
+
+[[redirects]]
+    from = "/notes/page/1"
+    to = "/notes/index.html"
+    status = 200
+    force = true
+[[redirects]]
+    from = "/notes/page/1.html"
+    to = "/notes/index.html"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/archive/post001.html"
+    to = "/archive/2023/1.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post001"
+    to = "/archive/2023/1.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post002.html"
+    to = "/archive/2023/2.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post002"
+    to = "/archive/2023/2.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post003.html"
+    to = "/archive/2023/3.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post003"
+    to = "/archive/2023/3.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post004.html"
+    to = "/archive/2023/4.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post004"
+    to = "/archive/2023/4.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post005.html"
+    to = "/archive/2023/5.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post005"
+    to = "/archive/2023/5.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post006.html"
+    to = "/archive/2023/6.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post006"
+    to = "/archive/2023/6.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post007.html"
+    to = "/archive/2023/7.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post007"
+    to = "/archive/2023/7.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post008.html"
+    to = "/archive/2023/8.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post008"
+    to = "/archive/2023/8.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post009.html"
+    to = "/archive/2023/9.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post009"
+    to = "/archive/2023/9.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post010.html"
+    to = "/archive/2023/10.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post010"
+    to = "/archive/2023/10.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post011.html"
+    to = "/archive/2023/11.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post011"
+    to = "/archive/2023/11.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post012.html"
+    to = "/archive/2023/12.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post012"
+    to = "/archive/2023/12.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post013.html"
+    to = "/archive/2023/13.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post013"
+    to = "/archive/2023/13.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post014.html"
+    to = "/archive/2023/14.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post014"
+    to = "/archive/2023/14.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post015.html"
+    to = "/archive/2023/15.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post015"
+    to = "/archive/2023/15.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post016.html"
+    to = "/archive/2023/16.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post016"
+    to = "/archive/2023/16.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post017.html"
+    to = "/archive/2023/17.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post017"
+    to = "/archive/2023/17.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post018.html"
+    to = "/archive/2023/18.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post018"
+    to = "/archive/2023/18.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post019.html"
+    to = "/archive/2023/19.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post019"
+    to = "/archive/2023/19.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post020.html"
+    to = "/archive/2023/20.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post020"
+    to = "/archive/2023/20.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post021.html"
+    to = "/archive/2023/21.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post021"
+    to = "/archive/2023/21.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post022.html"
+    to = "/archive/2023/22.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post022"
+    to = "/archive/2023/22.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post023.html"
+    to = "/archive/2023/23.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post023"
+    to = "/archive/2023/23.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post024.html"
+    to = "/archive/2023/24.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post024"
+    to = "/archive/2023/24.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post025.html"
+    to = "/archive/2023/25.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post025"
+    to = "/archive/2023/25.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post026.html"
+    to = "/archive/2023/26.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post026"
+    to = "/archive/2023/26.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post027.html"
+    to = "/archive/2023/27.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post027"
+    to = "/archive/2023/27.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post028.html"
+    to = "/archive/2023/28.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post028"
+    to = "/archive/2023/28.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post029.html"
+    to = "/archive/2023/29.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post029"
+    to = "/archive/2023/29.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post030.html"
+    to = "/archive/2023/30.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post030"
+    to = "/archive/2023/30.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post031.html"
+    to = "/archive/2023/3.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post031"
+    to = "/archive/2023/3.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post032.html"
+    to = "/archive/2023/32.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post032"
+    to = "/archive/2023/32.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post033.html"
+    to = "/archive/2023/33.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post033"
+    to = "/archive/2023/33.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post034.html"
+    to = "/archive/2023/34.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post034"
+    to = "/archive/2023/34.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post035.html"
+    to = "/archive/2023/35.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post035"
+    to = "/archive/2023/35.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post036.html"
+    to = "/archive/2023/36.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post036"
+    to = "/archive/2023/36.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post037.html"
+    to = "/archive/2023/37.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post037"
+    to = "/archive/2023/37.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post038.html"
+    to = "/archive/2023/38.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post038"
+    to = "/archive/2023/38.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post039.html"
+    to = "/archive/2023/39.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post039"
+    to = "/archive/2023/39.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post040.html"
+    to = "/archive/2023/40.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post040"
+    to = "/archive/2023/40.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post041.html"
+    to = "/archive/2023/41.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post041"
+    to = "/archive/2023/41.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post042.html"
+    to = "/archive/2023/42.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post042"
+    to = "/archive/2023/42.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post044.html"
+    to = "/archive/2023/43.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post044"
+    to = "/archive/2023/43.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post045.html"
+    to = "/archive/2023/44.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post045"
+    to = "/archive/2023/44.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post046.html"
+    to = "/archive/2023/45.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post046"
+    to = "/archive/2023/45.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post047.html"
+    to = "/archive/2023/46.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post047"
+    to = "/archive/2023/46.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post049.html"
+    to = "/archive/2023/47.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post049"
+    to = "/archive/2023/47.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post050.html"
+    to = "/archive/2024/1.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post050"
+    to = "/archive/2024/1.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post051.html"
+    to = "/archive/2024/2.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post051"
+    to = "/archive/2024/2.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post052.html"
+    to = "/archive/2024/3.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post052"
+    to = "/archive/2024/3.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post053.html"
+    to = "/archive/2024/4.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post053"
+    to = "/archive/2024/4.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post055.html"
+    to = "/archive/2024/5.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post055"
+    to = "/archive/2024/5.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post056.html"
+    to = "/archive/2024/6.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post056"
+    to = "/archive/2024/6.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post057.html"
+    to = "/archive/2024/7.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post057"
+    to = "/archive/2024/7.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post058.html"
+    to = "/archive/2024/8.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post058"
+    to = "/archive/2024/8.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post059.html"
+    to = "/archive/2024/9.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post059"
+    to = "/archive/2024/9.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post060.html"
+    to = "/archive/2024/10.html"
+    status = 301
+    force = true
+[[redirects]]
+    from = "/archive/post060"
+    to = "/archive/2024/10.html"
+    status = 301
+    force = true

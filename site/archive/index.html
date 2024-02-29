@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="canonical" href="https://earendelmir.xyz/archive/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Browse through all my posts, and filter them with tags, language, and search queries.">
+  <link rel="alternate" type="application/rss+xml" title="Subscribe via RSS" href="https://earendelmir.xyz/feed.xml">
+
+  <meta property="og:title" content="archive - earendelmir">
+  <meta property="twitter:title" content="archive - earendelmir">
+  <meta property="og:description" content="Browse through all my posts, and filter them with tags, language, and search queries.">
+  <meta property="twitter:description" content="Browse through all my posts, and filter them with tags, language, and search queries.">
+  <meta property="og:url" content="https://earendelmir.xyz/archive/">
+  <meta name="twitter:card" content="summary">
+
+  <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="/style/style.css">
+  <title>archive - earendelmir</title>
+
+  <style>
+    .filters-div {
+      margin: 4rem 0;
+    }
+    /* Search box */
+    input[type="text"] {
+        background-color: var(--color-background);
+        color: var(--color-text);
+        font-size: inherit;
+        outline: none;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid var(--color-grey);
+        padding: 0.2rem 0.4rem;
+        margin-right: 2rem;
+        margin-bottom: 2rem;
+    }
+    /* Language checkboxes. */
+    input[type="checkbox"] {
+        cursor: pointer;
+        accent-color: var(--color-accent);
+        margin-bottom: 2rem;
+    }
+    .checkbox-label {
+        cursor: pointer;
+        margin-left: 0.1em;
+        margin-right: 1rem;
+    }
+
+    #tags-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+    #tags-list li {
+      margin: 0 1.6em 0 0;
+    }
+
+    /* Make title of tag list stick to the top of the screen when scrolling down. */
+    main h2 {
+      margin: 0;
+      padding: 1rem 0;
+      background-color: var(--color-background);
+    }
+
+    /* Space between tag title and list of posts. */
+    .posts-list {
+      margin: 0.6rem 0 0;
+    }
+    /* The following two items allow ellipsis for long titles that don't fit the screen. */
+    .posts-list li {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+    }
+    .posts-list li a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+    /* Leave space between end of tag list and title of next tag list. */
+    section:not(:first-of-type) {
+      margin-top: 3.5rem;
+    }
+
+    /* Put search bar and language checkboxes on separate lines. */
+    @media screen and (max-width:500px) {
+      input[type="text"] {
+        display: table;
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="banner">
+    <h1 translate="no">earendelmir</h1>
+    <nav>
+      <a class="navbar-item" href="/">Home</a>
+      <a class="navbar-item" href="/about/">About</a>
+      <a class="navbar-item" id="navbar-curr-page">Archive</a>
+      <a class="navbar-item" href="/notes/">Notes</a>
+      <a class="navbar-item" href="/more/">More</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Archive</h1>
+    <p>Browse through all my posts, and filter them with tags, language, and search queries.<br>
+      You might be looking for the <a href="/archive/chronological.html">chronologically ordered</a> list.</p>
+
+    <div class="filters-div">
+      <noscript><p>You need to enable Javascript for these filters to work.</p></noscript>
+      <input type="text" size="25" placeholder="Search..." autocomplete="off" oninput="filterPosts()" id="search-input">
+      <input type="checkbox" id="lang-it-sel" value="lang-it-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-it-sel">it</label>
+      <input type="checkbox" id="lang-en-sel" value="lang-en-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-en-sel">en</label>
+      <ul id="tags-list">
+        <li id="tag-books"><a href="#books">#books</a> <span>(1)</span></li>
+        <li id="tag-development"><a href="#development">#development</a> <span>(5)</span></li>
+        <li id="tag-journaling"><a href="#journaling">#journaling</a> <span>(5)</span></li>
+        <li id="tag-miscellany"><a href="#miscellany">#miscellany</a> <span>(8)</span></li>
+        <li id="tag-music"><a href="#music">#music</a> <span>(10)</span></li>
+        <li id="tag-personal"><a href="#personal">#personal</a> <span>(9)</span></li>
+        <li id="tag-travels"><a href="#travels">#travels</a> <span>(5)</span></li>
+        <li id="tag-web"><a href="#web">#web</a> <span>(7)</span></li>
+        <li id="tag-website"><a href="#website">#website</a> <span>(9)</span></li>
+      </ul>
+    </div>
+
+    <div class="h-feed">
+      <div class="p-author h-card" hidden>
+        <a class="u-uid u-url p-name" href="https://earendelmir.xyz">earendelmir</a>
+        <a class="u-photo" href="https://earendelmir.xyz/images/profile.jpg">(Photo)</a>
+        <a class="u-email" rel="me" href="mailto:earendelmir@proton.me">earendelmir@proton.me</a>
+      </div>
+      <section>
+      <h2 id="books">#books</h2>
+      <ul class="list posts-list" id="list-books">
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/43.html"><span class="p-name" lang="en">On rereading books</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="development">#development</h2>
+      <ul class="list posts-list" id="list-development">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/6.html"><span class="p-name" lang="en">The best desktop calculator app is Python</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/44.html"><span class="p-name" lang="en">A bash script for random quote on shell login</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/12.html"><span class="p-name" lang="en">GPG cheat sheet</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/11.html"><span class="p-name" lang="en">My Bash setup</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/3.html"><span class="p-name" lang="en">Finding packages to install with fzf</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="journaling">#journaling</h2>
+      <ul class="list posts-list" id="list-journaling">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/7.html"><span class="p-name" lang="en">The best sleep I have ever had (or remember having)</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2024/2.html"><span class="p-name" lang="it">Vite sfiorate</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/41.html"><span class="p-name" lang="en">There's music coming from up there</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/14.html"><span class="p-name" lang="it">Filone all'IKEA</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/9.html"><span class="p-name" lang="it">Autostop in paese</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="miscellany">#miscellany</h2>
+      <ul class="list posts-list" id="list-miscellany">
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/47.html"><span class="p-name" lang="en">God is an answer; on faith and mythologies</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/33.html"><span class="p-name" lang="it">Poteva capitare a chiunque</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/30.html"><span class="p-name" lang="it">Rugby > Calcio</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/21.html"><span class="p-name" lang="it">Con la speranza</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/19.html"><span class="p-name" lang="it">Sull'amore</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/13.html"><span class="p-name" lang="it">Note di Notte</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/2.html"><span class="p-name" lang="en">Road Trip</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/1.html"><span class="p-name" lang="it">La radio di Old Dany</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="music">#music</h2>
+      <ul class="list posts-list" id="list-music">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/9.html"><span class="p-name" lang="en">On Spotify replacing my iPod (that I stole)</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/45.html"><span class="p-name" lang="en">My Spotify Wrapped 2023</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/32.html"><span class="p-name" lang="it">New music dump #2</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/31.html"><span class="p-name" lang="it">Nuova macchina, nuova musica</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/22.html"><span class="p-name" lang="en">Variations on a September Theme</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/20.html"><span class="p-name" lang="it">Visioni in musica</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/18.html"><span class="p-name" lang="it">Concerto Mengoni 24/06/2023</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/17.html"><span class="p-name" lang="it">New music dump #1</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/15.html"><span class="p-name" lang="it">Canzone nuova</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/7.html"><span class="p-name" lang="it">Di lacrime in musica</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="personal">#personal</h2>
+      <ul class="list posts-list" id="list-personal">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/3.html"><span class="p-name" lang="en">I have no ambition</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/1.html"><span class="p-name" lang="en">I am sabotaging myself</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/40.html"><span class="p-name" lang="en">They think I passed my last exam</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/38.html"><span class="p-name" lang="it">Parlo da solo</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/37.html"><span class="p-name" lang="en">I can't wait to move out</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/29.html"><span class="p-name" lang="en">I'm falling behind</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/25.html"><span class="p-name" lang="en">Dear stranger</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/16.html"><span class="p-name" lang="it">A volte ho bisogno</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/10.html"><span class="p-name" lang="it">733'536'000 secondi</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="travels">#travels</h2>
+      <ul class="list posts-list" id="list-travels">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/5.html"><span class="p-name" lang="en">Seville, it's official</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/35.html"><span class="p-name" lang="it">Incontri in viaggio: una notte a Trafalgar</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/24.html"><span class="p-name" lang="it">Incontri in viaggio: la vecchia e la chiesa</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/5.html"><span class="p-name" lang="it">Vienna #2</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/4.html"><span class="p-name" lang="it">Vienna #1</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="web">#web</h2>
+      <ul class="list posts-list" id="list-web">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/12.html"><span class="p-name" lang="en">Overlay scrollbars on Chrome based browsers</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/10.html"><span class="p-name" lang="en">How to join An IndieWeb Webring</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/42.html"><span class="p-name" lang="en">How to overcome Youtube addiction</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/28.html"><span class="p-name" lang="en">The need for a silent web</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/26.html"><span class="p-name" lang="en">Being in your 20s</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/8.html"><span class="p-name" lang="en">Live in the woods</span></a></li>
+        <li class="h-entry it"><a class="u-url" href="/archive/2023/6.html"><span class="p-name" lang="en">To be or not to be (real)</span></a></li>
+      </ul>
+      </section>
+
+      <section>
+      <h2 id="website">#website</h2>
+      <ul class="list posts-list" id="list-website">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/11.html"><span class="p-name" lang="en">This blog will die with me</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/8.html"><span class="p-name" lang="en">Yet another redesign</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/4.html"><span class="p-name" lang="en">Catchier titles</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/46.html"><span class="p-name" lang="en">Fixing past mistakes</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/39.html"><span class="p-name" lang="en">About the name "mapla"</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/36.html"><span class="p-name" lang="en">Incognito mode</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/34.html"><span class="p-name" lang="en">Internet stage fright</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/27.html"><span class="p-name" lang="en">Time to publish</span></a></li>
+        <li class="h-entry en"><a class="u-url" href="/archive/2023/23.html"><span class="p-name" lang="en">Who are you?</span></a></li>
+      </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <hr>
+    <p><a tabindex="0" onclick="document.body.scrollTop=0;document.documentElement.scrollTop=0;">↑ <span lang="en">Back to Top</span></a></p>
+    <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Get in touch via
+      <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
+    <p><span translate="no">© 2023-2024 earendelmir</span></p>
+  </footer>
+</body>
+
+<script>
+// Check whether the post matches the language query.
+function isLang(post) {
+  if (post.className.includes("it"))
+    return document.getElementById("lang-it-sel").checked;
+  else
+    return document.getElementById("lang-en-sel").checked;
+}
+
+// Check whether the post matches the search field query.
+function isSearch(post) {
+  var searchString = document.getElementById("search-input").value.toLowerCase();
+  if (searchString.length == 0)
+    return true;
+  title = post.getElementsByTagName("a")[0].textContent.toLowerCase();
+  return (title.includes(searchString));
+}
+
+function filterPosts() {
+  var tags = document.querySelectorAll('#tags-list li');
+  // For each tag, get list of posts.
+  for (tag of tags) {
+    var tagName = tag.id.substring(4);
+    var posts = document.querySelectorAll(`#list-${tagName} li`);
+    // Filter posts of current tag and count how many are valid.
+    var count = 0;
+    for (post of posts)
+      if (isLang(post) && isSearch(post)) {
+        post.style.display = "";
+        count += 1;
+      }
+      else {
+        post.style.display = "none";
+      }
+    // Update number of valid posts for current tag.
+    tag.querySelector("span").textContent = "(" + count + ")";
+    // Hide empty tags.
+    if (count == 0) {
+      tag.style.display = "none";
+      document.getElementById(tagName).style.display = "none";
+    }
+    else {
+      tag.style.display = "";
+      document.getElementById(tagName).style.display = "";
+    }
+  }
+}
+
+// Hide mobile keyboard on ENTER key press.
+window.addEventListener("load", () => {
+  const inputSearchBox = document.getElementById("search-input");
+  inputSearchBox.addEventListener("keypress", function(event) {
+    const key = event.code || event.keyCode;
+    if (key === 'Enter' || key === 13)
+      inputSearchBox.blur();
+  });
+});
+</script>
+</html>
