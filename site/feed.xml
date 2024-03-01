@@ -12,6 +12,14 @@
     <ttl>1440</ttl>
 
     <item>
+      <link>https://earendelmir.xyz/archive/2024/13.html</link>
+      <guid isPermaLink="false">2024-13</guid>
+      <title>Multiple GitHub accounts on one machine</title>
+      <description><![CDATA[<p>I have 3 GitHub accounts: one for work, one for personal use, and one under the <i>earendelmir</i> pseudonym. The challenge is to manage these on the same machine, to seamlessly commit and push changes using the appropriate account, depending on the current repository.</p> <p>This guide is mainly [...]</p>]]></description>
+      <pubDate>Fri, 01 Mar 2024 12:46:09 +0100</pubDate>
+    </item>
+
+    <item>
       <link>https://earendelmir.xyz/archive/2024/12.html</link>
       <guid isPermaLink="false">2024-12</guid>
       <title>Overlay scrollbars on Chrome based browsers</title>
