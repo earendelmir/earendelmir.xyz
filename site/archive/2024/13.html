@@ -29,6 +29,9 @@
   <title>Multiple GitHub accounts on one machine</title>
 
   <style>
+    ol {
+      margin-bottom: 0;
+    }
     h2, h3 {
       padding-top: 1rem;
     }
@@ -76,6 +79,7 @@
           <li><a href="#section-resources">Resources</a></li>
         </ol>
 
+        <br><hr>
         <h2 id="section-create-ssh-key">1. Create SSH key</h2>
         <p>From now on, replace EVERY occurrence of '<b>username</b>' and '<b>email@address.com</b>' with your actual
         GitHub credentials.</p>
@@ -86,10 +90,10 @@ ssh-add ~/.ssh/github-username</code></pre>
         <p>Keep the <code>github-</code> part in the key's name, just for clarity.<br>
         Also, make sure to use a secure passphrase.</p>
         <p>Edit the <code>~/.ssh/config</code> file by adding this block, for each account:</p>
-        <pre><code class="language-plaintext">    Host github.com-username
-        HostName github.com
-        User git
-        IdentityFile ~/.ssh/github-username</code></pre>
+        <pre><code class="language-plaintext">Host github.com-username
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github-username</code></pre>
 
         <h2 id="section-add-ssh-key-to-github">2. Add SSH key to GitHub</h2>
         <p>For each account, copy its public key:</p>
