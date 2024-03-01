@@ -43,6 +43,10 @@ pre>code {
   border-style: solid;
   border-color: var(--color-grey);
 }
+/* Space between code and section header if there's no paragraph in between */
+pre + h2 {
+  margin-top: 4rem;
+}
 
 
 /* ***** QUOTE ***** */

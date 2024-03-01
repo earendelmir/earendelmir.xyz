@@ -149,26 +149,31 @@ a {
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
-
-a:visited {
-  text-decoration: none;
-}
-
-a:hover,
-a:focus {
-  text-decoration: underline;
-}
-
 a:active:not(#navbar-curr-page) {
   filter: brightness(80%);
 }
 
 a[target="_blank"]::after {
   /* u21aa ufe0e  second one is invisible: to avoid glyph turning into emoji */
-  content: "↪︎";
+  content: " ↪︎";
+  white-space: pre;
   display: inline-block;
-  margin-left: 0.3em;
   margin-right: 0.2em;
+}
+
+a:hover,
+a:focus,
+a[target="_blank"]:hover::after,
+a[target="_blank"]:focus::after {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:visited,
+a[target="_blank"]:visited::after {
+  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 }
 
 #navbar-curr-page {
@@ -181,7 +186,7 @@ a[target="_blank"]::after {
   list-style-type: none;
   padding: 0;
 }
-ul li:not(:last-child) {
+li:not(:last-child) {
   padding-bottom: 0.8rem;
 }
 

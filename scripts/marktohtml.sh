@@ -49,6 +49,7 @@ try:
     html = html.replace(\"<br />\", \"<br>\")
     html = html.replace(\"<hr />\", \"<hr>\")
     html = html.replace(\"em>\",    \"i>\")
+    html = html.replace(\"strong>\",   \"b>\")
     html = html.replace(\"<li>\",   \"  <li>\")
     html = html.replace(\"<h2>\",   \"\n<h2>\")
     html = html.replace(\"<h3>\",   \"\n<h3>\")
