@@ -1,0 +1,144 @@
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.8em;
+}
+code.hljs {
+  padding: 3px 5px
+}
+.hljs {
+  color: #2f3337;
+  background: #F8F9FA;
+}
+.hljs-subst {
+  color: #2F3337
+}
+.hljs-comment {
+  color: #656E77
+}
+.hljs-attr,
+.hljs-doctag,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-meta .hljs-keyword,
+.hljs-section {
+  color: #015692
+}
+
+.hljs-attribute {
+  color: #803378
+}
+.hljs-name,
+.hljs-number,
+.hljs-quote,
+.hljs-selector-id,
+.hljs-template-tag,
+.hljs-type {
+  color: #B75501
+}
+.hljs-selector-class {
+  color: #015692
+}
+.hljs-link,
+.hljs-regexp,
+.hljs-selector-attr,
+.hljs-string,
+.hljs-symbol,
+.hljs-template-variable,
+.hljs-variable {
+  color: #54790D
+}
+.hljs-meta,
+.hljs-selector-pseudo {
+  color: #015692
+}
+.hljs-built_in,
+.hljs-literal,
+.hljs-title {
+  color: #B75501
+}
+.hljs-bullet,
+.hljs-code {
+  color: #535A60
+}
+.hljs-meta .hljs-string {
+  color: #54790D
+}
+.hljs-deletion {
+  color: #C02D2E
+}
+.hljs-addition {
+  color: #2F6F44
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-strong {
+  font-weight: 700
+}
+
+@media (prefers-color-scheme: dark) {
+  .hljs {
+    color: #D0D7DE;
+    background: #18191A;
+  }
+  .hljs-subst {
+    color: #D0D7DE
+  }
+  .hljs-comment {
+    color: #999
+  }
+  .hljs-attr,
+  .hljs-doctag,
+  .hljs-keyword,
+  .hljs-meta .hljs-keyword,
+  .hljs-section,
+  .hljs-selector-tag {
+    color: #88AECE
+  }
+  .hljs-attribute {
+    color: #C59BC1
+  }
+  .hljs-name,
+  .hljs-number,
+  .hljs-quote,
+  .hljs-selector-id,
+  .hljs-template-tag,
+  .hljs-type {
+    color: #F08D49
+  }
+  .hljs-selector-class {
+    color: #88AECE
+  }
+  .hljs-link,
+  .hljs-regexp,
+  .hljs-selector-attr,
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-template-variable,
+  .hljs-variable {
+    color: #B5BD68
+  }
+  .hljs-meta,
+  .hljs-selector-pseudo {
+    color: #88AECE
+  }
+  .hljs-built_in,
+  .hljs-literal,
+  .hljs-title {
+    color: #F08D49
+  }
+  .hljs-bullet,
+  .hljs-code {
+    color: #CCC
+  }
+  .hljs-meta .hljs-string {
+    color: #B5BD68
+  }
+  .hljs-deletion {
+    color: #DE7176
+  }
+  .hljs-addition {
+    color: #76C490
+  }
+}
