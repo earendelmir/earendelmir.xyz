@@ -1,5 +1,9 @@
 /* ***** VARIABLES ***** */
 :root {
+  --font-sans-serif: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+  --font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  --font-monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+  --image-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
   --color-background: #F8F9FA;
   --color-text: #212529;
   --color-text2: #616C75;
@@ -8,16 +12,11 @@
   --color-grey: #6C757D;
   --color-hr: #DEE2E6;
   --color-footer-hr: #A3ACB5;
-  --color-note-border: #A3ACB599;
-  /* Code colors taken from /style/code-syntax.css to match highlight.js */
+  --color-sticky-title-underline: #DEE2E6;
+  --color-note-border: #DEE2E6;
   --color-code-fg: #2F3337;
   --color-code-bg: #F8F9FA;
-  --image-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
-  --font-sans-serif: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
-  --font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-  --font-monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 }
-/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: #18191A;
@@ -34,6 +33,7 @@
     --color-grey: #555D66;
     --color-hr: #555D66;
     --color-footer-hr: #555D66;
+    --color-sticky-title-underline: #555D6699;
     --color-note-border: #555D6699;
     --color-code-fg: #D0D7DE;
     --color-code-bg: #18191A;
