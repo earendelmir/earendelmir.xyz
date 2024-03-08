@@ -16,7 +16,7 @@ def get_links(file):
         if href.startswith("/"):
             links.append("https://earendelmir.xyz" + href)
         elif href.startswith("#") and len(href) > 1:
-            links.append("https://earendelmir.xyz/" + file[file.find("site/")+5:] + href)
+            links.append("https://earendelmir.xyz/" + file[file.find("docs/")+5:] + href)
         elif href.startswith("mailto"):
             continue
         elif href == "data:,":
@@ -41,7 +41,7 @@ def get_url_status(url):
     return True
 
 
-PATH_ROOT = os.path.dirname(os.path.abspath(__file__)) + "/../site/"
+PATH_ROOT = os.path.dirname(os.path.abspath(__file__)) + "/../docs/"
 FILES = []
 LINKS_TESTED = {}
 
@@ -53,7 +53,7 @@ for path, subdir, files in os.walk(PATH_ROOT):
             FILES.append(os.path.join(path, name))
 
 for file in FILES:
-    print("=== URL CHECKING IN", file[file.find("site/")+5:file.find(".html")])
+    print("=== URL CHECKING IN", file[file.find("docs/")+5:file.find(".html")])
     links = get_links(file)
     for l in links:
         if l == "None": continue

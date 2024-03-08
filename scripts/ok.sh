@@ -33,7 +33,7 @@ Check that everything is okay before committing.\n" "$(basename "$0")"
 trap _exit EXIT
 
 # Move into website's root folder.
-pushd "${0%/*}/../site" &>/dev/null
+pushd "${0%/*}/../docs" &>/dev/null
 
 readonly _FILE_ARCHIVE_CHRONOLOGICAL="archive/chronological.html"
 readonly _FILE_ARCHIVE="archive/index.html"

@@ -68,7 +68,7 @@ FILE            Filepath of post to add to the feed\n" "$(basename "$0")"
 trap _trap_exit EXIT
 
 # Move into website's root folder.
-pushd "${0%/*}/../site" &>/dev/null
+pushd "${0%/*}/../docs" &>/dev/null
 
 LANG=en_us_8859_1
 readonly _FILE_RSS_FEED="feed.xml"

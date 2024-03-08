@@ -73,7 +73,7 @@ _cut_last_note() {
 
 
 # Move into website's root folder.
-pushd "${0%/*}/../site" &>/dev/null
+pushd "${0%/*}/../docs" &>/dev/null
 
 readonly _FILE_NOTES="notes/index.html"
 readonly _FILE_NEWNOTE="/tmp/newnote.html"

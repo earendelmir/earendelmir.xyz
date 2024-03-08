@@ -140,7 +140,7 @@ _ask_lang() {
 trap _trap_exit EXIT
 
 # Move into website's root folder.
-pushd "${0%/*}/../site" &>/dev/null
+pushd "${0%/*}/../docs" &>/dev/null
 
 readonly _FILE_HOMEPAGE="index.html"
 readonly _FILE_ARCHIVE_CHRONOLOGICAL="archive/chronological.html"

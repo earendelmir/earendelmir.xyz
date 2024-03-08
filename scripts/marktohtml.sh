@@ -65,7 +65,7 @@ except Exception as e:
 
 
 # Move into this script's folder.
-pushd "${0%/*}"/../site/ &>/dev/null
+pushd "${0%/*}"/../docs/ &>/dev/null
 
 # Parse command-line arguments.
 while [[ -n $1 ]]; do

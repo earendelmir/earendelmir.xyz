@@ -65,7 +65,7 @@ def calculate_reading_time(text):
 
 
 # Determine path in which to look for archive posts.
-PATH_ARCHIVE = os.path.dirname(os.path.abspath(__file__)) + "/../site/archive/"
+PATH_ARCHIVE = os.path.dirname(os.path.abspath(__file__)) + "/../docs/archive/"
 
 FILES = []
 for path, subdir, files in os.walk(PATH_ARCHIVE):
