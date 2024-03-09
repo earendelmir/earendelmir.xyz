@@ -31,12 +31,12 @@ _trap_exit() {
     # Something went wrong, revert any change already made. You can stop
     # checking at the first change that has failed.
     if [[ -n $__ok_file_created ]]; then
-        rm "$post_filename"
+        rm "$post_file"
     else
         _print_err "Create file." ; _exit $1
     fi
     if [[ -n $__ok_add_homepage ]]; then
-        sed -i "/${post_filename//\//\\/}/d" "$_FILE_HOMEPAGE"
+        sed -i "/${post_file//\//\\/}/d" "$_FILE_HOMEPAGE"
     else
         _print_err "Add post to $_FILE_HOMEPAGE." ; _exit $1
     fi
@@ -47,12 +47,12 @@ _trap_exit() {
         _print_err "Remove oldest entry from $_FILE_HOMEPAGE." ; _exit $1
     fi
     if [[ -n $__ok_add_chronological ]]; then
-        sed -i "/${post_filename//\//\\/}/d" "$_FILE_ARCHIVE_CHRONOLOGICAL"
+        sed -i "/${post_file//\//\\/}/d" "$_FILE_ARCHIVE_CHRONOLOGICAL"
     else
         _print_err "Add post to $_FILE_ARCHIVE_CHRONOLOGICAL." ; _exit $1
     fi
     if [[ -n $__ok_add_archive ]]; then
-        sed -i "/${post_filename//\//\\/}/d" "$_FILE_ARCHIVE"
+        sed -i "/${post_file//\//\\/}/d" "$_FILE_ARCHIVE"
     else
         _print_err "Add post to $_FILE_ARCHIVE." ; _exit $1
     fi
@@ -70,7 +70,7 @@ _trap_exit() {
         _print_err "Add page to XML sitemap." ; _exit $1
     fi
     if [[ -n $__ok_add_sitemap_txt ]]; then
-        sed -i "/${post_filename//\//\\/}/d" "$_FILE_SITEMAP_TXT"
+        sed -i "/${post_file//\//\\/}/d" "$_FILE_SITEMAP_TXT"
     else
         _print_err "Add page to TXT sitemap." ; _exit $1
     fi
@@ -195,31 +195,32 @@ latest_post="$(ls archive/$year/ | sort -gr | head -1)"
 latest_num="${latest_post#archive/$year/}"
 latest_num="${latest_num%.html}"
 num="$((latest_num+1))"
-post_filename="archive/$year/$num.html"
+post_file="archive/$year/$num.html"
+post_filename="archive/$year/$num"
 
 
 ################################################################################
 ###  CREATE FILE
 ################################################################################
 
-[[ -f $post_filename ]] && _die "Post '$post_filename' already exists."
+[[ -f $post_file ]] && _die "Post '$post_file' already exists."
 __ok_start=1
 
 # Create file from skeleton.
-cp skeleton.html "$post_filename"
+cp skeleton.html "$post_file"
 # Set title.
-sed "s/TITLE/$title/g" -i "$post_filename"
+sed "s/TITLE/$title/g" -i "$post_file"
 # Set post url.
-sed "s|POSTFILENAME|$post_filename|g" -i "$post_filename"
+sed "s|POSTFILENAME|$post_filename|g" -i "$post_file"
 # Set language.
-sed "s|POSTLANG|$lang|g" -i "$post_filename"
+sed "s|POSTLANG|$lang|g" -i "$post_file"
 # Set publication date.
-sed "s/DD MMMM YYYY/$curr_date/g" -i "$post_filename"
-sed "s/YYYY-MM-DD/$curr_datetime/g" -i "$post_filename"
+sed "s/DD MMMM YYYY/$curr_date/g" -i "$post_file"
+sed "s/YYYY-MM-DD/$curr_datetime/g" -i "$post_file"
 # Set tag.
-sed "s/TAG/$tag/g" -i "$post_filename"
+sed "s/TAG/$tag/g" -i "$post_file"
 __ok_file_created=1
-_print_ok "Create file $post_filename."
+_print_ok "Create file $post_file."
 
 
 ################################################################################

@@ -88,6 +88,7 @@ if [[ -z $file ]]; then
     file="$(find archive/ -name "20*" | sort -r | head -1 \
                 | xargs -rI {} find {} -type f | sort -Vr | head -1)"
 fi
+filename=${file%.html}
 fname="${file#*archive/}" ; fname="${fname%.html}" ; fname="${fname/\//-}"
 
 # Check for validity.
@@ -139,7 +140,7 @@ __ok_description=1
 _print_ok "Descrition:\n$descr"
 
 # Add new item.
-line="\ \ \ \ <item>\n\ \ \ \ \ \ <link>https://earendelmir.xyz/$file</link>\n\ \ \ \ \ \ <guid isPermaLink=\"false\">$fname</guid>\n\ \ \ \ \ \ <title>$title</title>\n\ \ \ \ \ \ <description><![CDATA[$descr]]></description>\n\ \ \ \ \ \ <pubDate>$pubDate</pubDate>\n\ \ \ \ </item>\n"
+line="\ \ \ \ <item>\n\ \ \ \ \ \ <link>https://earendelmir.xyz/$filename</link>\n\ \ \ \ \ \ <guid isPermaLink=\"false\">$fname</guid>\n\ \ \ \ \ \ <title>$title</title>\n\ \ \ \ \ \ <description><![CDATA[$descr]]></description>\n\ \ \ \ \ \ <pubDate>$pubDate</pubDate>\n\ \ \ \ </item>\n"
 line_nr="$(grep -n -m 1 "<item>" "$_FILE_RSS_FEED" | cut -d':' -f1)"
 sed -i "${line_nr}i\\${line}" "$_FILE_RSS_FEED"
 __ok_add=1
