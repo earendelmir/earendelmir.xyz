@@ -5,6 +5,7 @@ Disallow: /contact/
 Disallow: /favicon/
 Disallow: /favourites/
 Disallow: /gallery/
+Disallow: /guestbook/
 Disallow: /images/
 Disallow: /links/
 Disallow: /more/
