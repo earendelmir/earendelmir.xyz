@@ -270,6 +270,7 @@ footer a {
    * space occupied by browser's tabs. */
   body {
     height: 100%;
+    font-size: 1.7rem;
     min-height: 100%;
     padding: 0 2.4rem;
   }
