@@ -12,6 +12,7 @@ Disallow: /more/
 Disallow: /notes/
 Disallow: /scripts/
 Disallow: /style/
+Disallow: /.htaccess
 Disallow: /404.html
 Disallow: /earendelmir.asc
 Disallow: /feed.xml
