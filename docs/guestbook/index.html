@@ -51,9 +51,13 @@
       display: table;
       margin-bottom: 1.2em;
     }
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
     button {
       cursor: pointer;
-      transition: background-color .2s ease;
       background-color: var(--color-background);
       color: var(--color-text);
       font-size: inherit;
@@ -63,7 +67,8 @@
       padding: 0.8em;
     }
     button:hover {
-      background: hsl(0, 0%, 88%);
+      color: var(--color-accent);
+      border-color: var(--color-accent);
     }
     @media screen and (max-width:530px) {
       input[type="text"],
@@ -98,11 +103,11 @@
       <p id="form-anchor">Add your message to the list:</p> -->
       <p>Good news: you can be the first person ever to leave a mark on this website!</p><br>
       <form name="form-guestbook" method="POST" action="/guestbook/confirmed" netlify-honeypot="bot-field" netlify>
+        <p><label for="name">name</label><input required type="text" maxlength="30" autocomplete="name" id="name" name="name"/></p>
+        <p><label for="email">email (optional, not published)</label><input type="text" maxlength="50" autocomplete="email" id="email" name="email"/></p>
+        <p><label for="website">website (optional)</label><input type="text" maxlength="50" autocomplete="url" id="website" name="website"/></p>
+        <p><label for="message">message</label><textarea required maxlength="600" rows="6" id="message" name="message"></textarea></p>
         <p class="fake-field"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
-        <p><input required type="text" placeholder="Your name" maxlength="30" autocomplete="off" id="name" name="name"/></p>
-        <p><input type="text" placeholder="Your email (optional, not published)" maxlength="50" autocomplete="off" id="email" name="email"/></p>
-        <p><input type="text" placeholder="Your website (optional, published)" maxlength="50" autocomplete="off" id="website" name="website"/></p>
-        <p><textarea required placeholder="Your message" maxlength="300" rows="6" id="message" name="message"></textarea></p>
         <p><button type="submit">Sign the guestbook</button></p>
       </form>
     </article>

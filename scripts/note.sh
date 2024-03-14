@@ -111,6 +111,7 @@ echo $"        <div class=\"h-entry\">
           <p class=\"e-content\"$lang_def></p>
           <time class=\"dt-published\" datetime=\"$curr_datetime\">$curr_date</time>
         </div>" > "$_FILE_NEWNOTE"
+echo "To abort press CTRL+C"
 $_EDITOR "$_FILE_NEWNOTE"
 
 [[ ! -f "$_FILE_NEWNOTE" ]] && _die "Note file not found."
