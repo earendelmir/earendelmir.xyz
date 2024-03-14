@@ -75,19 +75,19 @@ for file in $(find archive/ -maxdepth 2 -type f | sort -Vr); do
         _print_err "No tag for $fname"
     fi
     # Check post is in /archive page.
-    if ! grep -q "$file" "$_FILE_ARCHIVE" ; then
+    if ! grep -q "$fname" "$_FILE_ARCHIVE" ; then
         _print_err "Post $fname not in /archive"
     fi
     # Check post is in /archive/chronological page.
-    if ! grep -q "$file" "$_FILE_ARCHIVE_CHRONOLOGICAL" ; then
+    if ! grep -q "$fname" "$_FILE_ARCHIVE_CHRONOLOGICAL" ; then
         _print_err "Post $fname not in /archive/chronological"
     fi
     # Check post is in sitemap XML.
-    if ! grep -q "$file" "$_FILE_SITEMAP_XML" ; then
+    if ! grep -q "$fname" "$_FILE_SITEMAP_XML" ; then
         _print_err "Post $fname not in sitemap XML"
     fi
     # Check post is in sitemap TXT.
-    if ! grep -q "$file" "$_FILE_SITEMAP_TXT" ; then
+    if ! grep -q "$fname" "$_FILE_SITEMAP_TXT" ; then
         _print_err "Post $fname not in sitemap TXT"
     fi
 done
@@ -129,7 +129,7 @@ lines=$(grep "<link" "$_FILE_RSS")
 while IFS= read -r line; do
     file=.$(echo "$line" | cut -d'z' -f2 | cut -d'<' -f1)
     [[ "$file" == . ]] && continue
-    if [[ ! -f "$file" ]]; then
+    if [[ ! -f "$file.html" ]]; then
         _print_err "Post ${file} from RSS feed doesn't exist."
     fi
 done <<< "$lines"
@@ -139,7 +139,7 @@ for file in $(find archive/ -type d -name "20*" | sort -r | head -1 \
             | xargs -rI {} find {} -type f | sort -Vr | head -$_NUM_RSS_ENTRIES)
 do
     fname="${file#*archive/}" ; fname="${fname%.html}"
-    if ! grep -q "$file</link>" "$_FILE_RSS" ; then
+    if ! grep -q "$fname</link>" "$_FILE_RSS" ; then
         _print_err "Post ${fname} not in RSS feed."
     fi
 done
@@ -152,9 +152,9 @@ done
 # Check that all files mentioned in the sitemaps actually exist.
 while IFS= read -r line; do
     file="${line#*earendelmir.xyz/}"
-    [[ "$file" == "" ]] && file="index.html"
-    [[ "$file" == *"/" ]] && file="${file}index.html"
-    if [[ ! -f "$file" ]]; then
+    [[ "$file" == "" ]] && file="index"
+    [[ "$file" == *"/" ]] && file="${file}index"
+    if [[ ! -f "$file.html" ]]; then
         _print_err "File $file from sitemap TXT doesn't exist."
     fi
 done < "$_FILE_SITEMAP_TXT"
@@ -162,9 +162,9 @@ done < "$_FILE_SITEMAP_TXT"
 while IFS= read -r line; do
     file="${line#*earendelmir.xyz/}"
     file="$(echo "$file" | cut -d '<' -f1)"
-    [[ "$file" == "" ]] && file="index.html"
-    [[ "$file" == *"/" ]] && file="${file}index.html"
-    if [[ ! -f "$file" ]]; then
+    [[ "$file" == "" ]] && file="index"
+    [[ "$file" == *"/" ]] && file="${file}index"
+    if [[ ! -f "$file.html" ]]; then
         _print_err "File $file from sitemap XML doesn't exist."
     fi
 done <<< "$(grep loc "$_FILE_SITEMAP_XML")"

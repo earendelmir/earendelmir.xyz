@@ -31,9 +31,19 @@
       margin-bottom: 0.5rem;
       border-bottom: 2px solid var(--color-grey);
     }
+    .title-future,
+    .title-present {
+      margin: 2rem 0 0.5rem;
+      padding: 1rem 0 0.2rem;
+      background-color: var(--color-background);
+      top: 0;
+      position: sticky;
+    }
     .year-section-title {
       margin: 2rem 0 0;
       padding: 1.2rem 0 0.8rem 0;
+      top: 0;
+      position: sticky;
       border-bottom: 1px solid var(--color-grey);
       background-color: var(--color-background);
     }
@@ -76,7 +86,7 @@
         display: flow-root;
       }
       .books-list li>*:nth-child(2) {
-        font-size: smaller;
+        font-size: small;
       }
     }
   </style>
@@ -98,10 +108,12 @@
     <article>
       <h1>Books</h1>
       <p>This is where I keep track of all my readings, or at least the ones I can remember.<br>
-      <small style="font-style: italic;">Last updated: 12 Feb 2024</small></p>
+      Re-reads are not listed.<br>
+      <small style="font-style: italic;">Last updated: 14 Mar 2024</small></p>
 
-      <h2 class="time-section-title">Future</h2>
+      <h2 class="time-section-title title-future">Future</h2>
       <ul class="books-list">
+        <li><span>Dune Messiah</span><span>Frank Herbert</span></li>
         <li><span>Northanger Abbey</span><span>Jane Austen</span></li>
         <li><span>Hamlet</span><span>William Shakespeare</span></li>
         <li><span>The Story of Kullervo</span><span>J.R.R. Tolkien</span></li>
@@ -115,13 +127,12 @@
         <li><span>Paradise lost</span><span>John Milton</span></li>
       </ul>
 
-      <h2 class="time-section-title">Present</h2>
+      <h2 class="time-section-title title-present">Present</h2>
       <ul class="books-list">
-        <li><span>The Lord of the Rings</span><span>J.R.R. Tolkien</span><span>★★★★★</span></li>
-        <li><span>The picture of dorian gray</span><span>Oscar Wilde</span></li>
+        <li><span>Salem's Lot</span><span>Stephen King</span></li>
       </ul>
 
-      <h2 class="time-section-title">Past</h2>
+      <h2 class="time-section-title title-past">Past</h2>
       <section class="year-section">
         <h3 class="year-section-title">2024 <small class="lg">(2)</small></h3>
         <ul class="books-list">

@@ -117,9 +117,10 @@ figcaption {
 .footnotes ol li:not(:first-child) {
   margin-top: 0.5rem;
 }
-.footnotes li a {
+.fn-back {
   -webkit-user-select: none;
   user-select: none;
+  text-decoration: underline;
 }
 
 

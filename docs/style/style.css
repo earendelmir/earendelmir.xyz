@@ -278,6 +278,10 @@ footer a {
     margin-bottom: 0;
     padding-bottom: 1.5rem;
   }
+
+  .fn-back {
+    font-size: 1.8rem;
+  }
 }
 
 @media screen and (max-width:370px) {
