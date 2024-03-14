@@ -136,6 +136,7 @@ length=${#descr}
 if (( length > N )); then
     descr="${descr::N} [...]</p>"
 fi
+descr+="<br><hr><p>Read the full article <a href=\"https://earendelmir.xyz/$filename\">here</a>.</p><p>Want to get in touch? Reply via <a href=\"mailto:earendelmir@proton.me\">email</a>.</p>"
 __ok_description=1
 _print_ok "Descrition:\n$descr"
 
