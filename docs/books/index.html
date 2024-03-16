@@ -26,14 +26,34 @@
   <title>books - earendelmir</title>
 
   <style>
-    .time-section-title {
-      padding-bottom: 0.2rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 2px solid var(--color-grey);
+    .search-container {
+      margin: 1.5em 0;
+    }
+    input[type="text"] {
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font-size: inherit;
+      outline: none;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid var(--color-grey);
+      display: table;
+      background-image: var(--icon-search);
+      background-position: 0.5rem;
+      background-repeat: no-repeat;
+      padding: 0.55rem 3rem;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+    /* Leave space between end of list and title of next list. */
+    section {
+      margin-top: 3.5rem;
     }
     .year-section-title {
-      margin: 2rem 0 0;
-      padding: 1.2rem 0 0.8rem 0;
+      margin: 0;
+      padding: 1rem 0 0.8rem;
       top: 0;
       position: sticky;
       border-bottom: 1px solid var(--color-grey);
@@ -41,16 +61,16 @@
     }
     .year-section-title small {
       font-weight: normal;
+      font-size: smaller;
     }
     .books-list li {
       grid-template-columns: auto 20rem 5em;
     }
     .books-list,
     .books-list ul {
+      line-height: 1.25;
       padding: 0;
       margin: 0;
-      line-height: 1.25;
-      margin-bottom: 4rem;
     }
     ul li,
     ul li:not(:last-child) {
@@ -64,9 +84,6 @@
     }
     .books-list li {
       border-bottom: 1px solid var(--color-sticky-title-underline);
-    }
-    .year-section li:last-child {
-      margin-bottom: 2rem;
     }
     .books-list li>* {
       text-transform: capitalize;
@@ -103,38 +120,43 @@
       Re-reads are not listed.<br>
       <small style="font-style: italic;">Last updated: 14 Mar 2024</small></p>
 
-      <h2 class="time-section-title title-future">Future</h2>
-      <ul class="books-list">
-        <li><span>Dune Messiah</span><span>Frank Herbert</span></li>
-        <li><span>Northanger Abbey</span><span>Jane Austen</span></li>
-        <li><span>Hamlet</span><span>William Shakespeare</span></li>
-        <li><span>The Story of Kullervo</span><span>J.R.R. Tolkien</span></li>
-        <li><span>Prima che il gallo canti</span><span>Cesare Pavese</span></li>
-        <li><span>The little friend</span><span>Donna Tartt</span></li>
-        <li><span>Moby Dick</span><span>Herman Melville</span></li>
-        <li><span>Medea</span><span>Euripides</span></li>
-        <li><span>The Legend of Sigurd and Gudrún</span><span>J.R.R. Tolkien</span></li>
-        <li><span>Memoirs of Hadrian</span><span>Marguerite Yourcenar</span></li>
-        <li><span>The last of the Mohicans</span><span>James Fenimore Cooper</span></li>
-        <li><span>Paradise lost</span><span>John Milton</span></li>
-      </ul>
+      <div class="search-container">
+        <input type="text" size="25" maxlength="40" placeholder="Search title or author..." autocomplete="off" oninput="searchBooks()" id="search-input">
+      </div>
 
-      <h2 class="time-section-title title-present">Present</h2>
-      <ul class="books-list">
-        <li><span>Salem's Lot</span><span>Stephen King</span></li>
-      </ul>
-
-      <h2 class="time-section-title title-past">Past</h2>
-      <section class="year-section">
-        <h3 class="year-section-title">2024 <small class="lg">(2)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="future">Future</h2>
+        <ul class="books-list" id="list-future">
+          <li><span>Dune Messiah</span><span>Frank Herbert</span></li>
+          <li><span>Northanger Abbey</span><span>Jane Austen</span></li>
+          <li><span>Hamlet</span><span>William Shakespeare</span></li>
+          <li><span>The Story of Kullervo</span><span>J.R.R. Tolkien</span></li>
+          <li><span>Prima che il gallo canti</span><span>Cesare Pavese</span></li>
+          <li><span>The little friend</span><span>Donna Tartt</span></li>
+          <li><span>Moby Dick</span><span>Herman Melville</span></li>
+          <li><span>Medea</span><span>Euripides</span></li>
+          <li><span>The Legend of Sigurd and Gudrún</span><span>J.R.R. Tolkien</span></li>
+          <li><span>Memoirs of Hadrian</span><span>Marguerite Yourcenar</span></li>
+          <li><span>The last of the Mohicans</span><span>James Fenimore Cooper</span></li>
+          <li><span>Paradise lost</span><span>John Milton</span></li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="year-section-title" id="present">Present</h2>
+        <ul class="books-list" id="list-present">
+          <li><span>Salem's Lot</span><span>Stephen King</span></li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="year-section-title" id="2024">2024 <small>(2)</small></h2>
+        <ul class="books-list" id="list-2024">
           <li><span>Pride and Prejudice</span><span>Jane Austen</span><span>★★★★☆</span></li>
           <li><span>New York trilogy</span><span>Paul Auster</span><span>★★★★☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2023 <small class="lg">(14)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2023">2023 <small>(14)</small></h2>
+        <ul class="books-list" id="list-2023">
           <li><span>When all is said</span><span>Anne Griffin</span><span>★★★☆☆</span></li>
           <li><span>Death with interruptions</span><span>José Saramago</span><span>★★★★☆</span></li>
           <li><span>The Dome</span><span>Stephen King</span><span>★★★★★</span></li>
@@ -151,18 +173,18 @@
           <li><span>Letters from Father Christmas</span><span>J.R.R. Tolkien</span><span>★★★★★</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2022 <small class="lg">(4)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2022">2022 <small>(4)</small></h2>
+        <ul class="books-list" id="list-2022">
           <li><span>Jane Eyre</span><span>Charlotte Brontë</span><span>★★★★★</span></li>
           <li><span>Wuthering Heights</span><span>Emily Brontë</span><span>★★☆☆☆</span></li>
           <li><span>Oedipus Rex</span><span>Sophocles</span><span>★★★★☆</span></li>
           <li><span>Sir Gawain and the Green Knight</span><span>J.R.R. Tolkien</span><span>★★★☆☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2021 <small class="lg">(11)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2021">2021 <small>(11)</small></h2>
+        <ul class="books-list" id="list-2021">
           <li><span>Oresteia</span><span>Aeschylus</span><span>★★★★☆</span></li>
           <li><span>Poetic Edda</span><span>Unknown</span><span>★★★★☆</span></li>
           <li><span>Notre Dame de Paris</span><span>Victor Hugo</span><span>★★★★★</span></li>
@@ -176,9 +198,9 @@
           <li><span>The Fall of Gondolin</span><span>J.R.R. Tolkien</span><span>★★★★☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2020 <small class="lg">(7)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2020">2020 <small>(7)</small></h2>
+        <ul class="books-list" id="list-2020">
           <li><span>Les Fleurs du mal</span><span>Charles Baudelaire</span><span>★★★★☆</span></li>
           <li><span>White Nights</span><span>Fyodor Dostoevsky</span><span>★★★☆☆</span></li>
           <li><span>Letters</span><span>Epicurus</span><span>★★☆☆☆</span></li>
@@ -188,9 +210,9 @@
           <li><span>Beowulf</span><span>Unknown</span><span>★★★★☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2019 <small class="lg">(8)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2019">2019 <small>(8)</small></h2>
+        <ul class="books-list" id="list-2019">
           <li><span>Meditations</span><span>Marcus Aurelius</span><span>★★★★★</span></li>
           <li><span>The Book of Sand</span><span>Jorge Luis Borges</span><span>★★★★☆</span></li>
           <li><span>Operette morali</span><span>Giacomo Leopardi</span><span>★★★★★</span></li>
@@ -201,9 +223,9 @@
           <li><span>A Little Life</span><span>Hanya Yanagihara</span><span>★★★★☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2018 <small class="lg">(9)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2018">2018 <small>(9)</small></h2>
+        <ul class="books-list" id="list-2018">
           <li><span>A christmas carol</span><span>Charles Dickens</span><span>★★★★★</span></li>
           <li><span>Robinson Crusoe</span><span>Daniel Defoe</span><span>★★★☆☆</span></li>
           <li><span>The Human Stain</span><span>Philip Roth</span><span>★★★☆☆</span></li>
@@ -215,9 +237,9 @@
           <li><span>The book of disquiet</span><span>Fernando Pessoa</span><span>★★★☆☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2017 <small class="lg">(14)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2017">2017 <small>(14)</small></h2>
+        <ul class="books-list" id="list-2017">
           <li><span>Ad occhi chiusi</span><span>Gianrico Carofiglio</span><span>★★★★☆</span></li>
           <li><span>Ask the dust</span><span>John Fante</span><span>★★★☆☆</span></li>
           <li><span>L'arte dell'ozio</span><span>Hermann Hesse</span><span>★☆☆☆☆</span></li>
@@ -234,9 +256,9 @@
           <li><span>The Shadow of the Wind</span><span>Carlos Ruiz Zafón</span><span>★★★★★</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2016 <small class="lg">(8)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2016">2016 <small>(8)</small></h2>
+        <ul class="books-list" id="list-2016">
           <li><span>Baol</span><span>Stefano Benni</span><span>★★★★☆</span></li>
           <li><span>Il bar sotto il mare</span><span>Stefano Benni</span><span>★★★★★</span></li>
           <li><span>Mostri</span><span>Stefano Benni</span><span>★★★★☆</span></li>
@@ -247,9 +269,9 @@
           <li><span>Night train to Lisbon</span><span>Pascal Mercier</span><span>★★★★☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">2015 <small class="lg">(11)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="2015">2015 <small>(11)</small></h2>
+        <ul class="books-list" id="list-2015">
           <li><span>Fahrenheit 451</span><span>Ray Bradbury</span><span>★★★☆☆</span></li>
           <li><span>Canada</span><span>Richard Ford</span><span>★★☆☆☆</span></li>
           <li><span>Siddhartha</span><span>Hermann Hesse</span><span>★☆☆☆☆</span></li>
@@ -263,9 +285,9 @@
           <li><span>Wir Kinder vom Bahnhof Zoo</span><span>Christiane Felscherinow</span><span>★★★☆☆</span></li>
         </ul>
       </section>
-      <section class="year-section">
-        <h3 class="year-section-title">Previous years <small class="lg">(79)</small></h3>
-        <ul class="books-list">
+      <section>
+        <h2 class="year-section-title" id="previous-years">Previous years <small>(79)</small></h2>
+        <ul class="books-list" id="list-previous-years">
           <li><span>Il mio nome è Nessuno. Il giuramento</span><span>Valerio Massimo Manfredi</span><span>★★★☆☆</span></li>
           <li><span>Allegiant</span><span>Veronica Roth</span><span>★★☆☆☆</span></li>
           <li><span>Divergent</span><span>Veronica Roth</span><span>★★★☆☆</span></li>
@@ -358,5 +380,54 @@
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
+
+<script>
+function checkBook(book) {
+  var searchString = document.getElementById("search-input").value.toLowerCase();
+  if (searchString.length == 0)
+    return true;
+  var title = book.getElementsByTagName("span")[0].textContent.toLowerCase();
+  var author = book.getElementsByTagName("span")[1].textContent.toLowerCase();
+  return title.includes(searchString) || author.includes(searchString);
+}
+
+function searchBooks() {
+  var bookLists = document.querySelectorAll(".books-list");
+  for (list of bookLists) {
+    var listID = list.id.substring(5);
+    var books = list.getElementsByTagName("li");
+    var count = 0;
+    for (book of books) {
+      if (checkBook(book)) {
+        book.style.display = "";
+        count += 1;
+      }
+      else {
+        book.style.display = "none";
+      }
+    }
+    // Update number of valid posts for current list.
+    if (listID != "future" && listID != "present")
+      document.getElementById(listID).querySelector("small").textContent = "(" + count + ")";
+    // Hide empty lists.
+    if (count == 0) {
+      document.getElementById(listID).style.display = "none";
+    }
+    else {
+      document.getElementById(listID).style.display = "";
+    }
+  }
+}
+
+// Hide mobile keyboard on ENTER key press.
+window.addEventListener("load", () => {
+  const inputSearchBox = document.getElementById("search-input");
+  inputSearchBox.addEventListener("keypress", function(event) {
+    const key = event.code || event.keyCode;
+    if (key === 'Enter' || key === 13)
+      inputSearchBox.blur();
+  });
+});
+</script>
 
 </html>

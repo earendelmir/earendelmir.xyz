@@ -38,9 +38,16 @@
       border: none;
       border-radius: 0;
       border-bottom: 1px solid var(--color-grey);
-      padding: 0.2rem 0.4rem;
       display: table;
       margin-bottom: 1em;
+      background-image: var(--icon-search);
+      background-position: 0.5rem;
+      background-repeat: no-repeat;
+      padding: 0.55rem 3rem;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--color-accent);
     }
     /* Language checkboxes. */
     input[type="checkbox"] {
@@ -280,7 +287,7 @@ function isSearch(post) {
 }
 
 function filterPosts() {
-  var tags = document.querySelectorAll('#tags-list li');
+  var tags = document.querySelectorAll("#tags-list li");
   // For each tag, get list of posts.
   for (tag of tags) {
     var tagName = tag.id.substring(4);
@@ -314,7 +321,7 @@ window.addEventListener("load", () => {
   const inputSearchBox = document.getElementById("search-input");
   inputSearchBox.addEventListener("keypress", function(event) {
     const key = event.code || event.keyCode;
-    if (key === 'Enter' || key === 13)
+    if (key === "Enter" || key === 13)
       inputSearchBox.blur();
   });
 });

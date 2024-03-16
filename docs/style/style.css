@@ -4,10 +4,12 @@
   --font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   --font-monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   --image-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+  --icon-search: url("/images/icon-search-light.svg");
   --color-background: #F8F9FA;
   --color-text: #212529;
   --color-text2: #616C75;
   --color-text2-underline: #616C75AA;
+  --color-placeholder: #A3ACB5;
   --color-accent: #D2373C;
   --color-grey: #6C757D;
   --color-hr: #DEE2E6;
@@ -19,10 +21,12 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
+    --icon-search: url("/images/icon-search-dark.svg");
     --color-background: #18191A;
     --color-text: #D0D7DE;
     --color-text2: #89949D;
     --color-text2-underline: #89949DDD;
+    --color-placeholder: #89949D;
     --color-accent: #DF9568;
     /* --color-accent: #6AA0D6; */
     /* --color-accent: #6EABE8; */
@@ -218,6 +222,14 @@ main p + p {
 }
 main p.post-info + p {
   margin-top: 0;
+}
+
+::placeholder {
+  color: var(--color-placeholder);
+  opacity: 1;
+}
+::-ms-input-placeholder {
+  color: var(--color-placeholder);
 }
 
 
