@@ -19,8 +19,5 @@
     },
     "livePreview.customExternalBrowser": "Firefox",
     "livePreview.serverRoot": "./docs",
-    "livePreview.defaultPreviewPath": "./docs",
-    "git.ignoredRepositories": [
-        "drafts/"
-    ]
+    "livePreview.defaultPreviewPath": "./docs"
 }
