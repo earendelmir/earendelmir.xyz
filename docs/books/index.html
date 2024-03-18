@@ -124,6 +124,7 @@
         <input type="text" size="25" maxlength="40" placeholder="Search title or author..." autocomplete="off" oninput="searchBooks()" id="search-input">
       </div>
 
+      <p id="no-result-p" style="display: none;">No results.</p>
       <section>
         <h2 class="year-section-title" id="future">Future</h2>
         <ul class="books-list" id="list-future">
@@ -393,6 +394,8 @@ function checkBook(book) {
 
 function searchBooks() {
   var bookLists = document.querySelectorAll(".books-list");
+  var numLists = bookLists.length;
+  var numListsHidden = 0;
   for (list of bookLists) {
     var listID = list.id.substring(5);
     var books = list.getElementsByTagName("li");
@@ -412,10 +415,16 @@ function searchBooks() {
     // Hide empty lists.
     if (count == 0) {
       document.getElementById(listID).style.display = "none";
+      numListsHidden++;
     }
     else {
       document.getElementById(listID).style.display = "";
     }
+  }
+  if (numListsHidden == numLists) {
+    document.getElementById("no-result-p").style.display = "";
+  } else {
+    document.getElementById("no-result-p").style.display = "none";
   }
 }
 

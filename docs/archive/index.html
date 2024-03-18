@@ -142,6 +142,8 @@
         <a class="u-photo" href="https://earendelmir.xyz/images/profile.jpg">(Photo)</a>
         <a class="u-email" rel="me" href="mailto:earendelmir@proton.me">earendelmir@proton.me</a>
       </div>
+
+      <p id="no-result-p" style="display: none;">No results.</p>
       <section>
       <h2 id="books">#books</h2>
       <ul class="list posts-list" id="list-books">
@@ -289,6 +291,8 @@ function isSearch(post) {
 
 function filterPosts() {
   var tags = document.querySelectorAll("#tags-list li");
+  var numTags = tags.length;
+  var numTagsHidden = 0;
   // For each tag, get list of posts.
   for (tag of tags) {
     var tagName = tag.id.substring(4);
@@ -309,11 +313,17 @@ function filterPosts() {
     if (count == 0) {
       tag.style.display = "none";
       document.getElementById(tagName).style.display = "none";
+      numTagsHidden++;
     }
     else {
       tag.style.display = "";
       document.getElementById(tagName).style.display = "";
     }
+  }
+  if (numTagsHidden == numTags) {
+    document.getElementById("no-result-p").style.display = "";
+  } else {
+    document.getElementById("no-result-p").style.display = "none";
   }
 }
 
