@@ -25,6 +25,46 @@
   <link rel="stylesheet" href="/style/style.css">
   <title>about - earendelmir</title>
 
+  <script>
+    const fetchQuotes = async () => {
+      try {
+        const response = await fetch("/data/quotes.json");
+        if (!response.ok)
+          throw new Error("Failed to fetch quotes from JSON file");
+        const jsonData = await response.json();
+        return jsonData;
+      } catch (error) {
+        console.error("Error fetching JSON:", error);
+        throw error;
+      }
+    };
+    const getRandomQuote = async () => {
+      try {
+        const jsonData = await fetchQuotes();
+        const randomQuote = jsonData[Math.floor(Math.random() * jsonData.length)];
+        return randomQuote;
+      } catch (error) {
+        console.error("Error getting random quote:", error);
+        throw error;
+      }
+    };
+    getRandomQuote()
+      .then(randomQuote => {
+        var quoteText = randomQuote.text;
+        var quoteAuthor = randomQuote.author;
+        console.log("Text 3:  ", quoteText);
+        console.log("Author 3:", quoteAuthor);
+        setQuote(quoteText, quoteAuthor);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        // Default values.
+        var quoteText = "The mystery of life isn't a problem to solve, but a reality to experience.";
+        var quoteAuthor = "Frank Herbert";
+        setQuote(quoteText, quoteAuthor);
+      });
+  </script>
+
   <style>
     #quote-text {
       font-family: var(--font-serif);
@@ -220,24 +260,14 @@
 </body>
 
 <script>
-// Only show them if Javascript is enabled.
-document.getElementById("quote-text").style.display = "";
-document.getElementById("quote-author").style.display = "";
-
-fetch("/data/quotes.json")
-  .then(response => response.json())
-  .then(jsonData => {
-    const randomIndex = Math.floor(Math.random() * jsonData.length);
-    const randomElement = jsonData[randomIndex];
-    document.getElementById("quote-text").innerText = randomElement.text;
-    document.getElementById("quote-author").innerText = randomElement.author;
-  })
-  .catch(error => {
-    console.error("Error fetching JSON:", error);
-    // Default value.
-    document.getElementById("quote-text").innerText = "The mystery of life isn't a problem to solve, but a reality to experience.";
-    document.getElementById("quote-author").innerText = "Frank Herbert";
-  });
+function setQuote(quoteText, quoteAuthor) {
+  console.log("Text 2:  ", quoteText);
+  console.log("Author 2:", quoteAuthor);
+  document.getElementById("quote-text").innerText = quoteText;
+  document.getElementById("quote-author").innerText = quoteAuthor;
+  document.getElementById("quote-text").style.display = "";
+  document.getElementById("quote-author").style.display = "";
+}
 </script>
 
 </html>
