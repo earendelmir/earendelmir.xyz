@@ -25,46 +25,6 @@
   <link rel="stylesheet" href="/style/style.css">
   <title>about - earendelmir</title>
 
-  <script>
-    const fetchQuotes = async () => {
-      try {
-        const response = await fetch("/data/quotes.json");
-        if (!response.ok)
-          throw new Error("Failed to fetch quotes from JSON file");
-        const jsonData = await response.json();
-        return jsonData;
-      } catch (error) {
-        console.error("Error fetching JSON:", error);
-        throw error;
-      }
-    };
-    const getRandomQuote = async () => {
-      try {
-        const jsonData = await fetchQuotes();
-        const randomQuote = jsonData[Math.floor(Math.random() * jsonData.length)];
-        return randomQuote;
-      } catch (error) {
-        console.error("Error getting random quote:", error);
-        throw error;
-      }
-    };
-    getRandomQuote()
-      .then(randomQuote => {
-        var quoteText = randomQuote.text;
-        var quoteAuthor = randomQuote.author;
-        console.log("Text 3:  ", quoteText);
-        console.log("Author 3:", quoteAuthor);
-        setQuote(quoteText, quoteAuthor);
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        // Default values.
-        var quoteText = "The mystery of life isn't a problem to solve, but a reality to experience.";
-        var quoteAuthor = "Frank Herbert";
-        setQuote(quoteText, quoteAuthor);
-      });
-  </script>
-
   <style>
     #quote-text {
       font-family: var(--font-serif);
@@ -260,14 +220,85 @@
 </body>
 
 <script>
-function setQuote(quoteText, quoteAuthor) {
-  console.log("Text 2:  ", quoteText);
-  console.log("Author 2:", quoteAuthor);
-  document.getElementById("quote-text").innerText = quoteText;
-  document.getElementById("quote-author").innerText = quoteAuthor;
-  document.getElementById("quote-text").style.display = "";
-  document.getElementById("quote-author").style.display = "";
-}
+const quotes = [
+  {"author": "A programmer", "text": "Hello world!" },
+  {"author": "Frank Herbert", "text": "The mystery of life isn't a problem to solve, but a reality to experience." },
+  {"author": "Frank Herbert", "text": "Deep in the human unconscious is a pervasive need for a logical universe that makes sense. But the real universe is always one step beyond logic." },
+  {"author": "Frank Herbert", "text": "What do you despise? By this are you truly known." },
+  {"author": "Frank Herbert", "text": "When religion and politics travel in the same cart, the riders believe nothing can stand in their way. Their movements become headlong - faster and faster and faster. They put aside all thoughts of obstacles and forget the precipice does not show itself to the man in a blind rush until it's too late." },
+  {"author": "Frank Herbert", "text": "It is so shocking to find out how many people do not believe that they can learn, and how many more believe learning to be difficult." },
+  {"author": "Frank Herbert", "text": "Hope clouds observation." },
+  {"author": "Frank Herbert", "text": "The mind commands the body and it obeys. The mind orders itself and meets resistance." },
+  {"author": "Frank Herbert", "text": "It is impossible to live in the past, difficult to live in the present and a waste to live in the future." },
+  {"author": "Frank Herbert", "text": "A process cannot be understood by stopping it. Understanding must move with the flow of the process, must join it and flow with it." },
+  {"author": "Frank Herbert", "text": "Once men turned their thinking over to machines in the hope that this would set them free. But that only permitted other men with machines to enslave them." },
+  {"author": "Frank Herbert", "text": "Any road followed precisely to its end leads precisely nowhere. Climb the mountain just a little bit to test that it's a mountain. From the top of the mountain, you cannot see the mountain." },
+  {"author": "Frank Herbert", "text": "The concept of progress acts as a protective mechanism to shield us from the terrors of the future." },
+  {"author": "Frank Herbert", "text": "Thou shalt not make a machine in the likeness of a human mind." },
+  {"author": "Frank Herbert", "text": "The test of a man isn’t what you think he’ll do. It’s what he actually does." },
+  {"author": "Frank Herbert", "text": "Science is made up of so many things that appear obvious after they are explained." },
+  {"author": "Frank Herbert", "text": "I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration." },
+  {"author": "J.R.R. Tolkien", "text": "Time flows ever, from the first note to the last chord." },
+  {"author": "J.R.R. Tolkien", "text": "We are not bound for ever to the circles of the world, and beyond them is more than memory." },
+  {"author": "J.R.R. Tolkien", "text": "Not all tears are an evil." },
+  {"author": "J.R.R. Tolkien", "text": "Use well the days." },
+  {"author": "J.R.R. Tolkien", "text": "Never is too long a word." },
+  {"author": "J.R.R. Tolkien", "text": "Pain and delight flow together and tears are the very wine of blessedness." },
+  {"author": "J.R.R. Tolkien", "text": "It is not our part to master all the tides of the world, but to do what is in us for the succour of those years wherein we are set." },
+  {"author": "J.R.R. Tolkien", "text": "It's not always a misfortune being overlooked." },
+  {"author": "J.R.R. Tolkien", "text": "For your own good do all that you may." },
+  {"author": "J.R.R. Tolkien", "text": "Do not spoil the wonder with haste." },
+  {"author": "J.R.R. Tolkien", "text": "Ifs are vain." },
+  {"author": "J.R.R. Tolkien", "text": "I don't believe in absolute evil but I believe in absolute good." },
+  {"author": "J.R.R. Tolkien", "text": "At the table small men may do the greater deeds." },
+  {"author": "J.R.R. Tolkien", "text": "Be not unjust in your grief." },
+  {"author": "J.R.R. Tolkien", "text": "Don't take names to yourself whether they are true or false." },
+  {"author": "J.R.R. Tolkien", "text": "Where there's life there's hope... and need of vittles." },
+  {"author": "J.R.R. Tolkien", "text": "Aurë entuluva! Day shall come again!" },
+  {"author": "J.R.R. Tolkien", "text": "In the end the Shadow is only a small and passing thing: there is light and high beauty for ever beyond its reach." },
+  {"author": "J.R.R. Tolkien", "text": "I do not love the bright sword for its sharpness, nor the arrow for its swiftness, nor the warrior for his glory; I love only that which they defend." },
+  {"author": "J.R.R. Tolkien", "text": "Men can only come to morning through the shadows." },
+  {"author": "J.R.R. Tolkien", "text": "The burned hand teaches best. After that advice about fire goes to the heart." },
+  {"author": "J.R.R. Tolkien", "text": "Things will go as they will; and there is no need to hurry to meet them." },
+  {"author": "J.R.R. Tolkien", "text": "The world changes, and all that once was strong now proves unsure." },
+  {"author": "J.R.R. Tolkien", "text": "Oft the unbidden guest proves the best company." },
+  {"author": "J.R.R. Tolkien", "text": "The wise speak only of what they know." },
+  {"author": "J.R.R. Tolkien", "text": "In doubt a man of worth will trust to his own wisdom." },
+  {"author": "J.R.R. Tolkien", "text": "Few can foresee whither their road will lead them, till they come to its end." },
+  {"author": "J.R.R. Tolkien", "text": "If we stayed at home and did nothing, doom would find us anyway, sooner or later." },
+  {"author": "J.R.R. Tolkien", "text": "Memory is not what the heart desires." },
+  {"author": "J.R.R. Tolkien", "text": "Time does not tarry ever, but change and growth is not in all things and places alike." },
+  {"author": "J.R.R. Tolkien", "text": "Maybe the paths that we each shall tread are already laid before our feet, though we do not see them." },
+  {"author": "J.R.R. Tolkien", "text": "It's the job that's never started as takes longest to finish." },
+  {"author": "J.R.R. Tolkien", "text": "Though in all lands love is now mingled with grief, it grows perhaps the greater." },
+  {"author": "J.R.R. Tolkien", "text": "The world is indeed full of peril, and in it there are many dark places, but still there is much that is fair." },
+  {"author": "J.R.R. Tolkien", "text": "Let him not vow to walk in the dark, who has not seen the nightfall." },
+  {"author": "J.R.R. Tolkien", "text": "Such is oft the course of deeds that move the wheels of the world: small hands do them because they must, while the eyes of the great are elsewhere." },
+  {"author": "J.R.R. Tolkien", "text": "All that is gold does not glitter. Not all those who wander are lost." },
+  {"author": "J.R.R. Tolkien", "text": "Courage is found in unlikely places." },
+  {"author": "J.R.R. Tolkien", "text": "The wide world is all about you: you can fence yourselves in, but you cannot forever fence it out." },
+  {"author": "J.R.R. Tolkien", "text": "You step into the Road, and if you don't keep your feet, there is no knowing where you might be swept off to." },
+  {"author": "J.R.R. Tolkien", "text": "If more of us valued food and cheer and song above hoarded gold, it would be a merrier world." },
+  {"author": "J.R.R. Tolkien", "text": "There is nothing like looking, if you want to find something." },
+  {"author": "J.R.R. Tolkien", "text": "Great as your affairs may seem to you, they are only a small strand in the great web." },
+  {"author": "J.R.R. Tolkien", "text": "Most men teach, and few men learn." },
+  {"author": "J.R.R. Tolkien", "text": "Let the unseen days be. Today is more than enough." },
+  {"author": "J.R.R. Tolkien", "text": "Go whither love leads you." },
+  {"author": "J.R.R. Tolkien", "text": "Still round the corner there may wait, a new road or a secret gate." },
+  {"author": "J.R.R. Tolkien", "text": "All we have to decide is what to do with the time that is given us." },
+  {"author": "J.R.R. Tolkien", "text": "And he took her in his arms and kissed her under the sunlit sky, and he cared not that they stood high upon the walls in the sight of many." },
+  {"author": "J.R.R. Tolkien", "text": "Moonlight drowns out all but the brightest stars." },
+  {"author": "J.R.R. Tolkien", "text": "Even the smallest person can change the course of the future." },
+  {"author": "J.R.R. Tolkien", "text": "For still there are so many things that I have never seen: in every wood in every spring there is a different green." },
+  {"author": "J.R.R. Tolkien", "text": "And Morgoth came." },
+  {"author": "J.R.R. Tolkien", "text": "'The Eagles! The Eagles!' he shouted. 'The Eagles are coming!'" },
+  {"author": "J.R.R. Tolkien", "text": "Never laugh at live dragons." }
+]
+const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+document.getElementById("quote-text").innerText = randomQuote.text;
+document.getElementById("quote-author").innerText = randomQuote.author;
+document.getElementById("quote-text").style.display = "";
+document.getElementById("quote-author").style.display = "";
 </script>
 
 </html>

@@ -250,8 +250,8 @@ footer {
   line-height: 1.7;
 }
 footer hr {
-    border-style: dashed;
-    border-color: var(--color-footer-hr);
+  border-style: dashed;
+  border-color: var(--color-footer-hr);
 }
 footer p {
   color: var(--color-text2);
