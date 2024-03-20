@@ -3,7 +3,7 @@
   --font-sans-serif: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
   --font-serif: Iowan Old Style, Apple Garamond, Baskerville, Times New Roman, Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   --font-monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
-  --image-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+  --image-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
   --icon-search: url("/images/icon-search-light.svg");
   --color-background: #F8F9FA;
   --color-text: #212529;
@@ -78,6 +78,8 @@ html {
 }
 
 body {
+  font-size: 1.6rem;
+  /* font-size: 1.7rem; */
   font-size: 1.8rem;
   color: var(--color-text);
   background-color: var(--color-background);
@@ -90,29 +92,29 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 1.8em;
-}
+h1 { font-size: 1.5em; }
+h2 { font-size: 1.383em; }
+h3 { font-size: 1.296em; }
+h4 { font-size: 1.215em; }
+h5 { font-size: 1.138em; }
+h5 { font-size: 1.067em; }
 main h1 {
-  font-size: 1.85em;
   line-height: 1.2;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1.2rem;
 }
 h2 {
-  font-size: 1.5em;
-  line-height: 1.1;
-  margin: 1.2em 0 1.5rem;
+  line-height: 1;
+  margin: 3.2rem 0 1.6rem;
 }
 h3 {
-  font-size: 1.3em;
-  line-height: 1.1;
-  margin: 1em 0 1rem;
+  line-height: 1;
+  margin: 2.4rem 0 1.2rem;
 }
 h4,
 h5,
 h6 {
-  line-height: 1.15;
-  margin-bottom: 1.2rem;
+  line-height: 1.16;
+  margin: 2.4rem 0 0.8rem;
 }
 
 hr {
@@ -122,22 +124,27 @@ hr {
 
 /* ***** HEADER ***** */
 header#banner {
-  margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 1.2rem 0 2.4rem;
 }
-
 header#banner h1 {
-  margin-top: 0.4rem;
-  margin-bottom: 0;
+  font-size: 1.476em;
+  margin: 0;
 }
-
+header#banner nav {
+  display: flex;
+  align-items: center;
+}
 header#banner nav a {
   color: var(--color-text2);
   text-decoration: underline;
   text-decoration-color: var(--color-text2-underline);
   text-decoration-thickness: 1px;
   margin: 0;
-  margin-right: 1rem;
-  font-size: 1.1em;
+}
+header#banner nav a:not(:last-of-type) {
+  margin-right: 1.6rem;
 }
 header#banner nav a#navbar-curr-page {
   text-decoration: none;
@@ -150,7 +157,7 @@ a {
   color: var(--color-accent);
   text-decoration: none;
   text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
 }
 a:active:not(#navbar-curr-page) {
   filter: brightness(80%);
@@ -170,13 +177,11 @@ a[target="_blank"]:hover::after,
 a[target="_blank"]:focus::after {
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
 }
 a:visited,
 a[target="_blank"]:visited::after {
   text-decoration: none;
   text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
 }
 
 #navbar-curr-page {
@@ -199,12 +204,12 @@ details summary {
 summary *:hover {
   text-decoration: underline;
   text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
 }
 /* Make summary title appear in the same line of the toggle button. */
 details summary>* {
   display: inline;
-  padding-left: 0.3rem;
+  padding-left: 0.32rem;
 }
 
 
@@ -238,11 +243,11 @@ main p.post-info + p {
 main {
   flex: 1;
 }
-
 footer {
   width: 100%;
-  margin: 5.6rem 0 1.2rem;
+  margin: 5.6rem 0 0.8rem;
   font-size: 1.6rem;
+  line-height: 1.7;
 }
 footer hr {
     border-style: dashed;
@@ -264,16 +269,18 @@ footer a {
   body {
     width: 750px;
   }
-  header#banner h1 {
-    margin-top: 1.5rem;
+}
+
+/* ***** HEADER BAR ON MULTIPLE LINES IN QUASI MOBILE VERSION ***** */
+@media screen and (max-width:600px) {
+  header#banner {
+    margin-top: 0.4rem;
+    display: block;
   }
 }
 
-
 /* ***** MOBILE VERSION ***** */
 @media screen and (max-width:500px) {
-  /* To keep footer at the bottom of the page while considering mobile height
-   * space occupied by browser's tabs. */
   body {
     height: 100%;
     font-size: 1.7rem;
@@ -282,9 +289,8 @@ footer a {
   }
   footer {
     margin-bottom: 0;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.6rem;
   }
-
   .fn-back {
     font-size: 1.8rem;
   }
@@ -292,6 +298,6 @@ footer a {
 
 @media screen and (max-width:370px) {
   body {
-    padding: 0 1.5rem;
+    padding: 0 1.6rem;
   }
 }

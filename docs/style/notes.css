@@ -8,7 +8,7 @@
   font-style: italic;
   font-size: smaller;
   color: var(--color-text2);
-  margin-top: 1rem;
+  margin-top: 0.8rem;
   text-align: right;
 }
 @media screen and (max-width: 450px) {
@@ -22,7 +22,7 @@
 }
 @media screen and (min-width: 451px) {
   main h1 {
-    margin-bottom: 2.2rem;
+    margin-bottom: 2.4rem;
   }
   .h-entry:not(:last-of-type) {
     border-bottom: none;
@@ -31,11 +31,11 @@
 
 .page-switcher {
   color: var(--color-text2);
-  margin-top: 3rem;
+  margin-top: 2.8rem;
   text-align: center;
 }
 .page-switcher a {
   color: var(--color-text2);
   text-decoration: underline;
-  margin: 0 0.5rem;
+  margin: 0 0.4rem;
 }

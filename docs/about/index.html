@@ -26,14 +26,36 @@
   <title>about - earendelmir</title>
 
   <style>
+    #quote-text {
+      font-family: var(--font-serif);
+      display: block;
+      font-style: italic;
+    }
+    #quote-author {
+      font-family: var(--font-serif);
+      display: block;
+      margin-bottom: 1.2rem;
+    }
+    #quote-author::before {
+      /* u21aa ufe0e  second one is invisible: to avoid glyph turning into emoji */
+      content: " ↪︎";
+      white-space: pre;
+      display: inline-block;
+      margin-right: 0.8rem;
+    }
+    #img-p-container {
+      display: flex;
+      margin-bottom: 1em;
+    }
     #img-container {
-      float: left;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      margin-right: 2.4rem;
     }
     #profile-picture {
-      width: 270px;
-      height: 270px;
-      margin-top: 0.55rem;
-      margin-right: 2rem;
+      width: 256px;
+      height: 256px;
       box-shadow: var(--image-shadow);
     }
 
@@ -55,23 +77,43 @@
     /* *****************************************************************************
     * MOBILE VERSION
     * ****************************************************************************/
+    @media screen and (max-width:710px) {
+      #img-p-container {
+        display: contents;
+      }
+      #img-container {
+        float: left;
+        margin-right: 1.8rem;
+      }
+      #profile-picture {
+        width: 240px;
+        height: 240px;
+        margin-top: 0.52rem;
+      }
+      #cols-container p {
+        margin-bottom: 1em;
+      }
+    }
     @media screen and (max-width:650px) {
       #profile-picture {
-        width: 210px;
-        height: 210px;
+        width: 212px;
+        height: 212px;
       }
     }
     @media screen and (max-width: 500px) {
+      #quote-author {
+        margin-bottom: 2rem;
+      }
       #img-container {
         float: initial;
         display: flex;
         justify-content: center;
+        margin-right: 0;
       }
       #profile-picture {
         width: 65%;
         height: 65%;
-        margin-right: 0;
-        margin-bottom: 2rem;
+        margin: 0 0 1em 0;
       }
     }
   </style>
@@ -90,20 +132,27 @@
   </header>
 
   <main>
-    <h1>about</h1>
-    <div id="img-container">
-      <img src="/images/profile.jpg" alt="Profile Picture" id="profile-picture">
+    <h1>About</h1>
+
+    <q id="quote-text" style="display: none;"></q>
+    <p id="quote-author" style="display: none;"></p>
+
+    <div id="img-p-container">
+      <div id="img-container">
+        <img src="/images/profile.jpg" alt="Profile Picture" id="profile-picture">
+      </div>
+      <p>I'm an Italian computer engineer dreaming of living a hobbit life. Until that happens, I keep myself entertained with music, novels, video essays, and shell scripting.<br>
+      Random but <b>super important</b> facts about me:<br>
+      I'm a fan of minimalism in design and technology; my comfort movies are mostly spaghetti westerns, christmassy
+      rom-coms, and Studio Ghibli films; there's nothing I find more pleasant than going to bed with clean sheets after an
+      evening shower.</p>
     </div>
-    <p>Hi, I'm an Italian computer engineer dreaming of living a hobbit life. Until that happens, I keep myself entertained with music, novels, video essays, and shell scripting.<br>
-    Random but <b>super important</b> facts about me:<br>
-    I'm a fan of minimalism in design and technology; my comfort movies are mostly spaghetti westerns, christmassy
-    rom-coms, and Studio Ghibli films; there's nothing I find more pleasant than going to bed with clean sheets after an
-    evening shower.</p>
+
     <p>If that is not enough, I have also prepared a description through <a href="/about/memes/">memes</a>, because... why not.</p>
 
     <h2>Contacts and profiles</h2>
     <p>Feel free to email me at <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;</a>
-    for a chat, argument, or any questions you might have. Here's my <a href="/earendelmir.asc">GPG key</a> — if you know,
+    for a chat, argument, or any questions you might have. Here's my <a href="/data/earendelmir.asc">GPG key</a> — if you know,
     you know.<br>
     You can also subscribe to the blog's <a href="/feed.xml">RSS feed</a> to stay updated on my writing.<br>
     That's it! No socials, no other profiles or accounts anywhere else — except for <a href="https://github.com/earendelmir">GitHub</a>,
@@ -126,7 +175,7 @@
     </ul>
     <p>See the full list in the <a href="/favourites/">favourites</a> page.</p>
 
-    <h2>why earendelmir?</h2>
+    <h2>Why earendelmir?</h2>
     <p>It's a pseudonym, created to conceal my actual name.<br>
     From a fusion of Old-English and Elvish, it means <i>"<b>Jewel of the Morning Star</b>"</i>. This is a nod to Tolkien's
     work, which has played, and continues to play, a significant role in shaping my imagination, philosophy, and emotional
@@ -169,5 +218,26 @@
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
+
+<script>
+// Only show them if Javascript is enabled.
+document.getElementById("quote-text").style.display = "";
+document.getElementById("quote-author").style.display = "";
+
+fetch("/data/quotes.json")
+  .then(response => response.json())
+  .then(jsonData => {
+    const randomIndex = Math.floor(Math.random() * jsonData.length);
+    const randomElement = jsonData[randomIndex];
+    document.getElementById("quote-text").innerText = randomElement.text;
+    document.getElementById("quote-author").innerText = randomElement.author;
+  })
+  .catch(error => {
+    console.error("Error fetching JSON:", error);
+    // Default value.
+    document.getElementById("quote-text").innerText = "The mystery of life isn't a problem to solve, but a reality to experience.";
+    document.getElementById("quote-author").innerText = "Frank Herbert";
+  });
+</script>
 
 </html>

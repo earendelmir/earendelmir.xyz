@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /.vscode/
 Disallow: /books/
 Disallow: /contact/
+Disallow: /data/
 Disallow: /favicon/
 Disallow: /favourites/
 Disallow: /gallery/
@@ -14,7 +15,6 @@ Disallow: /scripts/
 Disallow: /style/
 Disallow: /.htaccess
 Disallow: /404.html
-Disallow: /earendelmir.asc
 Disallow: /feed.xml
 Disallow: /netlify.toml
 Disallow: /skeleton.html

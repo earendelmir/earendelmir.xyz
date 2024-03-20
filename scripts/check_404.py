@@ -53,7 +53,10 @@ for path, subdir, files in os.walk(PATH_ROOT):
             FILES.append(os.path.join(path, name))
 
 for file in FILES:
-    print("=== URL CHECKING IN", file[file.find("docs/")+5:file.find(".html")])
+    fname = file[file.find("docs/")+5:file.find(".html")]
+    if fname.endswith("/index"):
+        fname = fname[:-5]
+    print("=== URL CHECKING IN", fname)
     links = get_links(file)
     for l in links:
         if l == "None": continue

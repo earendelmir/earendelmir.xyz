@@ -26,14 +26,12 @@
         <link rel="stylesheet" href="/style/style.css" />
 
         <style>
-          header#banner nav a {
-            margin-right: 1.52rem;
+          header#banner nav a:not(:last-of-type) {
+            margin-right: 1.6rem;
           }
-
           svg {
             fill: var(--color-text);
           }
-
           .feed-list {
             margin-top: 4rem;
           }
@@ -51,14 +49,14 @@
             width: 100%;
           }
           .item:not(:last-child) {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2.4rem;
           }
         </style>
       </head>
 
       <body>
         <header id="banner">
-          <h1 translate="no">Earendelmir</h1>
+          <h1 translate="no">earendelmir</h1>
           <nav>
             <a class="navbar-item" href="/">Home</a>
             <a class="navbar-item" href="/about/">About</a>

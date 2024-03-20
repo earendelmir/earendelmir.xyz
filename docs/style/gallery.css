@@ -27,7 +27,7 @@ section img {
 /* mobile */
 @media screen and (max-aspect-ratio:4/3) and (max-width:480px) {
   section {
-    padding: 60px 2px;
+    padding: 60px 4px;
     display: flex;
     align-items: center;
     line-height: 0;
@@ -35,7 +35,7 @@ section img {
   }
   section img {
     max-width: 100%;
-    border: solid #ffffff 10px;
+    border: solid #ffffff 8px;
   }
 }
 
@@ -49,7 +49,7 @@ section img {
 /* desktop */
 @media screen and (min-aspect-ratio:4/3) and (min-width:480px) {
   main h1 {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   section img {
     max-height: calc(100vh - 100px);
@@ -59,7 +59,7 @@ section img {
 /* landscape mode */
 @media screen and (min-aspect-ratio:4/3) and (max-width:480px) {
   section {
-    padding: 10px;
+    padding: 12px;
     display: flex;
     align-items: center;
     line-height: 0;
