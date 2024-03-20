@@ -27,29 +27,28 @@
 
   <style>
     .filters-div {
-      margin: 4rem 0;
+      margin: 3.6rem 0;
     }
-    /* Search box */
     input[type="text"] {
       background-color: var(--color-background);
       color: var(--color-text);
       font-size: inherit;
+      width: 100%;
+      margin-bottom: 2rem;
       outline: none;
       border: none;
       border-radius: 0;
-      border-bottom: 1px solid var(--color-grey);
+      border: 1px solid var(--color-grey);
       display: table;
-      margin-bottom: 0.8em;
       background-image: var(--icon-search);
-      background-position: 0.52rem;
+      background-position: 1.2rem;
       background-repeat: no-repeat;
-      padding: 0.52rem 3.2rem;
+      padding: 1.2rem 4rem;
     }
     input[type="text"]:focus {
       outline: none;
       border-color: var(--color-accent);
     }
-    /* Language checkboxes. */
     input[type="checkbox"] {
       cursor: pointer;
       accent-color: var(--color-accent);
@@ -65,10 +64,10 @@
       padding: 0;
       display: flex;
       flex-wrap: wrap;
-      margin: 0.8em 0;
+      margin: 1.2rem 0;
     }
     #tags-list li {
-      margin: 0 1.6em 0 0;
+      margin: 0 2.8rem 0 0;
     }
 
     main h2 {
@@ -83,16 +82,23 @@
     .posts-list {
       margin: 1.2rem 0 0;
     }
-    /* The following two items allow ellipsis for long titles that don't fit the screen. */
-    .posts-list li {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-    }
-    .posts-list li a {
+    /* Truncate with ellipsis longer content that doesn't fit the screen. */
+    .posts-list li a,
+    .posts-list li p {
+      display: block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
+    }
+    .posts-list li p {
+      font-size: 0.9em;
+      margin-bottom: 0.8rem;
+    }
+    /* Search query matching text. */
+    .highlight {
+      background-color: var(--color-highlight-bg);
+      font-weight: bold;
     }
     /* Leave space between end of tag list and title of next tag list. */
     section:not(:first-of-type) {
@@ -119,8 +125,8 @@
       You might be looking for the <a href="/archive/chronological">chronologically ordered</a> list.</p>
 
     <div class="filters-div">
-      <noscript><p>You need to enable Javascript for these filters to work.</p></noscript>
-      <input type="text" size="25" maxlength="25" placeholder="Search..." autocomplete="off" oninput="filterPosts()" id="search-input">
+      <noscript><p>Javascript is required for these filters to work.</p></noscript>
+      <input type="text" maxlength="50" placeholder="Search..." autocomplete="off" id="search-input">
       <input type="checkbox" id="lang-it-sel" value="lang-it-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-it-sel">it</label>
       <input type="checkbox" id="lang-en-sel" value="lang-en-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-en-sel">en</label>
       <ul id="tags-list">
@@ -280,16 +286,54 @@ function isLang(post) {
     return document.getElementById("lang-en-sel").checked;
 }
 
-// Check whether the post matches the search field query.
-function isSearch(post) {
-  var searchString = document.getElementById("search-input").value.toLowerCase();
-  if (searchString.length == 0)
-    return true;
-  title = post.getElementsByTagName("a")[0].textContent.toLowerCase();
-  return (title.includes(searchString));
+// Return substring matching the query (plus some characters before and after). If no match then return null.
+function getMatchingSubstring(string, query) {
+  const matchIndex = string.toLowerCase().indexOf(query.toLowerCase());
+  if (matchIndex == -1)
+    return null;
+  const start = Math.max(0, matchIndex - 10);
+  const end = Math.min(string.length + 1, matchIndex + query.length + 100);
+  return string.substring(start, end);
 }
 
-function filterPosts() {
+// Check whether the post matches the search field query.
+async function isSearch(post, query) {
+  var url = post.getElementsByTagName("a")[0].getAttribute("href") + ".html";
+  try {
+    // Get HTML document from URL.
+    const response = await fetch(url);
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    // Get post title and content.
+    const title = doc.querySelector("title").innerText;
+    // If query string is empty than every post passes this check. But no post has any matching text, not in the title
+    // neither in its content.
+    if (query.length == 0)
+      return {valid: true, title: title, matchingTitle: null, matchingContent: null};
+    // Find piece of post title that matches query (to be highlighted).
+    const matchingTitle = getMatchingSubstring(title, query);
+    const content = doc.getElementsByClassName("e-content")[0].innerText;
+    const matchingContent = getMatchingSubstring(content, query);
+    // If either the title or the content matches the query than return true, either return false: the post does not
+    // pass the check.
+    if (matchingTitle != null || matchingContent != null)
+      return {valid: true, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
+    else
+      return {valid: false, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
+  }
+  catch (e) {
+    return {valid: false, title: null, matchingTitle: null, matchingContent: null};
+  }
+}
+
+// Highlight substring matching the query.
+function highlightMatches(string, query) {
+  const regex = new RegExp(query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "gi");
+  return string.replace(regex, match => `<span class="highlight">${match}</span>`);
+}
+
+async function filterPosts() {
+  var query = document.getElementById("search-input").value.trim();
   var tags = document.querySelectorAll("#tags-list li");
   var numTags = tags.length;
   var numTagsHidden = 0;
@@ -297,19 +341,42 @@ function filterPosts() {
   for (tag of tags) {
     var tagName = tag.id.substring(4);
     var posts = document.querySelectorAll(`#list-${tagName} li`);
-    // Filter posts of current tag and count how many are valid.
     var count = 0;
-    for (post of posts)
-      if (isLang(post) && isSearch(post)) {
-        post.style.display = "";
-        count += 1;
-      }
-      else {
+    // For each post, check the language and title+content for query string.
+    // Count how many posts are valid for this tag.
+    for (post of posts) {
+      // Remove any possible paragraph added by previous query searches (if the post content matches the query than its
+      // matching content's substring is shown).
+      try { post.removeChild(post.getElementsByTagName("p")[0]); } catch (e) {}
+      // Post is not valid if wrong language, hide it.
+      if (!isLang(post)) {
         post.style.display = "none";
+        continue;
       }
-    // Update number of valid posts for current tag.
-    tag.querySelector("span").textContent = "(" + count + ")";
-    // Hide empty tags.
+      // Get result of query search.
+      var ret = await isSearch(post, query);
+      // If neither title nor content match the query then the post is not valid, hide it.
+      if (ret.valid == false) {
+        post.style.display = "none";
+        continue;
+      }
+      // Show post because both language and title/content pass the checks.
+      post.style.display = "";
+      count += 1;
+      // Highlight or reset post title.
+      if (ret.matchingTitle != null)
+        post.getElementsByTagName("a")[0].innerHTML = highlightMatches(ret.matchingTitle, query);
+      else
+        post.getElementsByTagName("a")[0].innerHTML = ret.title;
+      // Highlight or delete post content.
+      if (ret.matchingContent != null) {
+        const p = document.createElement("p");
+        p.innerHTML = "..." + highlightMatches(ret.matchingContent, query) + "...";
+        post.appendChild(p);
+      } else
+        try { post.removeChild(post.getElementsByTagName("p")[0]); } catch (e) {}
+    }
+    // Hide empty tags or show them if at least one of their post is valid.
     if (count == 0) {
       tag.style.display = "none";
       document.getElementById(tagName).style.display = "none";
@@ -318,23 +385,38 @@ function filterPosts() {
     else {
       tag.style.display = "";
       document.getElementById(tagName).style.display = "";
+      // Update number of valid posts for current tag.
+      tag.querySelector("span").textContent = "(" + count + ")";
     }
   }
-  if (numTagsHidden == numTags) {
+  // Show "No result" text if all tags have been hidden.
+  if (numTagsHidden == numTags)
     document.getElementById("no-result-p").style.display = "";
-  } else {
+  else
     document.getElementById("no-result-p").style.display = "none";
-  }
 }
 
-// Hide mobile keyboard on ENTER key press.
-window.addEventListener("load", () => {
-  const inputSearchBox = document.getElementById("search-input");
-  inputSearchBox.addEventListener("keypress", function(event) {
-    const key = event.code || event.keyCode;
-    if (key === "Enter" || key === 13)
-      inputSearchBox.blur();
-  });
+// To delay search function: wait for user to stop typing before searching.
+function debounce(func, delay) {
+  let timer;
+  return function() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, arguments);
+    }, delay);
+  };
+}
+
+// Search after every keypress.
+document.getElementById("search-input").addEventListener("input", debounce(function() {
+  filterPosts();
+}, 600));
+
+// Listen ENTER key press: hide keyboard on mobile and start search.
+document.getElementById("search-input").addEventListener("keypress", function(event) {
+  const key = event.code || event.keyCode;
+  if (key === "Enter" || key === 13)
+    this.blur();
 });
 </script>
 </html>

@@ -11,6 +11,7 @@
   --color-text2-underline: #616C75AA;
   --color-placeholder: #A3ACB5;
   --color-accent: #D2373C;
+  --color-highlight-bg: #FBBABC;
   --color-grey: #6C757D;
   --color-hr: #DEE2E6;
   --color-footer-hr: #A3ACB5;
@@ -33,6 +34,7 @@
     /* --color-accent: #E26D5A; */
     /* --color-accent: #DC6BAD; */
     /* --color-accent: #4fa8e2; */
+    --color-highlight-bg: #502205;
     --color-grey: #555D66;
     --color-hr: #555D66;
     --color-footer-hr: #555D66;
