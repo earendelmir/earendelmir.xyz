@@ -126,8 +126,9 @@
 
     <div class="filters-div">
       <noscript><p>Javascript is required for these filters to work.</p></noscript>
-      <input type="checkbox" id="lang-it-sel" value="lang-it-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-it-sel">it</label>
-      <input type="checkbox" id="lang-en-sel" value="lang-en-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-en-sel">en</label>
+      <input disabled type="text" maxlength="50" placeholder="Search..." autocomplete="off" id="search-input">
+      <input disabled type="checkbox" id="lang-it-sel" value="lang-it-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-it-sel">it</label>
+      <input disabled type="checkbox" id="lang-en-sel" value="lang-en-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-en-sel">en</label>
       <ul id="tags-list">
         <li id="tag-books"><a href="#books">#books</a> <span>(2)</span></li>
         <li id="tag-development"><a href="#development">#development</a> <span>(6)</span></li>
@@ -277,6 +278,32 @@
 </body>
 
 <script>
+const postCache = {};
+
+async function cachePosts() {
+  var tags = document.querySelectorAll("#tags-list li");
+  // For each tag, get list of posts.
+  for (tag of tags) {
+    var tagName = tag.id.substring(4);
+    var posts = document.querySelectorAll(`#list-${tagName} li`);
+    // For each post, cache its contente.
+    for (post of posts) {
+      var url = post.getElementsByTagName("a")[0].getAttribute("href") + ".html";
+      try {
+        // Get HTML document from URL.
+        const response = await fetch(url);
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        // Get post title and content.
+        title = doc.querySelector("title").innerText;
+        content = doc.getElementsByClassName("e-content")[0].innerText;
+        postCache[url] = {title: title, content: content};
+      }
+      catch (e) {}
+    }
+  }
+}
+
 // Check whether the post matches the language query.
 function isLang(post) {
   if (post.className.includes("it"))
@@ -298,31 +325,41 @@ function getMatchingSubstring(string, query) {
 // Check whether the post matches the search field query.
 async function isSearch(post, query) {
   var url = post.getElementsByTagName("a")[0].getAttribute("href") + ".html";
-  try {
-    // Get HTML document from URL.
-    const response = await fetch(url);
-    const html = await response.text();
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    // Get post title and content.
-    const title = doc.querySelector("title").innerText;
-    // If query string is empty than every post passes this check. But no post has any matching text, not in the title
-    // neither in its content.
-    if (query.length == 0)
-      return {valid: true, title: title, matchingTitle: null, matchingContent: null};
-    // Find piece of post title that matches query (to be highlighted).
-    const matchingTitle = getMatchingSubstring(title, query);
-    const content = doc.getElementsByClassName("e-content")[0].innerText;
-    const matchingContent = getMatchingSubstring(content, query);
-    // If either the title or the content matches the query than return true, either return false: the post does not
-    // pass the check.
-    if (matchingTitle != null || matchingContent != null)
-      return {valid: true, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
-    else
-      return {valid: false, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
+  var title, content;
+  if (postCache[url]) {
+    title = postCache[url].title;
+    content = postCache[url].content;
   }
-  catch (e) {
-    return {valid: false, title: null, matchingTitle: null, matchingContent: null};
+  else {
+    try {
+      console.log("Caching post:", url);
+      // Get HTML document from URL.
+      const response = await fetch(url);
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      // Get post title and content.
+      title = doc.querySelector("title").innerText;
+      content = doc.getElementsByClassName("e-content")[0].innerText;
+      postCache[url] = {title: title, content: content};
+    }
+    catch (e) {
+      // If post can't be retrieved let's assume it matches.
+      return {valid: true, title: null, matchingTitle: null, matchingContent: null};
+    }
   }
+  // If query string is empty than every post passes this check. But no post has any matching text, not in the title
+  // neither in its content.
+  if (query.length == 0)
+    return {valid: true, title: title, matchingTitle: null, matchingContent: null};
+  // Find piece of post title that matches query (to be highlighted).
+  const matchingTitle = getMatchingSubstring(title, query);
+  const matchingContent = getMatchingSubstring(content, query);
+  // If either the title or the content matches the query than return true, either return false: the post does not
+  // pass the check.
+  if (matchingTitle != null || matchingContent != null)
+    return {valid: true, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
+  else
+    return {valid: false, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
 }
 
 // Highlight substring matching the query.
@@ -405,6 +442,13 @@ function debounce(func, delay) {
     }, delay);
   };
 }
+
+// Wait for all posts to be cached before enabling input field.
+cachePosts().then(result => {
+  document.getElementById("search-input").disabled = false;
+  document.getElementById("lang-it-sel").disabled = false;
+  document.getElementById("lang-en-sel").disabled = false;
+});
 
 // Search after every keypress.
 document.getElementById("search-input").addEventListener("input", debounce(function() {
