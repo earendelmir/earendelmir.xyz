@@ -53,8 +53,10 @@
       cursor: pointer;
       accent-color: var(--color-accent);
     }
+    input[type="checkbox"]:disabled {
+      cursor: default;
+    }
     .checkbox-label {
-      cursor: pointer;
       margin-left: 0.2em;
       margin-right: 1.2rem;
     }
@@ -95,10 +97,14 @@
       font-size: 0.9em;
       margin-bottom: 0.8rem;
     }
+    .posts-list li p::before {
+      content: "...";
+    }
     /* Search query matching text. */
     .highlight {
       background-color: var(--color-highlight-bg);
       font-weight: bold;
+      padding: 0 0.16em;
     }
     /* Leave space between end of tag list and title of next tag list. */
     section:not(:first-of-type) {
@@ -121,8 +127,9 @@
 
   <main>
     <h1>Archive</h1>
+    <p>You might be looking for the <a href="/archive/chronological">chronologically ordered</a> list.</p>
     <p>Browse through all my posts, and filter them with tags, language, and search queries.<br>
-      You might be looking for the <a href="/archive/chronological">chronologically ordered</a> list.</p>
+    The first search may take a little extra time to complete.</p>
 
     <div class="filters-div">
       <noscript><p>Javascript is required for these filters to work.</p></noscript>
@@ -278,30 +285,11 @@
 </body>
 
 <script>
-const postCache = {};
+const postCache = JSON.parse(localStorage.getItem("postCache")) || {};
 
-async function cachePosts() {
-  var tags = document.querySelectorAll("#tags-list li");
-  // For each tag, get list of posts.
-  for (tag of tags) {
-    var tagName = tag.id.substring(4);
-    var posts = document.querySelectorAll(`#list-${tagName} li`);
-    // For each post, cache its contente.
-    for (post of posts) {
-      var url = post.getElementsByTagName("a")[0].getAttribute("href") + ".html";
-      try {
-        // Get HTML document from URL.
-        const response = await fetch(url);
-        const html = await response.text();
-        const doc = new DOMParser().parseFromString(html, "text/html");
-        // Get post title and content.
-        title = doc.querySelector("title").innerText;
-        content = doc.getElementsByClassName("e-content")[0].innerText;
-        postCache[url] = {title: title, content: content};
-      }
-      catch (e) {}
-    }
-  }
+function disableLanguageSelectors(value) {
+  document.getElementById("lang-it-sel").disabled = value;
+  document.getElementById("lang-en-sel").disabled = value;
 }
 
 // Check whether the post matches the language query.
@@ -317,15 +305,21 @@ function getMatchingSubstring(string, query) {
   const matchIndex = string.toLowerCase().indexOf(query.toLowerCase());
   if (matchIndex == -1)
     return null;
-  const start = Math.max(0, matchIndex - 10);
-  const end = Math.min(string.length + 1, matchIndex + query.length + 100);
-  return string.substring(start, end);
+  const len = string.length;
+  const start = len < 120 ? 0 : Math.max(0, matchIndex - 10);
+  const end = len < 120 ? len + 1 : Math.min(len + 1, matchIndex + query.length + 150);
+  return string.substring(start, end).trim();
 }
 
 // Check whether the post matches the search field query.
 async function isSearch(post, query) {
-  var url = post.getElementsByTagName("a")[0].getAttribute("href") + ".html";
+  // If query string is empty than every post passes this check. But no post has any matching text, not in the title
+  // neither in its content.
+  if (query.length == 0)
+    return {valid: true, title: post.getElementsByTagName("span")[0].innerText, matchingTitle: null, matchingContent: null};
+  var url = "https://raw.githubusercontent.com/earendelmir/earendelmir.xyz/main/docs" + post.getElementsByTagName("a")[0].getAttribute("href") + ".html";
   var title, content;
+  // Item might be already cached.
   if (postCache[url]) {
     title = postCache[url].title;
     content = postCache[url].content;
@@ -340,17 +334,15 @@ async function isSearch(post, query) {
       // Get post title and content.
       title = doc.querySelector("title").innerText;
       content = doc.getElementsByClassName("e-content")[0].innerText;
+      // Save cache.
       postCache[url] = {title: title, content: content};
+      localStorage.setItem("postCache", JSON.stringify(postCache));
     }
     catch (e) {
       // If post can't be retrieved let's assume it matches.
       return {valid: true, title: null, matchingTitle: null, matchingContent: null};
     }
   }
-  // If query string is empty than every post passes this check. But no post has any matching text, not in the title
-  // neither in its content.
-  if (query.length == 0)
-    return {valid: true, title: title, matchingTitle: null, matchingContent: null};
   // Find piece of post title that matches query (to be highlighted).
   const matchingTitle = getMatchingSubstring(title, query);
   const matchingContent = getMatchingSubstring(content, query);
@@ -369,10 +361,12 @@ function highlightMatches(string, query) {
 }
 
 async function filterPosts() {
+  disableLanguageSelectors(true);
   var query = document.getElementById("search-input").value.trim();
   var tags = document.querySelectorAll("#tags-list li");
   var numTags = tags.length;
   var numTagsHidden = 0;
+
   // For each tag, get list of posts.
   for (tag of tags) {
     var tagName = tag.id.substring(4);
@@ -401,13 +395,13 @@ async function filterPosts() {
       count += 1;
       // Highlight or reset post title.
       if (ret.matchingTitle != null)
-        post.getElementsByTagName("a")[0].innerHTML = highlightMatches(ret.matchingTitle, query);
+        post.getElementsByTagName("span")[0].innerHTML = highlightMatches(ret.matchingTitle, query);
       else
-        post.getElementsByTagName("a")[0].innerHTML = ret.title;
+        post.getElementsByTagName("span")[0].innerHTML = ret.title;
       // Highlight or delete post content.
       if (ret.matchingContent != null) {
         const p = document.createElement("p");
-        p.innerHTML = "..." + highlightMatches(ret.matchingContent, query) + "...";
+        p.innerHTML = highlightMatches(ret.matchingContent, query);
         post.appendChild(p);
       } else
         try { post.removeChild(post.getElementsByTagName("p")[0]); } catch (e) {}
@@ -425,11 +419,13 @@ async function filterPosts() {
       tag.querySelector("span").textContent = "(" + count + ")";
     }
   }
+
   // Show "No result" text if all tags have been hidden.
   if (numTagsHidden == numTags)
     document.getElementById("no-result-p").style.display = "";
   else
     document.getElementById("no-result-p").style.display = "none";
+  disableLanguageSelectors(false);
 }
 
 // To delay search function: wait for user to stop typing before searching.
@@ -443,12 +439,9 @@ function debounce(func, delay) {
   };
 }
 
-// Wait for all posts to be cached before enabling input field.
-cachePosts().then(result => {
-  document.getElementById("search-input").disabled = false;
-  document.getElementById("lang-it-sel").disabled = false;
-  document.getElementById("lang-en-sel").disabled = false;
-});
+// Enable input fields.
+document.getElementById("search-input").disabled = false;
+disableLanguageSelectors(false);
 
 // Search after every keypress.
 document.getElementById("search-input").addEventListener("input", debounce(function() {
