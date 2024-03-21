@@ -60,6 +60,31 @@
       margin-left: 0.2em;
       margin-right: 1.2rem;
     }
+    #searching-div {
+      display: none;
+      margin: 1.2rem 0 2rem;
+    }
+    #searching-spinner {
+      border: 4px solid var(--color-background);
+      border-radius: 50%;
+      border-top: 4px solid var(--color-grey);
+      width: 1em;
+      height: 1em;
+      margin: 0.3rem 0.8rem 0 0;
+      -webkit-animation: spin 1.2s linear infinite;
+      animation: spin 1.2s linear infinite;
+    }
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    #no-result-p {
+      margin-top: 1.2rem;
+    }
 
     #tags-list {
       list-style: none;
@@ -104,7 +129,6 @@
     .highlight {
       background-color: var(--color-highlight-bg);
       font-weight: bold;
-      padding: 0 0.16em;
     }
     /* Leave space between end of tag list and title of next tag list. */
     section:not(:first-of-type) {
@@ -136,6 +160,10 @@
       <input disabled type="text" maxlength="50" placeholder="Search..." autocomplete="off" id="search-input">
       <input disabled type="checkbox" id="lang-it-sel" value="lang-it-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-it-sel">it</label>
       <input disabled type="checkbox" id="lang-en-sel" value="lang-en-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-en-sel">en</label>
+      <div id="searching-div">
+        <div id="searching-spinner"></div><p>Searching...</p>
+      </div>
+      <p id="no-result-p" style="display: none;">No results.</p>
       <ul id="tags-list">
         <li id="tag-books"><a href="#books">#books</a> <span>(2)</span></li>
         <li id="tag-development"><a href="#development">#development</a> <span>(6)</span></li>
@@ -156,7 +184,6 @@
         <a class="u-email" rel="me" href="mailto:earendelmir@proton.me">earendelmir@proton.me</a>
       </div>
 
-      <p id="no-result-p" style="display: none;">No results.</p>
       <section>
       <h2 id="books">#books</h2>
       <ul class="list posts-list" id="list-books">
@@ -326,7 +353,6 @@ async function isSearch(post, query) {
   }
   else {
     try {
-      console.log("Caching post:", url);
       // Get HTML document from URL.
       const response = await fetch(url);
       const html = await response.text();
@@ -362,6 +388,9 @@ function highlightMatches(string, query) {
 
 async function filterPosts() {
   disableLanguageSelectors(true);
+  // Show spinner and "Searching..."
+  document.getElementById("searching-div").style.display = "flex";
+
   var query = document.getElementById("search-input").value.trim();
   var tags = document.querySelectorAll("#tags-list li");
   var numTags = tags.length;
@@ -420,12 +449,14 @@ async function filterPosts() {
     }
   }
 
+  disableLanguageSelectors(false);
+  // Hide spinner and "Searching..."
+  document.getElementById("searching-div").style.display = "none";
   // Show "No result" text if all tags have been hidden.
   if (numTagsHidden == numTags)
     document.getElementById("no-result-p").style.display = "";
   else
     document.getElementById("no-result-p").style.display = "none";
-  disableLanguageSelectors(false);
 }
 
 // To delay search function: wait for user to stop typing before searching.
