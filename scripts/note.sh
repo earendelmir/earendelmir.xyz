@@ -28,11 +28,22 @@ _ask_lang() {
         read -rp "Lang: " lang
     done
     case "${lang,,}" in
-        it | ita*) lang_def=" lang=\"it\"" ;;
-        en | eng*) lang_def="" ;;
+        it | ita*) lang=it ;;
+        en | eng*) lang=en ;;
         *) echo "Language $lang not valid. Either IT or EN." ; unset lang ;;
     esac
     if [[ -z $lang ]]; then _ask_lang ; fi
+}
+
+# Find available filename for a new note, based on current date and counter.
+# Output:
+#   filename: string
+_find_note_filename() {
+    local date_for_filename="$(date +%y%m%d)" i=1
+    while [[ -f "notes/permalinks/${date_for_filename}${i}.html" ]]; do
+        i=$((i+1))
+    done
+    echo "notes/permalinks/${date_for_filename}${i}"
 }
 
 # Add new note on top of page.
@@ -53,7 +64,7 @@ _add_note_on_top() {
 #   Integer
 _count_notes_in_file() {
     file="$1"
-    grep -c "e-content" "$file"
+    grep -c "h-entry" "$file"
 }
 
 # Delete last note of page
@@ -63,8 +74,7 @@ _count_notes_in_file() {
 #   - note: HTML code stored in _FILE_LASTNOTE
 _cut_last_note() {
     file="$1"
-    begin_line_nr="$(grep -n "e-content" "$file" | tail -1 | cut -d':' -f1)"
-    begin_line_nr=$((begin_line_nr-2))
+    begin_line_nr="$(grep -n "h-entry" "$file" | tail -1 | cut -d':' -f1)"
     end_line_nr="$(grep -n "dt-published" "$file" | tail -1 | cut -d':' -f1)"
     end_line_nr=$((end_line_nr+1))
     sed -n "$begin_line_nr"','"$end_line_nr"'p' "$file" > "$_FILE_LASTNOTE"
@@ -75,8 +85,20 @@ _cut_last_note() {
 # Move into website's root folder.
 pushd "${0%/*}/../docs" &>/dev/null
 
+# Get current date.
+# Use English language to get first 3 letters of current month (%b).
+LANG=en_us_8859_1
+curr_datetime=$(date +%Y-%m-%d)
+curr_date=$(date +%d' '%b' '%Y)
+curr_date=($curr_date)
+curr_date=$(echo ${curr_date[@]^})
+
 readonly _FILE_NOTES="notes/index.html"
-readonly _FILE_NEWNOTE="/tmp/newnote.html"
+readonly _FILE_EDITOR="/tmp/newnote.txt"
+readonly _FILENAME_NEWNOTE="$(_find_note_filename)"
+readonly _FILE_NEWNOTE="$_FILENAME_NEWNOTE.html"
+readonly _FILE_TMPNOTE_FOR_NOTES="/tmp/note_for_notes.html"
+readonly _FILE_DESCRIPTION="/tmp/description.txt"
 readonly _FILE_LASTNOTE="/tmp/lastnote.html"
 readonly _EDITOR="code -w"
 readonly _MAX_NUM=20  # Maximum number of notes in every page.
@@ -98,32 +120,48 @@ done
 
 _ask_lang
 
-# Get current date.
-# Use English language to get first 3 letters of current month (%b).
-LANG=en_us_8859_1
-curr_datetime=$(date +%Y-%m-%d)
-curr_date=$(date +%d' '%b' '%Y)
-curr_date=($curr_date)
-curr_date=$(echo ${curr_date[@]^})
+# Ask user to write note's content.
+$_EDITOR "$_FILE_EDITOR"
+[[ ! -f "$_FILE_EDITOR" ]] && _die "File not found."
+[[ ! -s "$_FILE_EDITOR" ]] && _die "File empty."
+# Replace newlines with spaces and remove last space.
+content="$(< "$_FILE_EDITOR" tr '\n' ' ')"
+content="${content%"${content##*[![:space:]]}"}"
+
+# Let user edit string as meta description.
+echo "${content:0:120}..." > "$_FILE_DESCRIPTION"
+echo "Press ENTER to edit meta description"
+read -rp "Keep it under 160 chars ... "
+$_EDITOR "$_FILE_DESCRIPTION"
+# Replace newlines with spaces and remove last space.
+description="$(< "$_FILE_DESCRIPTION" tr '\n' ' ')"
+description="${description%"${description##*[![:space:]]}"}"
+printf "Your description — you can change it in the file:\n%s\n" "$description"
 
 # Write note in new file.
-echo $"        <div class=\"h-entry\">
-          <p class=\"e-content\"$lang_def></p>
-          <time class=\"dt-published\" datetime=\"$curr_datetime\">$curr_date</time>
-        </div>" > "$_FILE_NEWNOTE"
-echo "To abort press CTRL+C"
-$_EDITOR "$_FILE_NEWNOTE"
+cp skeleton_note.html "$_FILE_NEWNOTE"
+# Set note url.
+sed "s|NOTEFILENAME|$_FILENAME_NEWNOTE|g" -i "$_FILE_NEWNOTE"
+# Set language.
+sed "s|NOTELANG|$lang|g" -i "$_FILE_NEWNOTE"
+# Set meta description.
+sed "s|NOTEDESCRIPTION|$description|g" -i "$_FILE_NEWNOTE"
+# Set publication date.
+sed "s/YYYY-MM-DD/$curr_datetime/g" -i "$_FILE_NEWNOTE"
+sed "s/DD MMMM YYYY/$curr_date/g" -i "$_FILE_NEWNOTE"
+# Set content.
+sed "s|NOTECONTENT|$(printf '%s' "$content" | sed 's/[\/&]/\\&/g')|g" -i "$_FILE_NEWNOTE"
 
-[[ ! -f "$_FILE_NEWNOTE" ]] && _die "Note file not found."
-[[ ! -s "$_FILE_NEWNOTE" ]] && _die "Note file empty."
-if grep -q "e-content\"$lang_def></p>" "$_FILE_NEWNOTE"; then
-    _die "Note not written. Abort."
-fi
+
+echo $"        <a href=\"/$_FILENAME_NEWNOTE\" class=\"h-entry\">
+          <p class=\"e-content\" lang=\"$lang\">$content</p>
+          <time class=\"dt-published\" datetime=\"$curr_datetime\">$curr_date</time>
+        </a>" > "$_FILE_TMPNOTE_FOR_NOTES"
 
 # Add new note on top of main notes page.
 page="$_FILE_NOTES"
 page_num=1
-_add_note_on_top "$_FILE_NEWNOTE" "$page"
+_add_note_on_top "$_FILE_TMPNOTE_FOR_NOTES" "$page"
 echo "Added note."
 # If current page contains more than _MAX_NUM notes, move last one to top of
 # next page. Iterate until all pages have correct number.

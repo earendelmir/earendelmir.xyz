@@ -17,6 +17,7 @@ Disallow: /404.html
 Disallow: /feed.xml
 Disallow: /netlify.toml
 Disallow: /skeleton.html
+Disallow: /skeleton_note.html
 Disallow: /skeleton_notes.html
 Disallow: /template.html
 Disallow: /*.md$

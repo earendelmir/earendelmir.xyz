@@ -1,0 +1,19 @@
+.e-content {
+  margin-top: 2em;
+  position: relative;
+}
+
+time {
+  font-style: italic;
+  font-size: smaller;
+  color: var(--color-text2);
+  margin-top: 2rem;
+  position: absolute;
+  right: 0;
+}
+
+@media screen and (max-width: 500px) {
+  time {
+    right: auto;
+  }
+}

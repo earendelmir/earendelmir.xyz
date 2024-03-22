@@ -1,8 +1,18 @@
 .h-entry {
   margin: 0;
-  padding: 1.2em;
+  padding: 2.8rem 2.4rem;
   display: grid;
   border: solid var(--color-note-border) 1px;
+  transition: transform .05s;
+}
+.h-entry:hover,
+.h-entry:focus,
+.h-entry:visited {
+  text-decoration: none;
+}
+.h-entry:hover {
+  cursor: pointer;
+  /* transform: scale(1.05); */
 }
 .h-entry time {
   font-style: italic;
