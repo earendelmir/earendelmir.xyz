@@ -1,24 +1,18 @@
 .h-entry {
   margin: 0;
-  padding: 2.8rem 2.4rem;
+  padding: 2.8rem 2.4rem 2rem;
   display: grid;
   border: solid var(--color-note-border) 1px;
-  transition: transform .05s;
 }
-.h-entry:hover,
-.h-entry:focus,
-.h-entry:visited {
-  text-decoration: none;
-}
-.h-entry:hover {
-  cursor: pointer;
-  /* transform: scale(1.05); */
-}
-.h-entry time {
-  font-style: italic;
-  font-size: smaller;
-  color: var(--color-text2);
+.h-entry .info {
   margin-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+.h-entry .info time {
+  font-size: smaller;
+  font-style: italic;
+  color: var(--color-text2);
   text-align: right;
 }
 @media screen and (max-width: 450px) {
