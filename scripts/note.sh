@@ -40,10 +40,10 @@ _ask_lang() {
 #   filename: string
 _find_note_filename() {
     local date_for_filename="$(date +%y%m%d)" i=1
-    while [[ -f "notes/permalinks/${date_for_filename}${i}.html" ]]; do
+    while [[ -f "notes/permalink/${date_for_filename}${i}.html" ]]; do
         i=$((i+1))
     done
-    echo "notes/permalinks/${date_for_filename}${i}"
+    echo "notes/permalink/${date_for_filename}${i}"
 }
 
 # Add new note on top of page.
@@ -101,7 +101,7 @@ readonly _FILE_TMPNOTE_FOR_NOTES="/tmp/note_for_notes.html"
 readonly _FILE_DESCRIPTION="/tmp/description.txt"
 readonly _FILE_LASTNOTE="/tmp/lastnote.html"
 readonly _EDITOR="code -w"
-readonly _MAX_NUM=20  # Maximum number of notes in every page.
+readonly _MAX_NUM=15  # Maximum number of notes in every page.
 
 # Parse command-line arguments.
 while [[ -n $1 ]]; do
@@ -153,10 +153,13 @@ sed "s/DD MMMM YYYY/$curr_date/g" -i "$_FILE_NEWNOTE"
 sed "s|NOTECONTENT|$(printf '%s' "$content" | sed 's/[\/&]/\\&/g')|g" -i "$_FILE_NEWNOTE"
 
 
-echo $"        <a href=\"/$_FILENAME_NEWNOTE\" class=\"h-entry\">
+echo $"        <div class=\"h-entry\">
           <p class=\"e-content\" lang=\"$lang\">$content</p>
-          <time class=\"dt-published\" datetime=\"$curr_datetime\">$curr_date</time>
-        </a>" > "$_FILE_TMPNOTE_FOR_NOTES"
+          <div>
+            <a href=\"/$_FILENAME_NEWNOTE\" aria-label=\"Permalink to this note\" title=\"Permalink to this note\">↪︎</a>
+            <time class=\"dt-published\" datetime=\"$curr_datetime\">$curr_date</time>
+          </div>
+        </div>" > "$_FILE_TMPNOTE_FOR_NOTES"
 
 # Add new note on top of main notes page.
 page="$_FILE_NOTES"

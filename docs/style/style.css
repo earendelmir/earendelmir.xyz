@@ -149,6 +149,7 @@ header#banner nav a:not(:last-of-type) {
 }
 header#banner nav a#navbar-curr-page {
   text-decoration: none;
+  cursor: default;
 }
 
 
@@ -183,10 +184,6 @@ a:visited,
 a[target="_blank"]:visited::after {
   text-decoration: none;
   text-decoration-thickness: 1px;
-}
-
-#navbar-curr-page {
-  cursor: default;
 }
 
 
