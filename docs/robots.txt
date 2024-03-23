@@ -1,15 +1,15 @@
 User-agent: *
 Disallow: /.vscode/
-Disallow: /books/
+Disallow: /bookmarks/
 Disallow: /contact/
 Disallow: /data/
 Disallow: /favicon/
 Disallow: /favourites/
 Disallow: /gallery/
 Disallow: /images/
-Disallow: /links/
 Disallow: /more/
 Disallow: /notes/
+Disallow: /readings/
 Disallow: /scripts/
 Disallow: /style/
 Disallow: /.htaccess
