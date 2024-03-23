@@ -76,7 +76,7 @@ _cut_last_note() {
     file="$1"
     begin_line_nr="$(grep -n "h-entry" "$file" | tail -1 | cut -d':' -f1)"
     end_line_nr="$(grep -n "dt-published" "$file" | tail -1 | cut -d':' -f1)"
-    end_line_nr=$((end_line_nr+1))
+    end_line_nr=$((end_line_nr+2))
     sed -n "$begin_line_nr"','"$end_line_nr"'p' "$file" > "$_FILE_LASTNOTE"
     sed -i "$begin_line_nr"','"$end_line_nr"'d' "$file" &>/dev/null
 }
