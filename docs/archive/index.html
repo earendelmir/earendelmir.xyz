@@ -167,7 +167,7 @@
       <ul id="tags-list">
         <li id="tag-books"><a href="#books">#books</a> <span>(2)</span></li>
         <li id="tag-development"><a href="#development">#development</a> <span>(6)</span></li>
-        <li id="tag-journaling"><a href="#journaling">#journaling</a> <span>(5)</span></li>
+        <li id="tag-journaling"><a href="#journaling">#journaling</a> <span>(6)</span></li>
         <li id="tag-miscellany"><a href="#miscellany">#miscellany</a> <span>(9)</span></li>
         <li id="tag-music"><a href="#music">#music</a> <span>(10)</span></li>
         <li id="tag-personal"><a href="#personal">#personal</a> <span>(9)</span></li>
@@ -207,6 +207,7 @@
       <section>
       <h2 id="journaling">#journaling</h2>
       <ul class="list posts-list" id="list-journaling">
+        <li class="h-entry en"><a class="u-url" href="/archive/2024/16"><span class="p-name" lang="en">I cried watching "The Iron Claw"</span></a></li>
         <li class="h-entry en"><a class="u-url" href="/archive/2024/7"><span class="p-name" lang="en">The best sleep I have ever had (or remember having)</span></a></li>
         <li class="h-entry it"><a class="u-url" href="/archive/2024/2"><span class="p-name" lang="it">Vite sfiorate</span></a></li>
         <li class="h-entry en"><a class="u-url" href="/archive/2023/41"><span class="p-name" lang="en">There's music coming from up there</span></a></li>
@@ -366,7 +367,9 @@ async function isSearch(post, query) {
     }
     catch (e) {
       // If post can't be retrieved let's assume it matches.
-      return {valid: true, title: null, matchingTitle: null, matchingContent: null};
+      title = post.getElementsByTagName("span")[0].innerText;
+      const matchingTitle = getMatchingSubstring(title, query)
+      return {valid: true, title: title, matchingTitle: matchingTitle, matchingContent: null};
     }
   }
   // Find piece of post title that matches query (to be highlighted).

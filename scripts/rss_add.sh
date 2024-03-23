@@ -141,7 +141,7 @@ _print_ok "Descrition:\n$descr"
 descr+="<br><hr><p>Read the full article <a href=\"https://earendelmir.xyz/$filename\">here</a>, or toggle <i>full page view</i> on your reader.</p><p>Want to get in touch? Reply via <a href=\"mailto:earendelmir@proton.me\">email</a>.</p>"
 
 # Add new item.
-line="\ \ \ \ <item>\n\ \ \ \ \ \ <link>https://earendelmir.xyz/$filename</link>\n\ \ \ \ \ \ <guid isPermaLink=\"false\">$fname</guid>\n\ \ \ \ \ \ <title>$title</title>\n\ \ \ \ \ \ <description><![CDATA[$descr]]></description>\n\ \ \ \ \ \ <pubDate>$pubDate</pubDate>\n\ \ \ \ </item>\n"
+line="\ \ \ \ <item>\n\ \ \ \ \ \ <link>https://earendelmir.xyz/$filename</link>\n\ \ \ \ \ \ <guid isPermaLink=\"false\">$fname</guid>\n\ \ \ \ \ \ <author>earendelmir@proton.me</author>\n\ \ \ \ \ \ <title>$title</title>\n\ \ \ \ \ \ <description><![CDATA[$descr]]></description>\n\ \ \ \ \ \ <pubDate>$pubDate</pubDate>\n\ \ \ \ </item>\n"
 line_nr="$(grep -n -m 1 "<item>" "$_FILE_RSS_FEED" | cut -d':' -f1)"
 sed -i "${line_nr}i\\${line}" "$_FILE_RSS_FEED"
 __ok_add=1
