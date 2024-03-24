@@ -5,21 +5,21 @@
   --font-monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   --image-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
   --icon-search: url("/images/icon-search-light.svg");
-  --color-background: #F8F9FA;
-  --color-code-bg: #F8F9FA;
+  --color-background: #F0F2F5;
+  --color-code-bg: #F0F2F5;
   --color-code-fg: #2F3337;
   --color-text: #212529;
-  --color-text2: #616C75;
-  --color-text2-underline: #616C75AA;
+  --color-text2: #5F6971;
+  --color-text2-underline: #5F6971AA;
   --color-accent: #D2373C;
-  --color-highlight-bg: #FBBABC;
-  --color-border: #6C757D;
-  --color-note-border: #DEE2E6;
-  --color-note-border: #6C757D88;
-  --color-sticky-title-underline: #DEE2E6;
-  --color-hr: #DEE2E6;
-  --color-placeholder: #A3ACB5;
-  --color-footer-hr: #A3ACB5;
+  --color-highlight-bg: #FDC7C8;
+  --color-border: #6A727A;
+  --color-note-border: #D7DCE1;
+  --color-note-border: #6A727A88;
+  --color-sticky-title-underline: #D7DCE1;
+  --color-hr: #D7DCE1;
+  --color-placeholder: #9CA6B0;
+  --color-footer-hr: #9CA6B0;
 }
 @media (prefers-color-scheme: dark) {
   :root {

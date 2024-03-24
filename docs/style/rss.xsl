@@ -21,7 +21,7 @@
         <meta property="og:url" content="https://earendelmir.xyz/feed.xml" />
         <meta property="twitter:card" content="summary" />
 
-        <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#F0F2F5" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)" />
         <link rel="stylesheet" href="/style/style.css" />
 
