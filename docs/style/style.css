@@ -11,7 +11,7 @@
   --color-text: #212529;
   --color-text2: #5F6971;
   --color-text2-underline: #5F6971AA;
-  --color-accent: #D2373C;
+  --color-accent: #D03136;
   --color-highlight-bg: #FDC7C8;
   --color-border: #6A727A;
   --color-note-border: #D7DCE1;
@@ -127,10 +127,10 @@ hr {
 header#banner {
   display: flex;
   justify-content: space-between;
-  margin: 1.2rem 0 2.4rem;
+  margin: 1.6rem 0 2.8rem;
 }
 header#banner h1 {
-  font-size: 1.476em;
+  font-size: 1.3em;
   margin: 0;
 }
 header#banner nav {
@@ -266,6 +266,12 @@ footer a {
 @media screen and (min-width:770px) {
   body {
     width: 750px;
+  }
+  header#banner h1 {
+    line-height: 1;
+  }
+  header#banner nav a {
+    line-height: 0;
   }
 }
 
