@@ -12,6 +12,15 @@
     <ttl>1440</ttl>
 
     <item>
+      <link>https://earendelmir.xyz/archive/2024/17</link>
+      <guid isPermaLink="false">2024-17</guid>
+      <author>earendelmir@proton.me</author>
+      <title>Il primo vero sole</title>
+      <description><![CDATA[<p>Oggi è il primo giorno di vero sole primaverile. Che gioia!</p>  <p>Ieri ho provato a fare i brownies. Non sono venuti affatto male.<br> Avevo visto una ricetta assurda: solo uova, farina, banana schiacciata e cacao in polvere, due minuti in microonde ed erano pronti. Era troppo bello per essere  [...]</p><br><hr><p>Read the full article <a href="https://earendelmir.xyz/archive/2024/17">here</a>, or toggle <i>full page view</i> on your reader.</p><p>Want to get in touch? Reach out via <a href="mailto:earendelmir@proton.me">email</a>.</p>]]></description>
+      <pubDate>Mon, 25 Mar 2024 10:51:58 +0100</pubDate>
+    </item>
+
+    <item>
       <link>https://earendelmir.xyz/archive/2024/16</link>
       <guid isPermaLink="false">2024-16</guid>
       <author>earendelmir@proton.me</author>
@@ -182,14 +191,6 @@
       <pubDate>Thu, 30 Nov 2023 09:00:00 +0100</pubDate>
     </item>
 
-    <item>
-      <link>https://earendelmir.xyz/archive/2023/44</link>
-      <guid isPermaLink="false">2023-44</guid>
-      <author>earendelmir@proton.me</author>
-      <title>A bash script for random quote on shell login</title>
-      <description><![CDATA[<p>With a simple shell script it is possible to print a random quote every time a new terminal is launched.</p> <p>For this to work I assume the existence of a file containing the pool of quotes to choose from.<br> Every line in the file corresponds to a different quote; to specify that one has to w [...]</p><br><hr><p>Read the full article <a href="https://earendelmir.xyz/archive/2023/44">here</a>, or toggle <i>full page view</i> on your reader.</p><p>Want to get in touch? Reach out via <a href="mailto:earendelmir@proton.me">email</a>.</p>]]></description>
-      <pubDate>Tue, 28 Nov 2023 09:00:00 +0100</pubDate>
-    </item>
 
   </channel>
 </rss>
