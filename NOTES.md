@@ -153,7 +153,7 @@ https://coolors.co/palette/f8f9fa-e9ecef-dee2e6-ced4da-adb5bd-6c757d-495057-343a
 
 ### Poppy
 
-+ Light #D03136
++ Light #D2373C
 + Dark  #DF9568
 
 ### Blue & Golden (new)
