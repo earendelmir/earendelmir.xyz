@@ -127,7 +127,7 @@ hr {
 header#banner {
   display: flex;
   justify-content: space-between;
-  margin: 1.6rem 0 2.8rem;
+  margin: 1.6rem 0 4rem;
 }
 header#banner h1 {
   font-size: 1.3em;
@@ -278,7 +278,7 @@ footer a {
 /* ***** HEADER BAR ON MULTIPLE LINES IN QUASI MOBILE VERSION ***** */
 @media screen and (max-width:600px) {
   header#banner {
-    margin-top: 0.4rem;
+    margin: 0.4rem 0 2.8rem;
     display: block;
   }
 }
