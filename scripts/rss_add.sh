@@ -14,6 +14,22 @@ _print_ok() {
 _print_err() {
     printf "\e[1;31m✗ \e[0m%b\n" "$1"
 }
+# Print RSS item description by highlighting HTML elements in it.
+_print_descr() {
+    print_html_bold=$(cat <<EOF
+import re
+string = "$1"
+output = ""
+start = 0
+for match in re.finditer(r'<([^>]*)>', string):
+  output += string[start:match.start()] + "\033[1;33m<" + match.group(1) + ">\033[0m"
+  start = match.end()
+output += string[start:]
+print(output)
+EOF
+    )
+    printf "%s\n" "$(python3 -c "$print_html_bold")"
+}
 _exit() {
     popd &>/dev/null || true
     exit $1
@@ -137,7 +153,7 @@ if (( length > N )); then
     descr="${descr::N} [...]</p>"
 fi
 __ok_description=1
-_print_ok "Descrition:\n$descr"
+_print_ok "Descrition:" ; _print_descr "$descr"
 descr+="<br><hr><p>Read the full article <a href=\"https://earendelmir.xyz/$filename\">here</a>, or toggle <i>full page view</i> on your reader.</p><p>Want to get in touch? Reach out via <a href=\"mailto:earendelmir@proton.me\">email</a>.</p>"
 
 # Add new item.

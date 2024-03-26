@@ -32,9 +32,10 @@
     --color-placeholder: #89949D;
     --color-text2-underline: #89949DDD;
     --color-accent: #DF9568;
+    /* --color-accent: #737ADE; */
+    /* --color-accent: #747CEC; */
     /* --color-accent: #6AA0D6; */
     /* --color-accent: #6EABE8; */
-    /* --color-accent: #E26D5A; */
     /* --color-accent: #DC6BAD; */
     /* --color-accent: #4fa8e2; */
     --color-highlight-bg: #502205;
@@ -267,11 +268,8 @@ footer a {
   body {
     width: 750px;
   }
-  header#banner h1 {
+  header#banner {
     line-height: 1;
-  }
-  header#banner nav a {
-    line-height: 0;
   }
 }
 

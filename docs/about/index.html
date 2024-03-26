@@ -152,8 +152,8 @@
 
     <h2>Contacts and profiles</h2>
     <p>Feel free to email me at <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;</a>
-    for a chat, argument, or any questions you might have. Here's my <a href="/data/earendelmir.asc">GPG key</a> — if you know,
-    you know.<br>
+    for a chat, argument, or any questions you might have (please, use the plaintext format).
+    Here's my <a href="/data/earendelmir.asc">GPG key</a>, in case you want to share some secrets with me.<br>
     You can also subscribe to the blog's <a href="/feed.xml">RSS feed</a> to stay updated on my writing.<br>
     That's it! No socials, no other profiles or accounts anywhere else — except for <a href="https://github.com/earendelmir">GitHub</a>,
     but that's solely for hosting the code for this site.</p>
@@ -219,6 +219,14 @@
 
 <script>
 const quotes = [
+  {"author": "C.S. Lewis", "text": "You can never get a cup of tea large enough or a book long enough to suit me." },
+  {"author": "C.S. Lewis", "text": "Some day you will be old enough to start reading fairy tales again." },
+  {"author": "C.S. Lewis", "text": "Friendship is born at the moment when one man says to another 'What! You too? I thought that no one but myself...'" },
+  {"author": "C.S. Lewis", "text": "Friendship is unnecessary, like philosophy, like art.... It has no survival value; rather it is one of those things which give value to survival." },
+  {"author": "C.S. Lewis", "text": "Eating and reading are two pleasures that combine admirably." },
+  {"author": "C.S. Lewis", "text": "I can't imagine a man really enjoying a book and reading it only once." },
+  {"author": "C.S. Lewis", "text": "Crying is all right in its way while it lasts. But you have to stop sooner or later, and then you still have to decide what to do." },
+  {"author": "C.S. Lewis", "text": "It is a good rule after reading a new book, never to allow yourself another new one till you have read an old one in between." },
   {"author": "Carlos Ruiz Zafón", "text": "Books are mirrors: you only see in them what you already have inside you." },
   {"author": "Carlos Ruiz Zafón", "text": "Fools talk, cowards are silent, wise men listen." },
   {"author": "Carlos Ruiz Zafón", "text": "Every book has a soul. The soul of the person who wrote it and of those who read it and lived and dreamed with it. Every time a book changes hands, every time someone runs his eyes down its pages, its spirit grows and strengthens." },
@@ -262,11 +270,9 @@ const quotes = [
   {"author": "J.R.R. Tolkien", "text": "Time flows ever, from the first note to the last chord." },
   {"author": "J.R.R. Tolkien", "text": "We are not bound for ever to the circles of the world, and beyond them is more than memory." },
   {"author": "J.R.R. Tolkien", "text": "Not all tears are an evil." },
-  {"author": "J.R.R. Tolkien", "text": "Use well the days." },
   {"author": "J.R.R. Tolkien", "text": "Never is too long a word." },
   {"author": "J.R.R. Tolkien", "text": "Pain and delight flow together and tears are the very wine of blessedness." },
   {"author": "J.R.R. Tolkien", "text": "It is not our part to master all the tides of the world, but to do what is in us for the succour of those years wherein we are set." },
-  {"author": "J.R.R. Tolkien", "text": "It's not always a misfortune being overlooked." },
   {"author": "J.R.R. Tolkien", "text": "For your own good do all that you may." },
   {"author": "J.R.R. Tolkien", "text": "Do not spoil the wonder with haste." },
   {"author": "J.R.R. Tolkien", "text": "Ifs are vain." },
@@ -289,7 +295,6 @@ const quotes = [
   {"author": "J.R.R. Tolkien", "text": "The world is indeed full of peril, and in it there are many dark places, but still there is much that is fair." },
   {"author": "J.R.R. Tolkien", "text": "Such is oft the course of deeds that move the wheels of the world: small hands do them because they must, while the eyes of the great are elsewhere." },
   {"author": "J.R.R. Tolkien", "text": "All that is gold does not glitter. Not all those who wander are lost." },
-  {"author": "J.R.R. Tolkien", "text": "Courage is found in unlikely places." },
   {"author": "J.R.R. Tolkien", "text": "The wide world is all about you: you can fence yourselves in, but you cannot forever fence it out." },
   {"author": "J.R.R. Tolkien", "text": "You step into the Road, and if you don't keep your feet, there is no knowing where you might be swept off to." },
   {"author": "J.R.R. Tolkien", "text": "If more of us valued food and cheer and song above hoarded gold, it would be a merrier world." },
@@ -298,8 +303,6 @@ const quotes = [
   {"author": "J.R.R. Tolkien", "text": "Let the unseen days be. Today is more than enough." },
   {"author": "J.R.R. Tolkien", "text": "All we have to decide is what to do with the time that is given us." },
   {"author": "J.R.R. Tolkien", "text": "And he took her in his arms and kissed her under the sunlit sky, and he cared not that they stood high upon the walls in the sight of many." },
-  {"author": "J.R.R. Tolkien", "text": "Moonlight drowns out all but the brightest stars." },
-  {"author": "J.R.R. Tolkien", "text": "Even the smallest person can change the course of the future." },
   {"author": "J.R.R. Tolkien", "text": "And Morgoth came." },
   {"author": "J.R.R. Tolkien", "text": "'The Eagles! The Eagles!' he shouted. 'The Eagles are coming!'" },
   {"author": "J.R.R. Tolkien", "text": "Never laugh at live dragons." },
@@ -317,13 +320,19 @@ const quotes = [
   {"author": "Mary Shelley", "text": "I ought to be thy Adam, but I am rather the fallen angel..." },
   {"author": "Mary Shelley", "text": "How mutable are our feelings, and how strange is that clinging love we have of life even in the excess of misery!" },
   {"author": "Mary Shelley", "text": "I was benevolent and good; misery made me a fiend. Make me happy, and I shall again be virtuous." },
-  {"author": "Mary Shelley", "text": "'Man,'' I cried, 'how ignorant art thou in thy pride of wisdom!'" }
+  {"author": "Mary Shelley", "text": "'Man,'' I cried, 'how ignorant art thou in thy pride of wisdom!'" },
+  {"author": "William Shakespeare", "text": "I'll beat thee, but I would infect my hands." },
+  {"author": "William Shakespeare", "text": "Villain, I have done thy mother." },
+  {"author": "William Shakespeare", "text": "Would thou wert clean enough to spit upon!" },
+  {"author": "William Shakespeare", "text": "Thou whoreson zed, thou unnecessary letter!" },
 ]
 const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-document.getElementById("quote-text").innerText = randomQuote.text;
-document.getElementById("quote-author").innerText = randomQuote.author;
-document.getElementById("quote-text").style.display = "";
-document.getElementById("quote-author").style.display = "";
+var author = document.getElementById("quote-author");
+var text = document.getElementById("quote-text");
+author.innerText = randomQuote.author;
+author.style.display = "";
+text.innerText = randomQuote.text;
+text.style.display = "";
 </script>
 
 </html>
