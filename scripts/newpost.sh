@@ -74,6 +74,11 @@ _trap_exit() {
     else
         _print_err "Add page to TXT sitemap." ; _exit $1
     fi
+    if [[ -n $__ok_write_body ]]; then
+        true
+    else
+        _print_err "Write body from MD file." ; _exit $1
+    fi
     _exit $1
 }
 
@@ -91,7 +96,8 @@ Create new post file.
 --tags              List all existing tags and exit
 --title TITLE       Post title
 --lang LANG         Language in which the post is written; either it or en
---tag TAG           Post tag\n" "$(basename "$0")"
+--tag TAG           Post tag
+-f, --file FILE     Markdown file containing the post body.\n" "$(basename "$0")"
 }
 
 _list_tags() {
@@ -166,6 +172,10 @@ while [[ -n $1 ]]; do
         --tag)
             [[ -z $2 ]] && _die "No tag given."
             tag="$2"
+            shift ;;
+        -f | --file)
+            [[ -z $2 ]] && _die "No markdown file given."
+            mdfile="$2"
             shift ;;
         *)
             _die "Argument '$1' not recognized." ;;
@@ -295,6 +305,17 @@ _print_ok "Add page to XML sitemap."
 echo "https://earendelmir.xyz/$post_filename" >> "$_FILE_SITEMAP_TXT"
 __ok_add_sitemap_txt=1
 _print_ok "Add page to TXT sitemap."
+
+
+################################################################################
+###  WRITE BODY FROM MARKDOWN FILE
+################################################################################
+
+if [[ -n "$mdfile" ]]; then
+    ../scripts/marktohtml.sh -f "$mdfile" -q
+    __ok_write_body=1
+    _print_ok "Write body from MD file."
+fi
 
 
 __ok_all=1
