@@ -70,7 +70,7 @@ PATH_ARCHIVE = os.path.dirname(os.path.abspath(__file__)) + "/../docs/archive/"
 FILES = []
 for path, subdir, files in os.walk(PATH_ARCHIVE):
     for name in files:
-        if name in ["index.html", "chronological.html"]:
+        if name in ["index.html", "tags.html"]:
             continue
         FILES.append(os.path.join(path, name))
 

@@ -35,8 +35,8 @@ trap _exit EXIT
 # Move into website's root folder.
 pushd "${0%/*}/../docs" &>/dev/null
 
-readonly _FILE_ARCHIVE_CHRONOLOGICAL="archive/chronological.html"
 readonly _FILE_ARCHIVE="archive/index.html"
+readonly _FILE_ARCHIVE_TAGS="archive/tags.html"
 readonly _FILE_SITEMAP_XML="sitemap-xml.xml"
 readonly _FILE_SITEMAP_TXT="sitemap.txt"
 readonly _FILE_RSS="feed.xml"
@@ -56,7 +56,7 @@ esac
 
 for file in $(find archive/ -maxdepth 2 -type f | sort -Vr); do
     [[ "$file" == *"index.html" ]] && continue
-    [[ "$file" == *"chronological.html" ]] && continue
+    [[ "$file" == *"tags.html" ]] && continue
     fname="${file#*archive/}" ; fname="${fname%.html}"
     # Check for reading time inside post.
     if grep -q "NUM min" "$file" ; then
@@ -78,9 +78,9 @@ for file in $(find archive/ -maxdepth 2 -type f | sort -Vr); do
     if ! grep -q "$fname" "$_FILE_ARCHIVE" ; then
         _print_err "Post $fname not in /archive"
     fi
-    # Check post is in /archive/chronological page.
-    if ! grep -q "$fname" "$_FILE_ARCHIVE_CHRONOLOGICAL" ; then
-        _print_err "Post $fname not in /archive/chronological"
+    # Check post is in /archive/tags page.
+    if ! grep -q "$fname" "$_FILE_ARCHIVE_TAGS" ; then
+        _print_err "Post $fname not in /archive/tags"
     fi
     # Check post is in sitemap XML.
     if ! grep -q "$fname" "$_FILE_SITEMAP_XML" ; then
@@ -98,19 +98,19 @@ done
 ################################################################################
 
 # Get all lines declaring tags with their count.
-lines=$(grep "<li id=" "$_FILE_ARCHIVE")
+lines=$(grep "<li id=" "$_FILE_ARCHIVE_TAGS")
 while IFS= read -r line; do
     # Tag name.
     tag="$(echo "$line" | cut -c 21- | cut -d'"' -f1)"
     # Number of posts for current tag, declared in the filters section.
     num_tag=$(echo "$line" | cut -d'(' -f2 | cut -d')' -f1)
     # Count the number of entries in the list.
-    start_line_nr=$(grep -n "<h2 id=\"$tag\"" "$_FILE_ARCHIVE" | cut -d':' -f1)
+    start_line_nr=$(grep -n "<h2 id=\"$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)
     end_line_nr=$(awk -v a="<h2 id=\"$tag\"" -v b="</ul>" '
       $0 ~ a { found_a = 1; next }
       found_a && $0 ~ b { print NR; exit }
       found_a { count++ }
-      ' "$_FILE_ARCHIVE")
+      ' "$_FILE_ARCHIVE_TAGS")
     num_posts=$((end_line_nr-start_line_nr-2))
 
     # Number in the filters section must match actual post count.
