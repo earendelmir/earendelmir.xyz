@@ -29,26 +29,6 @@
     .filters-div {
       margin: 2.4rem 0 2em;
     }
-    input[type="text"] {
-      background-color: var(--color-background);
-      color: var(--color-text);
-      font-size: inherit;
-      width: 100%;
-      margin-bottom: 2rem;
-      outline: none;
-      border: none;
-      border-radius: 0;
-      border: 1px solid var(--color-border);
-      display: table;
-      background-image: var(--icon-search);
-      background-position: 1.2rem;
-      background-repeat: no-repeat;
-      padding: 1.2rem 4rem;
-    }
-    input[type="text"]:focus {
-      outline: none;
-      border-color: var(--color-accent);
-    }
     input[type="checkbox"] {
       cursor: pointer;
       accent-color: var(--color-accent);
@@ -59,31 +39,6 @@
     .checkbox-label {
       margin-left: 0.2em;
       margin-right: 1.2rem;
-    }
-    #searching-div {
-      display: none;
-      margin: 1.2rem 0 2rem;
-    }
-    #searching-spinner {
-      border: 4px solid var(--color-background);
-      border-radius: 50%;
-      border-top: 4px solid var(--color-border);
-      width: 1em;
-      height: 1em;
-      margin: 0.3rem 0.8rem 0 0;
-      -webkit-animation: spin 1.2s linear infinite;
-      animation: spin 1.2s linear infinite;
-    }
-    @-webkit-keyframes spin {
-      0% { -webkit-transform: rotate(0deg); }
-      100% { -webkit-transform: rotate(360deg); }
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    #no-result-p {
-      margin-top: 1.2rem;
     }
 
     #tags-list {
@@ -110,25 +65,12 @@
       margin: 1.2rem 0 0;
     }
     /* Truncate with ellipsis longer content that doesn't fit the screen. */
-    .posts-list li a,
-    .posts-list li p {
+    .posts-list li a {
       display: block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
-    }
-    .posts-list li p {
-      font-size: 0.9em;
-      margin-bottom: 0.8rem;
-    }
-    .posts-list li p::before {
-      content: "...";
-    }
-    /* Search query matching text. */
-    .highlight {
-      background-color: var(--color-highlight-bg);
-      font-weight: bold;
     }
     /* Leave space between end of tag list and title of next tag list. */
     section:not(:first-of-type) {
@@ -152,18 +94,10 @@
   <main>
     <h1>Archive</h1>
     <p>You might be looking for the chronologically <a href="/archive/">ordered list</a>.</p>
-    <p>Browse through all my posts, and filter them with tags, language, and search queries.<br>
-    The first search may take a little extra time to complete.</p>
 
     <div class="filters-div">
-      <noscript><p>Javascript is required for these filters to work.</p></noscript>
-      <input disabled type="text" maxlength="50" placeholder="Search..." autocomplete="off" id="search-input">
       <input disabled type="checkbox" id="lang-it-sel" value="lang-it-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-it-sel">it</label>
       <input disabled type="checkbox" id="lang-en-sel" value="lang-en-sel" checked autocomplete="off" onclick="filterPosts()"><label class="checkbox-label" for="lang-en-sel">en</label>
-      <div id="searching-div">
-        <div id="searching-spinner"></div><p>Searching...</p>
-      </div>
-      <p id="no-result-p" style="display: none;">No results.</p>
       <ul id="tags-list">
         <li id="tag-books"><a href="#books">#books</a> <span>(2)</span></li>
         <li id="tag-cinema"><a href="#cinema">#cinema</a> <span>(1)</span></li>
@@ -322,11 +256,9 @@
 </body>
 
 <script>
-const postCache = JSON.parse(sessionStorage.getItem("postCache")) || {};
-
-function disableLanguageSelectors(value) {
-  document.getElementById("lang-it-sel").disabled = value;
-  document.getElementById("lang-en-sel").disabled = value;
+function toggleLanguageSelectors(value) {
+  document.getElementById("lang-it-sel").disabled = !value;
+  document.getElementById("lang-en-sel").disabled = !value;
 }
 
 // Check whether the post matches the language query.
@@ -337,73 +269,9 @@ function isLang(post) {
     return document.getElementById("lang-en-sel").checked;
 }
 
-// Return substring matching the query (plus some characters before and after). If no match then return null.
-function getMatchingSubstring(string, query) {
-  const matchIndex = string.toLowerCase().indexOf(query.toLowerCase());
-  if (matchIndex == -1)
-    return null;
-  const len = string.length;
-  const start = len < 120 ? 0 : Math.max(0, matchIndex - 10);
-  const end = len < 120 ? len + 1 : Math.min(len + 1, matchIndex + query.length + 150);
-  return string.substring(start, end).trim();
-}
+function filterPosts() {
+  toggleLanguageSelectors(false);
 
-// Check whether the post matches the search field query.
-async function isSearch(post, query) {
-  // If query string is empty than every post passes this check. But no post has any matching text, not in the title
-  // neither in its content.
-  if (query.length == 0)
-    return {valid: true, title: post.getElementsByTagName("span")[0].innerText, matchingTitle: null, matchingContent: null};
-  var url = "https://raw.githubusercontent.com/earendelmir/earendelmir.xyz/main/docs" + post.getElementsByTagName("a")[0].getAttribute("href") + ".html";
-  var title, content;
-  // Item might be already cached.
-  if (postCache[url]) {
-    title = postCache[url].title;
-    content = postCache[url].content;
-  }
-  else {
-    try {
-      // Get HTML document from URL.
-      const response = await fetch(url);
-      const html = await response.text();
-      const doc = new DOMParser().parseFromString(html, "text/html");
-      // Get post title and content.
-      title = doc.querySelector("title").innerText;
-      content = doc.getElementsByClassName("e-content")[0].innerText;
-      // Save cache.
-      postCache[url] = {title: title, content: content};
-      sessionStorage.setItem("postCache", JSON.stringify(postCache));
-    }
-    catch (e) {
-      // If post can't be retrieved let's assume it matches.
-      title = post.getElementsByTagName("span")[0].innerText;
-      const matchingTitle = getMatchingSubstring(title, query)
-      return {valid: true, title: title, matchingTitle: matchingTitle, matchingContent: null};
-    }
-  }
-  // Find piece of post title that matches query (to be highlighted).
-  const matchingTitle = getMatchingSubstring(title, query);
-  const matchingContent = getMatchingSubstring(content, query);
-  // If either the title or the content matches the query than return true, either return false: the post does not
-  // pass the check.
-  if (matchingTitle != null || matchingContent != null)
-    return {valid: true, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
-  else
-    return {valid: false, title: title, matchingTitle: matchingTitle, matchingContent: matchingContent};
-}
-
-// Highlight substring matching the query.
-function highlightMatches(string, query) {
-  const regex = new RegExp(query.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "gi");
-  return string.replace(regex, match => `<span class="highlight">${match}</span>`);
-}
-
-async function filterPosts() {
-  disableLanguageSelectors(true);
-  // Show spinner and "Searching..."
-  document.getElementById("searching-div").style.display = "flex";
-
-  var query = document.getElementById("search-input").value.trim();
   var tags = document.querySelectorAll("#tags-list li");
   var numTags = tags.length;
   var numTagsHidden = 0;
@@ -413,39 +281,15 @@ async function filterPosts() {
     var tagName = tag.id.substring(4);
     var posts = document.querySelectorAll(`#list-${tagName} li`);
     var count = 0;
-    // For each post, check the language and title+content for query string.
     // Count how many posts are valid for this tag.
     for (post of posts) {
-      // Remove any possible paragraph added by previous query searches (if the post content matches the query than its
-      // matching content's substring is shown).
-      try { post.removeChild(post.getElementsByTagName("p")[0]); } catch (e) {}
-      // Post is not valid if wrong language, hide it.
+      // Post is not valid if wrong language. Hide it.
       if (!isLang(post)) {
         post.style.display = "none";
         continue;
       }
-      // Get result of query search.
-      var ret = await isSearch(post, query);
-      // If neither title nor content match the query then the post is not valid, hide it.
-      if (ret.valid == false) {
-        post.style.display = "none";
-        continue;
-      }
-      // Show post because both language and title/content pass the checks.
       post.style.display = "";
       count += 1;
-      // Highlight or reset post title.
-      if (ret.matchingTitle != null)
-        post.getElementsByTagName("span")[0].innerHTML = highlightMatches(ret.matchingTitle, query);
-      else
-        post.getElementsByTagName("span")[0].innerHTML = ret.title;
-      // Highlight or delete post content.
-      if (ret.matchingContent != null) {
-        const p = document.createElement("p");
-        p.innerHTML = highlightMatches(ret.matchingContent, query);
-        post.appendChild(p);
-      } else
-        try { post.removeChild(post.getElementsByTagName("p")[0]); } catch (e) {}
     }
     // Hide empty tags or show them if at least one of their post is valid.
     if (count == 0) {
@@ -461,41 +305,10 @@ async function filterPosts() {
     }
   }
 
-  disableLanguageSelectors(false);
-  // Hide spinner and "Searching..."
-  document.getElementById("searching-div").style.display = "none";
-  // Show "No result" text if all tags have been hidden.
-  if (numTagsHidden == numTags)
-    document.getElementById("no-result-p").style.display = "";
-  else
-    document.getElementById("no-result-p").style.display = "none";
+  toggleLanguageSelectors(true)
 }
 
-// To delay search function: wait for user to stop typing before searching.
-function debounce(func, delay) {
-  let timer;
-  return function() {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, arguments);
-    }, delay);
-  };
-}
-
-// Enable input fields.
-document.getElementById("search-input").disabled = false;
-disableLanguageSelectors(false);
-
-// Search after every keypress.
-document.getElementById("search-input").addEventListener("input", debounce(function() {
-  filterPosts();
-}, 600));
-
-// Listen ENTER key press: hide keyboard on mobile and start search.
-document.getElementById("search-input").addEventListener("keypress", function(event) {
-  const key = event.code || event.keyCode;
-  if (key === "Enter" || key === 13)
-    this.blur();
-});
+// Enable language selectors so that they only work if Javascript is enabled.
+toggleLanguageSelectors(true);
 </script>
 </html>
