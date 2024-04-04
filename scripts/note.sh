@@ -155,10 +155,7 @@ sed "s|NOTECONTENT|$(printf '%s' "$content" | sed 's/[\/&]/\\&/g')|g" -i "$_FILE
 
 echo $"        <div class=\"h-entry\">
           <p class=\"e-content\" lang=\"$lang\">$content</p>
-          <div>
-            <a href=\"/$_FILENAME_NEWNOTE\" aria-label=\"Permalink to this note\" title=\"Permalink to this note\">↪︎</a>
-            <time class=\"dt-published\" datetime=\"$curr_datetime\">$curr_date</time>
-          </div>
+          <div><a href=\"/$_FILENAME_NEWNOTE\" aria-label=\"Permalink to this note\" title=\"Permalink to this note\"><time class=\"dt-published\" datetime=\"$curr_datetime\">$curr_date</time></a></div>
         </div>" > "$_FILE_TMPNOTE_FOR_NOTES"
 
 # Add new note on top of main notes page.
