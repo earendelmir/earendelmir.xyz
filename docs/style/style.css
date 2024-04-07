@@ -12,6 +12,7 @@
   --color-text2: #616C75;
   --color-text2-underline: #616C75AA;
   --color-accent: #D2373C;
+  /* --color-accent: #0061E0; */
   --color-highlight-bg: #FDC7C8;
   --color-border: #6C757D;
   --color-note-border: #DEE2E6;
@@ -94,12 +95,12 @@ body {
   min-height: 100vh;
 }
 
-h1 { font-size: 1.5em; }
-h2 { font-size: 1.383em; }
-h3 { font-size: 1.296em; }
-h4 { font-size: 1.215em; }
-h5 { font-size: 1.138em; }
-h5 { font-size: 1.067em; }
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.4em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.8em; }
+h5 { font-size: 0.6em; }
 main h1 {
   line-height: 1.2;
   margin: 0 0 1.2rem;
@@ -131,7 +132,7 @@ header#banner {
   margin: 1.6rem 0 4rem;
 }
 header#banner h1 {
-  font-size: 1.3em;
+  font-size: 1.4em;
   margin: 0;
 }
 header#banner nav {
