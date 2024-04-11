@@ -31,9 +31,6 @@
     ol {
       margin-bottom: 2.8rem;
     }
-    h2, h3 {
-      padding-top: 0.8rem;
-    }
   </style>
 </head>
 
@@ -83,7 +80,7 @@
       <pre><code class="language-bash">export GNUPGHOME="$HOME/.local/share/gnupg"</code></pre>
       <p>If a <code>~/.gnupg</code> directory already existed before, I can simply move it to this new location.</p>
 
-      <br><hr>
+      <hr>
       <h2 id="section-show-keys">Show the keys</h2>
       <p>To see all the keys stored:</p>
       <pre><code class="language-plaintext">gpg --list-secret-keys --keyid-format LONG</code></pre>
@@ -108,7 +105,7 @@ ssb   rsa3072/1A2B3C4D5E6F7G8H 2023-02-24 [E]</code></pre>
         <li>Finally the <b>ssb</b> line shows the subkey. <b>E</b> means it can be used for Encryption</li>
       </ul>
 
-      <br><hr>
+      <hr>
       <h2 id="section-create-key-pair">Create a new key pair</h2>
       <pre><code class="language-plaintext">gpg --full-generate-key</code></pre>
       <p>It will ask to insert:</p>
@@ -130,7 +127,7 @@ ssb   rsa3072/1A2B3C4D5E6F7G8H 2023-02-24 [E]</code></pre>
         were to get hold of it they would be able to access all of the private data and, even worse, steal the user's
         digital identity.</p>
 
-      <br><hr>
+      <hr>
       <h2 id="section-delete-key-pair">Delete a key pair</h2>
       <p>It is required that the <i>private</i> key is deleted first.</p>
       <pre><code class="language-plaintext">gpg --delete-secret-key ID</code></pre>
@@ -140,23 +137,23 @@ ssb   rsa3072/1A2B3C4D5E6F7G8H 2023-02-24 [E]</code></pre>
         Now the <i>public</i> key can be deleted too, using the same ID.</p>
       <pre><code class="language-plaintext">gpg --delete-key ID</code></pre>
 
-      <br><hr>
+      <hr>
       <h2 id="section-get-public-key-text-block">Get Public Key text block</h2>
       <p>Useful to share the public key.</p>
       <pre><code class="language-plaintext">gpg --armor --export KeyID</code></pre>
 
-      <br><hr>
+      <hr>
       <h2 id="section-encrypt">Encrypt files</h2>
       <pre><code class="language-plaintext">gpg -o file.gpg --encrypt -r email@account.com plain.txt</code></pre>
       <p>With the <code>-o</code> option I specify the output file (<code>gpg</code> extension is a convention).<br>
         With <code>-r</code> I specify the <i>recipient</i>: the user whose public key will be used to encrypt.
         This allows only the owner of the correspondent private key to be able to decrypt the file.</p>
 
-      <br><hr>
+      <hr>
       <h2 id="section-decrypt">Decrypt files</h2>
       <pre><code class="language-plaintext">gpg -o plain.txt --decrypt file.gpg</code></pre>
 
-      <br><hr>
+      <hr>
       <h2 id="section-backup-restore">Backup & Restore</h2>
       <p>Create backup copy of public keys, secret keys, and trust database:</p>
       <pre><code class="language-plaintext">gpg --export --export-options backup --output public.gpg
@@ -167,7 +164,7 @@ gpg --export-ownertrust > trust.gpg</code></pre>
 gpg --import private.gpg
 gpg --import-ownertrust trust.gpg</code></pre>
 
-      <br><hr>
+      <hr>
       <h2 id="section-configuration">Configuration</h2>
       <p>There are 2 configuration files to edit.</p>
       <h3>gpg.conf</h3>

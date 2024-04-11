@@ -121,6 +121,7 @@ h6 {
 }
 
 hr {
+  margin: 3.2rem 0;
   border-color: var(--color-hr);
 }
 
@@ -250,6 +251,7 @@ footer {
   line-height: 1.7;
 }
 footer hr {
+  margin: inherit;
   border-style: dashed;
   border-color: var(--color-footer-hr);
 }

@@ -38,9 +38,6 @@
     ul li {
       padding-bottom: 0.8rem;
     }
-    h2, h3 {
-      padding-top: 0.8rem;
-    }
   </style>
 </head>
 
@@ -126,7 +123,7 @@
         <i>shebang</i>) and they do not read any configuration file. However, some variables can still be inherited
         from parent shells, if set with the <code class="language-bash">export</code> modifier.</p>
 
-      <br><hr>
+      <hr>
       <h2 id="section-profile">~/.profile</h2>
       <p>As written above, here I set all the variables that I only need to read once; these have values that I'm
         sure I won't need to change frequently (or ever).<br>
@@ -179,7 +176,7 @@ fi</code></pre>
       <p>Now, <b>login</b> and <b>non-login</b> shells should behave at the exact same manner since they both are
         interactive. For this reason, at the end of my profile I also read the <code>~/.bashrc</code> file.</p>
 
-      <br><hr>
+      <hr>
       <h2 id="section-bashrc">~/.bashrc</h2>
       <p>Here go all the shell's options, aliases, functions and the more <i>"variable"</i> variables but first, a
         check is made to stop the sourcing of this file if the current shell is not interactive:</p>

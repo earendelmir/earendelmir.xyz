@@ -115,6 +115,9 @@ figcaption {
 .footnotes {
   margin-top: 5.2rem;
 }
+.footnotes hr {
+  margin: inherit;
+}
 .footnotes ol {
   margin-bottom: 0;
 }

@@ -78,7 +78,7 @@
           <li><a href="#section-resources">Resources</a></li>
         </ol>
 
-        <br/><hr/>
+        <hr>
         <h2 id="section-create-ssh-key">1. Create SSH key</h2>
         <p>From now on, replace EVERY occurrence of '<b>username</b>' and '<b>email@address.com</b>' with your actual
         GitHub credentials.</p>
@@ -121,7 +121,7 @@ ssh-add ~/.ssh/github-username</code></pre>
         <pre><code class="language-bash">git config user.email email@address.com
 git config user.name  username</code></pre>
 
-        <br/><hr/>
+        <hr>
         <h2 id="section-appendix-a">Appendix A: Sign commits with SSH key</h2>
         <p>Since an SSH key is now available for each GitHub account, we might as well use it to sign commits too.<br/>
         <i>(please note that this idea might come with security risks I'm not aware of yet)</i></p>
@@ -134,7 +134,7 @@ git config gpg.format ssh
 git config user.signingkey "~/.ssh/github-username.pub"</code></pre>
         <p>Note that this only works with <b>Git 2.34</b> or later.</p>
 
-        <br/><hr/>
+        <hr>
         <h2 id="section-appendix-b">Appendix B: Sign commits with GPG key</h2>
         <p>In your repository, add the following configuration:</p>
         <pre><code class="language-bash">git config commit.gpgsign true
@@ -146,7 +146,7 @@ git config --unset gpg.format</code></pre>
         <p>You can find the ID of your keys with the following command:</p>
         <pre><code class="language-bash">gpg --list-secret-keys --keyid-format=long</code></pre>
 
-        <br/><hr/>
+        <hr>
         <h2 id="section-resources">Resources</h2>
         <ul style="margin-bottom: 0;">
           <li><a target="_blank" rel="noopener" href="https://gist.github.com/rahularity/86da20fe3858e6b311de068201d279e3">How to work with multiple GitHub accounts on a single Machine</a></li>

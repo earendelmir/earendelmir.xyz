@@ -87,7 +87,7 @@
         </main>
 
         <footer>
-          <hr/>
+          <hr style="margin-top: 0; margin-bottom: inherit;"/>
           <p><a href="#top"><span lang="en">↑ Back to Top</span></a></p>
           <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Get in touch via
             <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
