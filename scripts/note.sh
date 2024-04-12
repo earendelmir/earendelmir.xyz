@@ -100,7 +100,7 @@ readonly _FILE_NEWNOTE="$_FILENAME_NEWNOTE.html"
 readonly _FILE_TMPNOTE_FOR_NOTES="/tmp/note_for_notes.html"
 readonly _FILE_DESCRIPTION="/tmp/description.txt"
 readonly _FILE_LASTNOTE="/tmp/lastnote.html"
-readonly _EDITOR="code -w"
+readonly _EDITOR="nvim"
 readonly _MAX_NUM=15  # Maximum number of notes in every page.
 
 # Parse command-line arguments.
@@ -127,6 +127,7 @@ $_EDITOR "$_FILE_EDITOR"
 # Replace newlines with spaces and remove last space.
 content="$(< "$_FILE_EDITOR" tr '\n' ' ')"
 content="${content%"${content##*[![:space:]]}"}"
+rm "$_FILE_EDITOR"
 
 # Let user edit string as meta description.
 echo "${content:0:120}..." > "$_FILE_DESCRIPTION"
@@ -137,6 +138,7 @@ $_EDITOR "$_FILE_DESCRIPTION"
 description="$(< "$_FILE_DESCRIPTION" tr '\n' ' ')"
 description="${description%"${description##*[![:space:]]}"}"
 printf "Your description — you can change it in the file:\n%s\n" "$description"
+sleep 1.5
 
 # Write note in new file.
 cp skeleton_note.html "$_FILE_NEWNOTE"
