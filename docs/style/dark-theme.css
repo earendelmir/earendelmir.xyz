@@ -1,0 +1,92 @@
+/* This file is called with the <noscript> clause to allow dark/light theme
+switch based on CSS media query. */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --icon-search: url("/images/icon-search-dark.svg");
+    --color-background: #18191A;
+    --color-code-bg: #18191A;
+    --color-code-fg: #D0D7DE;
+    --color-text: #D0D7DE;
+    --color-text2: #89949D;
+    --color-placeholder: #89949D;
+    --color-text2-underline: #89949DDD;
+    --color-accent: #DF9568;
+    --color-highlight-bg: #502205;
+    --color-hr: #555D66;
+    --color-footer-hr: #555D66;
+    --color-border: #555D66;
+    --color-note-border: #555D6699;
+    --color-sticky-title-underline: #555D6699;
+  }
+
+  /* ***** CODE SYNTAX ***** */
+  .hljs {
+    color: #D0D7DE;
+    background: #18191A;
+  }
+  .hljs-subst {
+    color: #D0D7DE
+  }
+  .hljs-comment {
+    color: #999
+  }
+  .hljs-attr,
+  .hljs-doctag,
+  .hljs-keyword,
+  .hljs-meta .hljs-keyword,
+  .hljs-section,
+  .hljs-selector-tag {
+    color: #88AECE
+  }
+  .hljs-attribute {
+    color: #C59BC1
+  }
+  .hljs-name,
+  .hljs-number,
+  .hljs-quote,
+  .hljs-selector-id,
+  .hljs-template-tag,
+  .hljs-type {
+    color: #F08D49
+  }
+  .hljs-selector-class {
+    color: #88AECE
+  }
+  .hljs-link,
+  .hljs-regexp,
+  .hljs-selector-attr,
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-template-variable,
+  .hljs-variable {
+    color: #B5BD68
+  }
+  .hljs-meta,
+  .hljs-selector-pseudo {
+    color: #88AECE
+  }
+  .hljs-built_in,
+  .hljs-literal,
+  .hljs-title {
+    color: #F08D49
+  }
+  .hljs-bullet,
+  .hljs-code {
+    color: #CCC
+  }
+  .hljs-meta .hljs-string {
+    color: #B5BD68
+  }
+  .hljs-deletion {
+    color: #DE7176
+  }
+  .hljs-addition {
+    color: #76C490
+  }
+}
+
+/* Hide theme switch button since it doesn't work. */
+#btn-theme-hide {
+  display: none !important;
+}

@@ -22,30 +22,28 @@
   --color-placeholder: #A3ACB5;
   --color-footer-hr: #A3ACB5;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --icon-search: url("/images/icon-search-dark.svg");
-    --color-background: #18191A;
-    --color-code-bg: #18191A;
-    --color-code-fg: #D0D7DE;
-    --color-text: #D0D7DE;
-    --color-text2: #89949D;
-    --color-placeholder: #89949D;
-    --color-text2-underline: #89949DDD;
-    --color-accent: #DF9568;
-    /* --color-accent: #737ADE; */
-    /* --color-accent: #747CEC; */
-    /* --color-accent: #6AA0D6; */
-    /* --color-accent: #6EABE8; */
-    /* --color-accent: #DC6BAD; */
-    /* --color-accent: #4fa8e2; */
-    --color-highlight-bg: #502205;
-    --color-hr: #555D66;
-    --color-footer-hr: #555D66;
-    --color-border: #555D66;
-    --color-note-border: #555D6699;
-    --color-sticky-title-underline: #555D6699;
-  }
+html.dark {
+  --icon-search: url("/images/icon-search-dark.svg");
+  --color-background: #18191A;
+  --color-code-bg: #18191A;
+  --color-code-fg: #D0D7DE;
+  --color-text: #D0D7DE;
+  --color-text2: #89949D;
+  --color-placeholder: #89949D;
+  --color-text2-underline: #89949DDD;
+  --color-accent: #DF9568;
+  /* --color-accent: #737ADE; */
+  /* --color-accent: #747CEC; */
+  /* --color-accent: #6AA0D6; */
+  /* --color-accent: #6EABE8; */
+  /* --color-accent: #DC6BAD; */
+  /* --color-accent: #4fa8e2; */
+  --color-highlight-bg: #502205;
+  --color-hr: #555D66;
+  --color-footer-hr: #555D66;
+  --color-border: #555D66;
+  --color-note-border: #555D6699;
+  --color-sticky-title-underline: #555D6699;
 }
 
 /* ***** LOWERCASE ***** */
@@ -262,6 +260,20 @@ footer a {
   text-decoration: underline;
   text-decoration-color: var(--color-text2-underline);
   text-decoration-thickness: 1px;
+}
+#btn-theme {
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-text2);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-text2-underline);
 }
 
 

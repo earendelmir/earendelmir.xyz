@@ -77,68 +77,67 @@ code.hljs {
   font-weight: 700
 }
 
-@media (prefers-color-scheme: dark) {
-  .hljs {
-    color: #D0D7DE;
-    background: #18191A;
-  }
-  .hljs-subst {
-    color: #D0D7DE
-  }
-  .hljs-comment {
-    color: #999
-  }
-  .hljs-attr,
-  .hljs-doctag,
-  .hljs-keyword,
-  .hljs-meta .hljs-keyword,
-  .hljs-section,
-  .hljs-selector-tag {
-    color: #88AECE
-  }
-  .hljs-attribute {
-    color: #C59BC1
-  }
-  .hljs-name,
-  .hljs-number,
-  .hljs-quote,
-  .hljs-selector-id,
-  .hljs-template-tag,
-  .hljs-type {
-    color: #F08D49
-  }
-  .hljs-selector-class {
-    color: #88AECE
-  }
-  .hljs-link,
-  .hljs-regexp,
-  .hljs-selector-attr,
-  .hljs-string,
-  .hljs-symbol,
-  .hljs-template-variable,
-  .hljs-variable {
-    color: #B5BD68
-  }
-  .hljs-meta,
-  .hljs-selector-pseudo {
-    color: #88AECE
-  }
-  .hljs-built_in,
-  .hljs-literal,
-  .hljs-title {
-    color: #F08D49
-  }
-  .hljs-bullet,
-  .hljs-code {
-    color: #CCC
-  }
-  .hljs-meta .hljs-string {
-    color: #B5BD68
-  }
-  .hljs-deletion {
-    color: #DE7176
-  }
-  .hljs-addition {
-    color: #76C490
-  }
+/* ***** DARK THEME ***** */
+html.dark .hljs {
+  color: #D0D7DE;
+  background: #18191A;
+}
+html.dark .hljs-subst {
+  color: #D0D7DE
+}
+html.dark .hljs-comment {
+  color: #999
+}
+html.dark .hljs-attr,
+html.dark .hljs-doctag,
+html.dark .hljs-keyword,
+html.dark .hljs-meta .hljs-keyword,
+html.dark .hljs-section,
+html.dark .hljs-selector-tag {
+  color: #88AECE
+}
+html.dark .hljs-attribute {
+  color: #C59BC1
+}
+html.dark .hljs-name,
+html.dark .hljs-number,
+html.dark .hljs-quote,
+html.dark .hljs-selector-id,
+html.dark .hljs-template-tag,
+html.dark .hljs-type {
+  color: #F08D49
+}
+html.dark .hljs-selector-class {
+  color: #88AECE
+}
+html.dark .hljs-link,
+html.dark .hljs-regexp,
+html.dark .hljs-selector-attr,
+html.dark .hljs-string,
+html.dark .hljs-symbol,
+html.dark .hljs-template-variable,
+html.dark .hljs-variable {
+  color: #B5BD68
+}
+html.dark .hljs-meta,
+html.dark .hljs-selector-pseudo {
+  color: #88AECE
+}
+html.dark .hljs-built_in,
+html.dark .hljs-literal,
+html.dark .hljs-title {
+  color: #F08D49
+}
+html.dark .hljs-bullet,
+html.dark .hljs-code {
+  color: #CCC
+}
+html.dark .hljs-meta .hljs-string {
+  color: #B5BD68
+}
+html.dark .hljs-deletion {
+  color: #DE7176
+}
+html.dark .hljs-addition {
+  color: #76C490
 }
