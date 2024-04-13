@@ -96,16 +96,21 @@ readonly _MAX_RSS_ENTRIES=20
 case "$1" in
     '') ;;
     -h | --help) _help ; exit ;;
-    *) file="$1" ;;
+    -n | --note) use_note=1 ;;
 esac
 
 # Get most recent file from archive, if none has been given.
-if [[ -z $file ]]; then
+if [[ -n $use_note ]]; then
+    file="$(find notes/permalink/ -type f | sort -r | head -1 \
+                | xargs -rI {} find {} -type f | sort -Vr | head -1)"
+    filename=${file%.html}
+    fname="${file#*permalink/}" ; fname="${fname%.html}"
+else
     file="$(find archive/ -name "20*" | sort -r | head -1 \
                 | xargs -rI {} find {} -type f | sort -Vr | head -1)"
+    filename=${file%.html}
+    fname="${file#*archive/}" ; fname="${fname%.html}" ; fname="${fname/\//-}"
 fi
-filename=${file%.html}
-fname="${file#*archive/}" ; fname="${fname%.html}" ; fname="${fname/\//-}"
 
 # Check for validity.
 [[ ! -f "$file" ]] && _die "File $file not found."
@@ -114,9 +119,13 @@ __ok_start=1
 _print_ok "Found file $file"
 
 # Get post title.
-title="$(grep -m 1 post-title "$file")"
-title="${title#*\">}"
-title=${title::-5}
+if [[ -n $use_note ]]; then
+    title=""
+else
+    title="$(grep -m 1 post-title "$file")"
+    title="${title#*\">}"
+    title=${title::-5}
+fi
 __ok_title=1
 _print_ok "Title: $title"
 
@@ -130,7 +139,11 @@ start_linenr="${start_linenr%:*}"
 start_linenr=$((start_linenr + 1))
 end_linenr="$(grep -m 1 -n '</article>' "$file")"
 end_linenr="${end_linenr%:*}"
-end_linenr=$((end_linenr - 2))
+if [[ -n $use_note ]]; then
+    end_linenr=$((end_linenr - 3))
+else
+    end_linenr=$((end_linenr - 2))
+fi
 # Get post body.
 sed -n "${start_linenr},${end_linenr}p" "$file" > /tmp/descr
 # Format string.
@@ -168,7 +181,7 @@ count="$(grep -c '<item>' "$_FILE_RSS_FEED")"
 if (( count > _MAX_RSS_ENTRIES )); then
     last="$(grep -n '<item>' "$_FILE_RSS_FEED" | tail -1 | cut -d' ' -f1)"
     last="${last::-1}"
-    final=$(( last + 7 ))
+    final=$(( last + 8 ))
     sed -i "${last},${final}d" "$_FILE_RSS_FEED"
     __ok_delete=1
     _print_ok "Delete last item from feed"
