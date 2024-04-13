@@ -48,12 +48,14 @@
 
   <main>
     <h1>More</h1>
-    <p>Use this sitemap to navigate around the website and find every page, even the <i>"hidden"</i> ones.</p>
+    <q id="q-t" style="display: none">There is nothing like looking, if you want to find something.</q>
+    <p id="q-a" style="display: none">J.R.R. Tolkien</p>
+
+    <p>Use this sitemap to navigate around the website and find every page, even the "hidden" ones.</p>
 
     <h2>Archives</h2>
     <ul class="list pages-list">
-      <li><a href="/archive/">archive</a> · all blog posts, in reverse chronological order.</li>
-      <li><a href="/archive/tags">archive/tags</a> · all blog posts, grouped by tags.</li>
+      <li><a href="/archive/">archive</a> · all blog posts, in reverse chronological order, and tags.</li>
       <li><a href="/feed.xml">feed</a> · RSS feed featuring the twenty most recent posts.</li>
       <li><a href="/notes/">notes</a> · collection of quick thoughts, too short to qualify as posts.</li>
     </ul>
@@ -86,5 +88,26 @@
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
-
+<script>
+const quotes = [
+  {"a": "Carlos Ruiz Zafón", "t": "A secret's worth depends on the people from whom it must be kept."},
+  {"a": "Dante Alighieri", "t": "Lasciate ogni speranza, o voi ch'entrate."},
+  {"a": "Frank Herbert", "t": "Any road followed precisely to its end leads precisely nowhere. Climb the mountain just a little bit to test that it's a mountain. From the top of the mountain, you cannot see the mountain."},
+  {"a": "J.R.R. Tolkien", "t": "Do not spoil the wonder with haste."},
+  {"a": "J.R.R. Tolkien", "t": "Few can foresee whither their road will lead them, till they come to its end."},
+  {"a": "J.R.R. Tolkien", "t": "All that is gold does not glitter. Not all those who wander are lost."},
+  {"a": "J.R.R. Tolkien", "t": "You step into the Road, and if you don't keep your feet, there is no knowing where you might be swept off to."},
+  {"a": "J.R.R. Tolkien", "t": "There is nothing like looking, if you want to find something."},
+]
+const rq = quotes[Math.floor(Math.random() * quotes.length)];
+var a = document.getElementById("q-a");
+var t = document.getElementById("q-t");
+a.innerText = rq.a;
+a.style.display = "";
+t.innerText = rq.t;
+t.style.display = "";
+</script>
+<noscript><style>
+  #q-a, #q-t { display: block !important; }
+</style></noscript>
 </html>

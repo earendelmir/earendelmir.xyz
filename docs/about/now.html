@@ -44,7 +44,9 @@
   <main>
     <article>
       <h1>Now</h1>
-      <small style="font-style: italic;">Last updated: 25 Mar 2024</small></p>
+      <q id="q-t" style="display: none">Forever is composed of nows.</q>
+      <p id="q-a" style="display: none">Emily Dickinson</p>
+
       <p>I'm <b>currently</b> working on the thesis project for my master's degree in computer engineering. I'm also
       trying not to panic while figuring out what to do <i>after</i>.</p>
 
@@ -58,9 +60,35 @@
 
   <footer>
     <hr>
+    <p>last updated: 25 mar 2024</p>
     <p lang="en"><a aria-label="Back to top" title="Back to top" href="#top">top</a><span id="btn-theme-hide">&#160; | &#160;<button id="btn-theme" aria-label="Theme switcher" title="Theme switcher">dark</button></span>&#160; | &#160;<a href="/feed.xml">rss</a>&#160; | &#160;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a></p>
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
-
+<script>
+const quotes = [
+  {"a": "Donna Tartt", "t": "Any action, in the fullness of time, sinks to nothingness."},
+  {"a": "Emily Dickinson", "t": "To live is so startling it leaves little room for other occupations."},
+  {"a": "Emily Dickinson", "t": "That it will never come again is what makes life so sweet."},
+  {"a": "Emily Dickinson", "t": "Forever is composed of nows."},
+  {"a": "Frank Herbert", "t": "It is impossible to live in the past, difficult to live in the present and a waste to live in the future."},
+  {"a": "Homer", "t": "Any moment might be our last. Everything is more beautiful because we're doomed. You will never be lovelier than you are now. We will never be here again."},
+  {"a": "J.R.R. Tolkien", "t": "Few can foresee whither their road will lead them, till they come to its end."},
+  {"a": "J.R.R. Tolkien", "t": "Maybe the paths that we each shall tread are already laid before our feet, though we do not see them."},
+  {"a": "J.R.R. Tolkien", "t": "Great as your affairs may seem to you, they are only a small strand in the great web."},
+  {"a": "J.R.R. Tolkien", "t": "Let the unseen days be. Today is more than enough."},
+  {"a": "Marcus Aurelius", "t": "It is not death that a man should fear, but he should fear never beginning to live."},
+  {"a": "Marcus Aurelius", "t": "Do not act as if you were going to live ten thousand years. Death hangs over you. While you live, while it is in your power, be good."},
+]
+const rq = quotes[Math.floor(Math.random() * quotes.length)];
+var a = document.getElementById("q-a");
+var t = document.getElementById("q-t");
+a.innerText = rq.a;
+a.style.display = "";
+t.innerText = rq.t;
+t.style.display = "";
+</script>
+<noscript><style>
+  #q-a, #q-t { display: block !important; }
+</style></noscript>
 </html>

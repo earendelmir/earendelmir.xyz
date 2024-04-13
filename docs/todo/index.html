@@ -44,17 +44,22 @@
   <main>
     <article>
       <h1>To-do</h1>
+      <q id="q-t" style="display: none">Forgive me, for all the things I did but mostly for the ones that I did not.</q>
+      <p id="q-a" style="display: none">Donna Tartt</p>
+
       <p>List of changes and new features I plan for this website.</p>
-      <small style="font-style: italic;">Last updated: 12 Apr 2024</small></p>
 
       <h2>Should do</h2>
       <ul>
+        <li>ok.sh should check that tags in posts info match presence in tag's file</li>
+        <li>newpost.sh allow multiple tags</li>
+        <li>better tags names</li>
         <li>notes in RSS feed (not all of them)</li>
-        <li>better tags management</li>
       </ul>
 
       <h2>May do</h2>
       <ul>
+        <li>quote at the top of every page</li>
         <li>better style /favourites page</li>
         <li>links to <i>prev</i> and <i>next</i> under each post</li>
         <li>/uses page</li>
@@ -79,9 +84,29 @@
 
   <footer>
     <hr>
+    <p>last updated: 13 apr 2024</p>
     <p lang="en"><a aria-label="Back to top" title="Back to top" href="#top">top</a><span id="btn-theme-hide">&#160; | &#160;<button id="btn-theme" aria-label="Theme switcher" title="Theme switcher">dark</button></span>&#160; | &#160;<a href="/feed.xml">rss</a>&#160; | &#160;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a></p>
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
-
+<script>
+const quotes = [
+  {"a": "C.S. Lewis", "t": "Crying is all right in its way while it lasts. But you have to stop sooner or later, and then you still have to decide what to do."},
+  {"a": "Donna Tartt", "t": "Forgive me, for all the things I did but mostly for the ones that I did not."},
+  {"a": "Emily Dickinson", "t": "I dwell in possibility..."},
+  {"a": "Emily Dickinson", "t": "To live is so startling it leaves little room for other occupations."},
+  {"a": "Frank Herbert", "t": "The concept of progress acts as a protective mechanism to shield us from the terrors of the future."},
+  {"a": "J.R.R. Tolkien", "t": "It's the job that's never started as takes longest to finish."},
+]
+const rq = quotes[Math.floor(Math.random() * quotes.length)];
+var a = document.getElementById("q-a");
+var t = document.getElementById("q-t");
+a.innerText = rq.a;
+a.style.display = "";
+t.innerText = rq.t;
+t.style.display = "";
+</script>
+<noscript><style>
+  #q-a, #q-t { display: block !important; }
+</style></noscript>
 </html>

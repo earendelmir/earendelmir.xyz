@@ -59,8 +59,10 @@
   <main>
     <article>
       <h1>Favourites</h1>
-      <p>The ordering has no real meaning, except maybe for the first items, which are definitely the most important.<br>
-        <small style="font-style: italic;">Last updated: 04 Apr 2024</small></p>
+      <q id="q-t" style="display: none"></q>
+      <p id="q-a" style="display: none"></p>
+
+      <p>The ordering has no real meaning, except maybe for the first items, which are definitely the most important.</p>
 
       <details>
         <summary><h2>Films</h2></summary>
@@ -136,7 +138,6 @@
             <li translate="no">Pretty Woman</li>
             <li translate="no">Holidate</li>
             <li translate="no">The valet</li>
-            <li translate="no">Anyone but you</li>
             <li translate="no">Wimbledon</li>
             <li translate="no">About time</li>
             <li translate="no">About fate</li>
@@ -255,9 +256,90 @@
 
   <footer>
     <hr>
+    <p>last updated: 4 apr 2024</p>
     <p lang="en"><a aria-label="Back to top" title="Back to top" href="#top">top</a><span id="btn-theme-hide">&#160; | &#160;<button id="btn-theme" aria-label="Theme switcher" title="Theme switcher">dark</button></span>&#160; | &#160;<a href="/feed.xml">rss</a>&#160; | &#160;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a></p>
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
-
+<script>
+const quotes = [
+  {"a": "Almost Famous", "t": "'So Russell... what do you love about music?'\n 'To begin with, everything.'"},
+  {"a": "Almost Famous", "t": "'I have to go home'\n 'You are home.'"},
+  {"a": "Almost Famous", "t": "The only true currency in this bankrupt world is what you share with someone else when you’re uncool."},
+  {"a": "Before Sunrise", "t": "I think I’m always so much more happy with books and movies and stuff. I think I get more excited about well-done representations of life than life itself."},
+  {"a": "Before Sunrise", "t": "That’s what I like about traveling — you can sit down, maybe talk to someone interesting, see something beautiful, read a good book, and that’s enough to qualify as a good day. You do that at home and everyone thinks you’re a bum."},
+  {"a": "Before Sunset", "t": "I guess when you are young, you believe that you will meet many people with whom you'll connect with, but later in life you realize it only happens a few times."},
+  {"a": "Before Sunset", "t": "Yeah, a memory's never finished, if you really think about it."},
+  {"a": "Carlos Ruiz Zafón", "t": "Destiny is usually just around the corner. Like a thief, a hooker, or a lottery vendor: its three most common personifications. But what destiny does not do is home visits. You have to go for it."},
+  {"a": "Carlos Ruiz Zafón", "t": "The moment you stop to think about whether you love someone, you've already stopped loving that person forever."},
+  {"a": "Charlotte Brontë", "t": "The soul, fortunately, has an interpreter - often an unconscious but still a faithful interpreter - in the eye."},
+  {"a": "Charlotte Brontë", "t": "Prejudices, it is well known, are most difficult to eradicate from the heart whose soil has never been loosened or fertilised by education: they grow there, firm as weeds among stones."},
+  {"a": "Charlotte Brontë", "t": "Life appears to me too short to be spent in nursing animosity or registering wrongs."},
+  {"a": "Dead Poets Society", "t": "When you read, don't just consider what the author thinks, consider what you think."},
+  {"a": "Dead Poets Society", "t": "Carpe, Carpe Diem, seize the day boys, make your lives extraordinary."},
+  {"a": "Dead Poets Society", "t": "That the powerful play goes on, and you may contribute a verse."},
+  {"a": "Dead Poets Society", "t": "No matter what people tell you, words and ideas can change the world."},
+  {"a": "Dead Poets Society", "t": "We don't read and write poetry because its cute. We read and write poetry because we are members of the human race. And the human race is full of passion."},
+  {"a": "Dead Poets Society", "t": "I stand upon my desk to remind myself that we must constantly look at things in a different way."},
+  {"a": "Dead Poets Society", "t": "'Truth, truth!' Like a blanket that always leaves your feet cold.\n You push it, stretch it, but it'll never be enough. You kick at it, beat it, it'll never cover any of us.\n From the moment we enter crying, to the moment we leave dying, it'll just cover your face, as you wail and cry and scream."},
+  {"a": "Dead Poets Society", "t": "I sound my barbaric YAWP over the rooftops of the world."},
+  {"a": "Donna Tartt", "t": "There is nothing wrong with the love of Beauty. But Beauty - unless she is wed to something more meaningful - is always superficial."},
+  {"a": "Donna Tartt", "t": "'We think we have many desires, but in fact we have only one. What is it?' 'To live,' said Camilla. 'To live forever'"},
+  {"a": "Donna Tartt", "t": "Any action, in the fullness of time, sinks to nothingness."},
+  {"a": "Donna Tartt", "t": "It is is better to know one book intimately than a hundred superficially."},
+  {"a": "Donna Tartt", "t": "There are such things as ghosts. People everywhere have always known that. And we believe in them every bit as much as Homer did. Only now, we call them by different names. Memory. The unconscious."},
+  {"a": "Donna Tartt", "t": "Does such a thing as 'the fatal flaw,' that showy dark crack running down the middle of a life, exist outside literature? I used to think it didn't. Now I think it does. And I think that mine is this: a morbid longing for the picturesque at all costs."},
+  {"a": "Donna Tartt", "t": "Beauty is rarely soft or consolatory. Quite the contrary. Genuine beauty is always quite alarming."},
+  {"a": "Donna Tartt", "t": "Forgive me, for all the things I did but mostly for the ones that I did not."},
+  {"a": "Donna Tartt", "t": "Beauty is terror. Whatever we call beautiful, we quiver before it."},
+  {"a": "Everything Everywhere All At Once", "t": "So, even though you have broken my heart yet again, I wanted to say, in another life, I would have really liked just doing laundry and taxes with you."},
+  {"a": "Everything Everywhere All At Once", "t": "You think because l'm kind that it means I'm naive, and maybe I am. It's strategic and necessary. This is how I fight."},
+  {"a": "Everything Everywhere All At Once", "t": "The only thing I do know is that we have to be kind. Please, be kind. Especially when we don't know what's going on."},
+  {"a": "Everything Everywhere All At Once", "t": "Of all the places I could be, I just want to be here with you."},
+  {"a": "Everything Everywhere All At Once", "t": "Every new discovery is just a reminder... We're all small and stupid."},
+  {"a": "Frank Herbert", "t": "The mystery of life isn't a problem to solve, but a reality to experience."},
+  {"a": "Frank Herbert", "t": "I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration."},
+  {"a": "Frank Herbert", "t": "Thou shalt not make a machine in the likeness of a human mind."},
+  {"a": "J.R.R. Tolkien", "t": "All we have to decide is what to do with the time that is given us."},
+  {"a": "J.R.R. Tolkien", "t": "And he took her in his arms and kissed her under the sunlit sky, and he cared not that they stood high upon the walls in the sight of many."},
+  {"a": "J.R.R. Tolkien", "t": "And Morgoth came."},
+  {"a": "J.R.R. Tolkien", "t": "'The Eagles! The Eagles!' he shouted. 'The Eagles are coming!'"},
+  {"a": "J.R.R. Tolkien", "t": "Never laugh at live dragons."},
+  {"a": "Marcus Aurelius", "t": "You have power over your mind - not outside events. Realize this, and you will find strength."},
+  {"a": "Marcus Aurelius", "t": "Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth."},
+  {"a": "Marcus Aurelius", "t": "Waste no more time arguing about what a good man should be. Be one."},
+  {"a": "Marcus Aurelius", "t": "The best revenge is to be unlike him who performed the injury."},
+  {"a": "Marcus Aurelius", "t": "It is not death that a man should fear, but he should fear never beginning to live."},
+  {"a": "Marcus Aurelius", "t": "Never let the future disturb you. You will meet it, if you have to, with the same weapons of reason which today arm you against the present."},
+  {"a": "Marcus Aurelius", "t": "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment."},
+  {"a": "Marcus Aurelius", "t": "How much more grievous are the consequences of anger than the causes of it."},
+  {"a": "Marcus Aurelius", "t": "Do not act as if you were going to live ten thousand years. Death hangs over you. While you live, while it is in your power, be good."},
+  {"a": "Marcus Aurelius", "t": "Reject your sense of injury and the injury itself disappears."},
+  {"a": "Mary Shelley", "t": "Beware; for I am fearless, and therefore powerful."},
+  {"a": "Mary Shelley", "t": "How mutable are our feelings, and how strange is that clinging love we have of life even in the excess of misery!"},
+  {"a": "Mary Shelley", "t": "I was benevolent and good; misery made me a fiend. Make me happy, and I shall again be virtuous."},
+  {"a": "Mary Shelley", "t": "'Man,' I cried, 'how ignorant art thou in thy pride of wisdom!'"},
+  {"a": "Mary Shelley", "t": "The companions of our childhood always possess a certain power over our minds which hardly any later friend can obtain."},
+  {"a": "Midnight in Paris", "t": "Yeah, that's what the present is. It's a little unsatisfying because life's a little unsatisfying."},
+  {"a": "Midnight in Paris", "t": "That's the problem with writers. You are so full of words."},
+  {"a": "Midnight in Paris", "t": "All cowardice comes from not loving or not loving well, which is the same thing."},
+  {"a": "Midnight in Paris", "t": "That Paris exists and anyone could choose to live anywhere else in the world will always be a mystery to me."},
+  {"a": "Midnight in Paris", "t": "Nostalgia is denial of the painful present."},
+  {"a": "The Truman Show", "t": "Good morning, and in case I don't see ya: Good afternoon, good evening, and good night!"},
+  {"a": "The Truman Show", "t": "Somebody help me, I'm being spontaneous!"},
+  {"a": "The Truman Show", "t": "Cue the sun!"},
+  {"a": "William Shakespeare", "t": "Villain, I have done thy mother."},
+  {"a": "William Shakespeare", "t": "Would thou wert clean enough to spit upon!"},
+]
+const rq = quotes[Math.floor(Math.random() * quotes.length)];
+var a = document.getElementById("q-a");
+var t = document.getElementById("q-t");
+a.innerText = rq.a;
+a.style.display = "";
+t.innerText = rq.t;
+t.style.display = "";
+</script>
+<noscript><style>
+  #q-a, #q-t { display: block !important; }
+</style></noscript>
 </html>

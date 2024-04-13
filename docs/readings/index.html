@@ -119,9 +119,11 @@
   <main>
     <article>
       <h1>Readings</h1>
+      <q id="q-t" style="display: none;">I was raised among books, making invisible friends in pages that seemed cast from dust and whose smell I carry on my hands to this day.</q>
+      <p id="q-a" style="display: none;">Carlos Ruiz Zafón</p>
+
       <p>This is where I keep track of all my readings, or at least the ones I can remember.<br>
       Re-reads are not listed.<br>
-      <small style="font-style: italic;">Last updated: 08 Apr 2024</small></p>
 
       <div class="search-container">
         <input type="text" maxlength="40" placeholder="Search title or author..." autocomplete="off" oninput="searchBooks()" id="search-input">
@@ -381,12 +383,37 @@
 
   <footer>
     <hr>
+    <p>last updated: 8 apr 2024</p>
     <p lang="en"><a aria-label="Back to top" title="Back to top" href="#top">top</a><span id="btn-theme-hide">&#160; | &#160;<button id="btn-theme" aria-label="Theme switcher" title="Theme switcher">dark</button></span>&#160; | &#160;<a href="/feed.xml">rss</a>&#160; | &#160;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a></p>
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
 
 <script>
+const quotes = [
+  {"a": "Before Sunrise", "t": "I think I’m always so much more happy with books and movies and stuff. I think I get more excited about well-done representations of life than life itself."},
+  {"a": "C.S. Lewis", "t": "You can never get a cup of tea large enough or a book long enough to suit me."},
+  {"a": "C.S. Lewis", "t": "Some day you will be old enough to start reading fairy tales again."},
+  {"a": "C.S. Lewis", "t": "Eating and reading are two pleasures that combine admirably."},
+  {"a": "C.S. Lewis", "t": "I can't imagine a man really enjoying a book and reading it only once."},
+  {"a": "C.S. Lewis", "t": "It is a good rule after reading a new book, never to allow yourself another new one till you have read an old one in between."},
+  {"a": "Carlos Ruiz Zafón", "t": "Books are mirrors: you only see in them what you already have inside you."},
+  {"a": "Carlos Ruiz Zafón", "t": "Every book has a soul. The soul of the person who wrote it and of those who read it and lived and dreamed with it. Every time a book changes hands, every time someone runs his eyes down its pages, its spirit grows and strengthens."},
+  {"a": "Carlos Ruiz Zafón", "t": "I was raised among books, making invisible friends in pages that seemed cast from dust and whose smell I carry on my hands to this day."},
+  {"a": "Dead Poets Society", "t": "When you read, don't just consider what the author thinks, consider what you think."},
+  {"a": "Dead Poets Society", "t": "We don't read and write poetry because its cute. We read and write poetry because we are members of the human race. And the human race is full of passion."},
+  {"a": "Donna Tartt", "t": "It is is better to know one book intimately than a hundred superficially."},
+  {"a": "Emily Dickinson", "t": "If I read a book and it makes my whole body so cold no fire can ever warm me, I know that is poetry."},
+  {"a": "Emily Dickinson", "t": "The dearest ones of time, the strongest friends of the soul — BOOKS."},
+]
+const rq = quotes[Math.floor(Math.random() * quotes.length)];
+var a = document.getElementById("q-a");
+var t = document.getElementById("q-t");
+a.innerText = rq.a;
+a.style.display = "";
+t.innerText = rq.t;
+t.style.display = "";
+
 function checkBook(book) {
   var searchString = document.getElementById("search-input").value.toLowerCase();
   if (searchString.length == 0)
@@ -440,5 +467,7 @@ document.getElementById("search-input").addEventListener("keypress", function(ev
     this.blur();
 });
 </script>
-
+<noscript><style>
+  #q-a, #q-t { display: block !important; }
+</style></noscript>
 </html>

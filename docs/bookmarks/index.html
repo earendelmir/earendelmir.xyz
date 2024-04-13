@@ -59,6 +59,9 @@
   <main>
     <article>
       <h1>Bookmarks</h1>
+      <q id="q-t" style="display: none">Friendship is born at the moment when one man says to another 'What! You too? I thought that no one but myself...'</q>
+      <p id="q-a" style="display: none">C.S. Lewis</p>
+
       <p>I figured I'd compile a list of all the sites I find out there that catch my attention, because they're cool,
         interesting, helpful or whatever...<br>
         Hopefully I'll remember to update this list. Its existence is mainly for my own reference but I guess it might
@@ -117,5 +120,27 @@
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
-
+<script>
+const quotes = [
+  {"a": "C.S. Lewis", "t": "Friendship is born at the moment when one man says to another 'What! You too? I thought that no one but myself...'"},
+  {"a": "Charlotte Brontë", "t": "Prejudices, it is well known, are most difficult to eradicate from the heart whose soil has never been loosened or fertilised by education: they grow there, firm as weeds among stones."},
+  {"a": "Donna Tartt", "t": "Does such a thing as 'the fatal flaw,' that showy dark crack running down the middle of a life, exist outside literature? I used to think it didn't. Now I think it does. And I think that mine is this: a morbid longing for the picturesque at all costs."},
+  {"a": "Emily Dickinson", "t": "The soul should always stand ajar, ready to welcome the ecstatic experience."},
+  {"a": "Emily Dickinson", "t": "Bring me the sunset in a cup."},
+  {"a": "Frank Herbert", "t": "The mystery of life isn't a problem to solve, but a reality to experience."},
+  {"a": "Frank Herbert", "t": "Science is made up of so many things that appear obvious after they are explained."},
+  {"a": "J.R.R. Tolkien", "t": "The wide world is all about you: you can fence yourselves in, but you cannot forever fence it out."},
+  {"a": "J.R.R. Tolkien", "t": "You step into the Road, and if you don't keep your feet, there is no knowing where you might be swept off to."},
+]
+const rq = quotes[Math.floor(Math.random() * quotes.length)];
+var a = document.getElementById("q-a");
+var t = document.getElementById("q-t");
+a.innerText = rq.a;
+a.style.display = "";
+t.innerText = rq.t;
+t.style.display = "";
+</script>
+<noscript><style>
+  #q-a, #q-t { display: block !important; }
+</style></noscript>
 </html>

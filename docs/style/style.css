@@ -237,6 +237,23 @@ main p.post-info + p {
 }
 
 
+/* ***** QUOTE ***** */
+#q-t {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+#q-a {
+  font-family: var(--font-serif);
+  margin-bottom: 2rem;
+}
+#q-a::before {
+  content: " -";
+  white-space: pre;
+  display: inline-block;
+  margin-right: 0.8rem;
+}
+
+
 /* ***** FOOTER ***** */
 /* Stretch main to fill all remaining space towards the bottom of the page. */
 main {

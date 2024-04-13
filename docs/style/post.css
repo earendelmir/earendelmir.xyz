@@ -16,6 +16,9 @@
   text-decoration-color: var(--color-text2-underline);
   text-decoration-thickness: 1px;
 }
+.post-info a:not(:last-child) {
+  padding-right: 0.8rem;
+}
 
 
 /* ***** CODE ***** */

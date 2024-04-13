@@ -56,11 +56,6 @@ _trap_exit() {
     else
         _print_err "Add post to $_FILE_ARCHIVE_TAGS." ; _exit $1
     fi
-    if [[ -n $__ok_update_tag ]]; then
-        sed -i "$line_nr_tag""s/$new_tag_num/$curr_tag_num/" "$_FILE_ARCHIVE_TAGS"
-    else
-        _print_err "Update tag post count." ; _exit $1
-    fi
     if [[ -n $__ok_add_sitemap_xml ]]; then
         num_lines="$(wc -l < $_FILE_SITEMAP_XML)"
         begin_line_nr=$((num_lines-5))
@@ -101,7 +96,7 @@ Create new post file.
 }
 
 _list_tags() {
-    grep "<li id=" archive/index.html | cut -c 21- | cut -d'"' -f1
+    grep "<li id=" archive/index.html | cut -c 19- | cut -d'"' -f1
 }
 
 _is_valid_tag() {
@@ -148,12 +143,6 @@ trap _trap_exit EXIT
 # Move into website's root folder.
 pushd "${0%/*}/../docs" &>/dev/null
 
-readonly _FILE_HOMEPAGE="index.html"
-readonly _FILE_ARCHIVE="archive/index.html"
-readonly _FILE_ARCHIVE_TAGS="archive/tags.html"
-readonly _FILE_SITEMAP_XML="sitemap-xml.xml"
-readonly _FILE_SITEMAP_TXT="sitemap.txt"
-
 # Parse command line arguments.
 while [[ -n $1 ]]; do
     case "$1" in
@@ -186,6 +175,12 @@ done
 _ask_title
 _ask_lang
 _ask_tag
+
+readonly _FILE_HOMEPAGE="index.html"
+readonly _FILE_ARCHIVE="archive/index.html"
+readonly _FILE_ARCHIVE_TAGS="archive/tags/$tag.html"
+readonly _FILE_SITEMAP_XML="sitemap-xml.xml"
+readonly _FILE_SITEMAP_TXT="sitemap.txt"
 
 # Get current date.
 # Use English language to get first 3 letters of current month (%b).
@@ -254,6 +249,8 @@ _print_ok "Remove oldest entry from $_FILE_HOMEPAGE."
 ################################################################################
 
 line="\ \ \ \ \ \ \ \ <li class=\"h-entry\"><time class=\"dt-published\" datetime=\"$curr_datetime\">${curr_date:3:3} ${curr_date::2}</time><a class=\"u-url\" href=\"/$post_filename\"><span class=\"p-name\" lang=\"$lang\">$title</span></a></li>"
+
+# Get line number where to insert this new line: 1 line above the first h-entry.
 line_nr="$(grep -n -m 1 "h-entry" "$_FILE_ARCHIVE" | cut -d':' -f1)"
 sed -i "${line_nr}i\\${line}" "$_FILE_ARCHIVE"
 __ok_add_archive=1
@@ -261,30 +258,16 @@ _print_ok "Add post to $_FILE_ARCHIVE."
 
 
 ################################################################################
-###  ADD TO /archive/tags
+###  ADD TO /archive/tags/tag.html
 ################################################################################
 
 line="\ \ \ \ \ \ \ \ <li class=\"h-entry $lang\"><a class=\"u-url\" href=\"/$post_filename\"><span class=\"p-name\" lang=\"$lang\">$title</span></a></li>"
 
-# Get line number where to insert this new line: 2 lines below the h2 tag title.
-line_nr=$(grep -n "h2 id=\"$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)
-line_nr=$((line_nr+2))
-sed -i "$line_nr i ""${line}" "$_FILE_ARCHIVE_TAGS"
+# Get line number where to insert this new line: 1 line above the first h-entry.
+line_nr="$(grep -n -m 1 "h-entry" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)"
+sed -i "${line_nr}i\\${line}" "$_FILE_ARCHIVE_TAGS"
 __ok_add_archive_tags=1
 _print_ok "Add post to $_FILE_ARCHIVE_TAGS."
-
-
-################################################################################
-###  INCREASE TAG COUNT IN /archive/tags
-################################################################################
-
-# Increase post count for tag in list of tags.
-line_nr_tag="$(grep -n "href=\"#$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)"
-curr_tag_num="$(grep "href=\"#$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d'(' -f2 | cut -d')' -f1)"
-new_tag_num=$((curr_tag_num+1))
-sed -i "$line_nr_tag""s/$curr_tag_num/$new_tag_num/" "$_FILE_ARCHIVE_TAGS"
-__ok_update_tag=1
-_print_ok "Update tag count in tags list."
 
 
 ################################################################################
