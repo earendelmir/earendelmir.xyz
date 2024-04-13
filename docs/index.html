@@ -54,13 +54,14 @@
       text-overflow: ellipsis;
       width: 100%;
     }
-
     .webring {
       float: right;
-      font-size: 0.9em;
     }
     .webring a {
       text-decoration: none;
+    }
+    @media screen and (max-width:500px) {
+      .webring { display: none }
     }
   </style>
 </head>
@@ -116,10 +117,10 @@
 
   <footer>
     <hr>
-    <p lang="en"><a aria-label="Back to top button" href="#top">↑ Back to Top</a><span id="btn-theme-hide">&#160; | &#160;<button id="btn-theme" aria-label="Theme switcher" title="Theme switcher">Dark</button></span>&#160; | &#160;<a href="/feed.xml">RSS</a>&#160; | &#160;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>
+    <p lang="en"><a aria-label="Back to top" title="Back to top" href="#top">↑ top</a><span id="btn-theme-hide">&#160; | &#160;<button id="btn-theme" aria-label="Theme switcher" title="Theme switcher">dark</button></span>&#160; | &#160;<a href="/feed.xml">rss</a>&#160; | &#160;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>
       <span class="webring">
         <a aria-label="IndieWeb Webring (Previous)" title="IndieWeb Webring (Previous)" rel="noreferrer noopener" href="https://xn--sr8hvo.ws/previous">←</a>
-        <img aria-hidden="true" draggable="false" class="emoji" alt="🕸" src="/images/icon-web.svg" style="width: 1em; height: 1em;"><img aria-hidden="true" draggable="false" class="emoji" alt="💍" src="/images/icon-ring.svg" style="width: 1em; height: 1em;">
+        <img aria-hidden="true" draggable="false" class="emoji" alt="🕸" src="/images/icon-web.svg" style="width: 0.8em; height: 0.8em;"><img aria-hidden="true" draggable="false" class="emoji" alt="💍" src="/images/icon-ring.svg" style="width: 0.8em; height: 0.8em;">
         <a aria-label="IndieWeb Webring (Next)" title="IndieWeb Webring (Next)" rel="noreferrer noopener" href="https://xn--sr8hvo.ws/next">→</a>
       </span>
     </p>

@@ -24,7 +24,7 @@
         <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)" />
         <link rel="stylesheet" href="/style/style.css" />
-
+        <script type="text/javascript" src="/scripts/theme.js"></script>
         <style>
           header#banner nav a:not(:last-of-type) {
             margin-right: 1.6rem;
@@ -87,10 +87,8 @@
         </main>
 
         <footer>
-          <hr style="margin-top: 0; margin-bottom: inherit;"/>
-          <p><a href="#top"><span lang="en">↑ Back to Top</span></a></p>
-          <p lang="en">Follow via <a href="/feed.xml">RSS</a>. Get in touch via
-            <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a>.</p>
+          <hr/>
+          <p lang="en"><a aria-label="Back to top" title="Back to top" href="#top">↑ top</a><span id="btn-theme-hide">&#160; | &#160;<button id="btn-theme" aria-label="Theme switcher" title="Theme switcher">dark</button></span>&#160; | &#160;<a href="/feed.xml">rss</a>&#160; | &#160;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#97;&#114;&#101;&#110;&#100;&#101;&#108;&#109;&#105;&#114;&#64;&#112;&#114;&#111;&#116;&#111;&#110;&#46;&#109;&#101;">email</a></p>
           <p><span translate="no">© 2023-2024 earendelmir</span></p>
         </footer>
       </body>

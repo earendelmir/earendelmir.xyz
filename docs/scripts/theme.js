@@ -9,7 +9,7 @@ function setTheme(dark, save=false) {
   catch {}
 }
 function setText(dark) {
-  document.getElementById("btn-theme").innerText = dark ? "Light" : "Dark"
+  document.getElementById("btn-theme").innerText = dark ? "light" : "dark"
 }
 
 const q = window.matchMedia("(prefers-color-scheme: dark)")
