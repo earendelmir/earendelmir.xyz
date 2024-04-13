@@ -28,13 +28,23 @@
   <title>Archive - earendelmir</title>
 
   <style>
-    main h2 {
+    main h2:not(#title-tags) {
       margin: 3.2rem 0 0;
       padding: 1.2rem 0 0.8rem;
       top: 0;
       position: sticky;
       border-bottom: 1px solid var(--color-sticky-title-underline);
       background-color: var(--color-background);
+    }
+    #tags-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 1.2rem 0;
+    }
+    #tags-list li {
+      margin: 0 2rem 0 0;
     }
     .posts-list {
       margin: 1.2rem 0 0;
@@ -45,7 +55,9 @@
     .posts-list li {
       display: grid;
       grid-template-columns: auto 1fr auto;
-      grid-gap: 0.8rem;
+      grid-template-rows: auto auto 1fr;
+      grid-column-gap: 0.2rem;
+      grid-row-gap: 0.4rem;
     }
     .posts-list li time {
       color: var(--color-text2);
@@ -58,6 +70,21 @@
       overflow: hidden;
       text-overflow: ellipsis;
       width: 100%;
+    }
+    .posts-list li .post-tags {
+      font-size: smaller;
+    }
+    .posts-list li .post-tags a {
+      color: var(--color-text2);
+    }
+    @media screen and (max-width:700px) {
+      .posts-list li:not(:last-child) {
+        margin-bottom: 0.4rem;
+      }
+      .posts-list li .post-tags {
+        grid-row: 2;
+        grid-column: 2;
+      }
     }
   </style>
 </head>
@@ -76,7 +103,19 @@
 
   <main>
     <h1>Archive</h1>
-    <p>You might be looking for the <a href="/archive/tags">organized list</a>, with tags and filters.</p>
+    <h2 id="title-tags">tags</h2>
+    <ul id="tags-list">
+      <li id="tag-books"><a href="#books">#books</a></li>
+      <li id="tag-cinema"><a href="#cinema">#cinema</a></li>
+      <li id="tag-development"><a href="#development">#development</a></li>
+      <li id="tag-journaling"><a href="#journaling">#journaling</a></li>
+      <li id="tag-miscellany"><a href="#miscellany">#miscellany</a></li>
+      <li id="tag-music"><a href="#music">#music</a></li>
+      <li id="tag-personal"><a href="#personal">#personal</a></li>
+      <li id="tag-travels"><a href="#travels">#travels</a></li>
+      <li id="tag-web"><a href="#web">#web</a></li>
+      <li id="tag-website"><a href="#website">#website</a></li>
+    </ul>
 
     <div class="h-feed">
       <div class="p-author h-card" hidden>
@@ -87,34 +126,34 @@
       <section>
       <h2>2024</h2>
       <ul class="list posts-list">
-        <li class="h-entry"><time class="dt-published" datetime="2024-04-03">Apr 03</time><a class="u-url" href="/archive/2024/18"><span class="p-name" lang="it">Incubo ricorrente</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-03-25">Mar 25</time><a class="u-url" href="/archive/2024/17"><span class="p-name" lang="it">Il primo vero sole</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-03-23">Mar 23</time><a class="u-url" href="/archive/2024/16"><span class="p-name" lang="en">I cried watching "The Iron Claw"</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-03-16">Mar 16</time><a class="u-url" href="/archive/2024/15"><span class="p-name" lang="en">Steve Jobs' letter to self</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-03-14">Mar 14</time><a class="u-url" href="/archive/2024/14"><span class="p-name" lang="en">Book covers shouldn't advertise films</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-03-01">Mar 01</time><a class="u-url" href="/archive/2024/13"><span class="p-name" lang="en">Multiple GitHub accounts on one machine</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-02-22">Feb 22</time><a class="u-url" href="/archive/2024/12"><span class="p-name" lang="en">Overlay scrollbars on Chrome based browsers</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-02-21">Feb 21</time><a class="u-url" href="/archive/2024/11"><span class="p-name" lang="en">This blog will die with me</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-02-14">Feb 14</time><a class="u-url" href="/archive/2024/10"><span class="p-name" lang="en">How to join An IndieWeb Webring</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-02-12">Feb 12</time><a class="u-url" href="/archive/2024/9"><span class="p-name" lang="en">On Spotify replacing my iPod (that I stole)</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-02-10">Feb 10</time><a class="u-url" href="/archive/2024/8"><span class="p-name" lang="en">Yet another redesign</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-02-10">Feb 10</time><a class="u-url" href="/archive/2024/7"><span class="p-name" lang="en">The best sleep I have ever had (or remember having)</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-02-09">Feb 09</time><a class="u-url" href="/archive/2024/6"><span class="p-name" lang="en">The best desktop calculator app is Python</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-01-29">Jan 29</time><a class="u-url" href="/archive/2024/5"><span class="p-name" lang="en">Seville, it's official</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-01-22">Jan 22</time><a class="u-url" href="/archive/2024/4"><span class="p-name" lang="en">Catchier titles</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-01-10">Jan 10</time><a class="u-url" href="/archive/2024/3"><span class="p-name" lang="en">I have no ambition</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-01-06">Jan 06</time><a class="u-url" href="/archive/2024/2"><span class="p-name" lang="it">Vite sfiorate</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2024-01-03">Jan 03</time><a class="u-url" href="/archive/2024/1"><span class="p-name" lang="en">I am sabotaging myself</span></a></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-04-03">Apr 03</time><a class="u-url" href="/archive/2024/18"><span class="p-name" lang="it">Incubo ricorrente</span></a><span class="post-tags"><a href="/archive/tags#journaling">#journaling</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-03-25">Mar 25</time><a class="u-url" href="/archive/2024/17"><span class="p-name" lang="it">Il primo vero sole</span></a><span class="post-tags"><a href="/archive/tags#journaling">#journaling</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-03-23">Mar 23</time><a class="u-url" href="/archive/2024/16"><span class="p-name" lang="en">I cried watching "The Iron Claw"</span></a><span class="post-tags"><a href="/archive/tags#personal">#personal</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-03-16">Mar 16</time><a class="u-url" href="/archive/2024/15"><span class="p-name" lang="en">Steve Jobs' letter to self</span></a><span class="post-tags"><a href="/archive/tags#cinema">#cinema</a> <a href="/archive/tags#journaling">#journaling</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-03-14">Mar 14</time><a class="u-url" href="/archive/2024/14"><span class="p-name" lang="en">Book covers shouldn't advertise films</span></a><span class="post-tags"><a href="/archive/tags#books">#books</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-03-01">Mar 01</time><a class="u-url" href="/archive/2024/13"><span class="p-name" lang="en">Multiple GitHub accounts on one machine</span></a><span class="post-tags"><a href="/archive/tags#development">#development</a> <a href="/archive/tags#git">#git</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-02-22">Feb 22</time><a class="u-url" href="/archive/2024/12"><span class="p-name" lang="en">Overlay scrollbars on Chrome based browsers</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-02-21">Feb 21</time><a class="u-url" href="/archive/2024/11"><span class="p-name" lang="en">This blog will die with me</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a> <a href="/archive/tags#website">#website</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-02-14">Feb 14</time><a class="u-url" href="/archive/2024/10"><span class="p-name" lang="en">How to join An IndieWeb Webring</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-02-12">Feb 12</time><a class="u-url" href="/archive/2024/9"><span class="p-name" lang="en">On Spotify replacing my iPod (that I stole)</span></a><span class="post-tags"><a href="/archive/tags#journaling">#journaling</a> <a href="/archive/tags#music">#music</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-02-10">Feb 10</time><a class="u-url" href="/archive/2024/8"><span class="p-name" lang="en">Yet another redesign</span></a><span class="post-tags"><a href="/archive/tags#website">#website</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-02-10">Feb 10</time><a class="u-url" href="/archive/2024/7"><span class="p-name" lang="en">The best sleep I have ever had (or remember having) that I know of of course my sri</span></a><span class="post-tags"><a href="/archive/tags#journaling">#journaling</a> <a href="/archive/tags#journaling">#journaling</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-02-09">Feb 09</time><a class="u-url" href="/archive/2024/6"><span class="p-name" lang="en">The best desktop calculator app is Python</span></a><span class="post-tags"><a href="/archive/tags#development">#development</a> <a href="/archive/tags#linux">#linux</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-01-29">Jan 29</time><a class="u-url" href="/archive/2024/5"><span class="p-name" lang="en">Seville, it's official</span></a><span class="post-tags"><a href="/archive/tags#travels">#travels</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-01-22">Jan 22</time><a class="u-url" href="/archive/2024/4"><span class="p-name" lang="en">Catchier titles</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a> <a href="/archive/tags#website">#website</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-01-10">Jan 10</time><a class="u-url" href="/archive/2024/3"><span class="p-name" lang="en">I have no ambition</span></a><span class="post-tags"><a href="/archive/tags#personal">#personal</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-01-06">Jan 06</time><a class="u-url" href="/archive/2024/2"><span class="p-name" lang="it">Vite sfiorate</span></a><span class="post-tags"><a href="/archive/tags#journaling">#journaling</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2024-01-03">Jan 03</time><a class="u-url" href="/archive/2024/1"><span class="p-name" lang="en">I am sabotaging myself</span></a><span class="post-tags"><a href="/archive/tags#personal">#personal</a></span></li>
       </ul>
       </section>
 
       <section>
       <h2>2023</h2>
       <ul class="list posts-list">
-        <li class="h-entry"><time class="dt-published" datetime="2023-12-16">Dec 16</time><a class="u-url" href="/archive/2023/47"><span class="p-name" lang="en">God is an answer; on faith and mythologies</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2023-12-05">Dec 05</time><a class="u-url" href="/archive/2023/46"><span class="p-name" lang="en">Fixing past mistakes</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2023-11-30">Nov 30</time><a class="u-url" href="/archive/2023/45"><span class="p-name" lang="en">My Spotify Wrapped 2023</span></a></li>
-        <li class="h-entry"><time class="dt-published" datetime="2023-11-28">Nov 28</time><a class="u-url" href="/archive/2023/44"><span class="p-name" lang="en">A bash script for random quote on shell login</span></a></li>
+        <li class="h-entry"><time class="dt-published" datetime="2023-12-16">Dec 16</time><a class="u-url" href="/archive/2023/47"><span class="p-name" lang="en">God is an answer; on faith and mythologies</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a> <a href="/archive/tags#development">#development</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2023-12-05">Dec 05</time><a class="u-url" href="/archive/2023/46"><span class="p-name" lang="en">Fixing past mistakes</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a> <a href="/archive/tags#development">#development</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2023-11-30">Nov 30</time><a class="u-url" href="/archive/2023/45"><span class="p-name" lang="en">My Spotify Wrapped 2023</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a> <a href="/archive/tags#development">#development</a></span></li>
+        <li class="h-entry"><time class="dt-published" datetime="2023-11-28">Nov 28</time><a class="u-url" href="/archive/2023/44"><span class="p-name" lang="en">A bash script for random quote on shell login</span></a><span class="post-tags"><a href="/archive/tags#web">#web</a> <a href="/archive/tags#development">#development</a></span></li>
         <li class="h-entry"><time class="dt-published" datetime="2023-11-24">Nov 24</time><a class="u-url" href="/archive/2023/43"><span class="p-name" lang="en">On rereading books</span></a></li>
         <li class="h-entry"><time class="dt-published" datetime="2023-11-13">Nov 13</time><a class="u-url" href="/archive/2023/42"><span class="p-name" lang="en">How to overcome Youtube addiction</span></a></li>
         <li class="h-entry"><time class="dt-published" datetime="2023-11-12">Nov 12</time><a class="u-url" href="/archive/2023/41"><span class="p-name" lang="en">There's music coming from up there</span></a></li>
