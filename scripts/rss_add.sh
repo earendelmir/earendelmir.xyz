@@ -18,7 +18,7 @@ _print_err() {
 _print_descr() {
     print_html_bold=$(cat <<EOF
 import re
-string = "$1"
+string = "${1//\"/\\\"}"
 output = ""
 start = 0
 for match in re.finditer(r'<([^>]*)>', string):
@@ -77,7 +77,36 @@ _help() {
 Add new post to the RSS feed file. By default it adds the latest one.
 
 -h, --help      Show this guide and exit
-FILE            Filepath of post to add to the feed\n" "$(basename "$0")"
+-n, --note      Add latest note instead of post\n" "$(basename "$0")"
+}
+
+_get_note_title() {
+    echo ""
+}
+_get_post_title() {
+    title="$(grep -m 1 post-title "$file")"
+    title="${title#*\">}"
+    echo "${title::-5}"
+}
+_get_note_descr() {
+    start_linenr="$(grep -m 1 -n e-content "$file")"
+    start_linenr="${start_linenr%:*}"
+    start_linenr=$((start_linenr + 1))
+    end_linenr="$(grep -m 1 -n '</article>' "$file")"
+    end_linenr="${end_linenr%:*}"
+    end_linenr=$((end_linenr - 3))
+    # Get note body.
+    sed -n "${start_linenr},${end_linenr}p" "$file"
+}
+_get_post_descr() {
+    start_linenr="$(grep -m 1 -n e-content "$file")"
+    start_linenr="${start_linenr%:*}"
+    start_linenr=$((start_linenr + 1))
+    end_linenr="$(grep -m 1 -n '</article>' "$file")"
+    end_linenr="${end_linenr%:*}"
+    end_linenr=$((end_linenr - 2))
+    # Get post body.
+    sed -n "${start_linenr},${end_linenr}p" "$file"
 }
 
 
@@ -96,11 +125,11 @@ readonly _MAX_RSS_ENTRIES=20
 case "$1" in
     '') ;;
     -h | --help) _help ; exit ;;
-    -n | --note) use_note=1 ;;
+    -n | --note) add_note=1 ;;
 esac
 
-# Get most recent file from archive, if none has been given.
-if [[ -n $use_note ]]; then
+# Get most recent note/post.
+if [[ -n $add_note ]]; then
     file="$(find notes/permalink/ -type f | sort -r | head -1 \
                 | xargs -rI {} find {} -type f | sort -Vr | head -1)"
     filename=${file%.html}
@@ -118,13 +147,11 @@ grep -q "$fname</guid>" "$_FILE_RSS_FEED" && _die "Post ${fname} already in the 
 __ok_start=1
 _print_ok "Found file $file"
 
-# Get post title.
-if [[ -n $use_note ]]; then
-    title=""
+# Get note/post title.
+if [[ -n $add_note ]]; then
+    title="$(_get_note_title)"
 else
-    title="$(grep -m 1 post-title "$file")"
-    title="${title#*\">}"
-    title=${title::-5}
+    title="$(_get_post_title)"
 fi
 __ok_title=1
 _print_ok "Title: $title"
@@ -132,22 +159,13 @@ _print_ok "Title: $title"
 # Publication date is current timestamp.
 pubDate="$(date -R)"
 
-# Description is first N characters of post body, find line numbers for start
-# and end.
-start_linenr="$(grep -m 1 -n e-content "$file")"
-start_linenr="${start_linenr%:*}"
-start_linenr=$((start_linenr + 1))
-end_linenr="$(grep -m 1 -n '</article>' "$file")"
-end_linenr="${end_linenr%:*}"
-if [[ -n $use_note ]]; then
-    end_linenr=$((end_linenr - 3))
+# Get note/post description (content body).
+if [[ -n $add_note ]]; then
+    descr="$(_get_note_descr)"
 else
-    end_linenr=$((end_linenr - 2))
+    descr="$(_get_post_descr)"
 fi
-# Get post body.
-sed -n "${start_linenr},${end_linenr}p" "$file" > /tmp/descr
 # Format string.
-descr="$(cat /tmp/descr)"
 descr="${descr//\"/\\\"}"
 descr="${descr//          /}"
 descr="${descr//         /}"
@@ -159,17 +177,19 @@ descr="${descr//    /}"
 descr="${descr//   /}"
 descr="${descr//  /}"
 descr="${descr//$'\n'/ }"
-# Truncate string at a maximum length of N characters.
+
+# Truncate string at a maximum length of N characters and add custom footer.
 N=300
-length=${#descr}
-if (( length > N )); then
+if (( ${#descr} > N )); then
     descr="${descr::N} [...]</p>"
+    descr+="<br><hr><p>Read the full article <a href=\"https://earendelmir.xyz/$filename\">here</a>, or toggle <i>full page view</i> on your reader.</p><p>Want to get in touch? Reach out via <a href=\"mailto:earendelmir@proton.me\">email</a>.</p>"
+else
+    descr+="<br><hr><p>Want to get in touch? Reach out via <a href=\"mailto:earendelmir@proton.me\">email</a>.</p>"
 fi
 __ok_description=1
 _print_ok "Descrition:" ; _print_descr "$descr"
-descr+="<br><hr><p>Read the full article <a href=\"https://earendelmir.xyz/$filename\">here</a>, or toggle <i>full page view</i> on your reader.</p><p>Want to get in touch? Reach out via <a href=\"mailto:earendelmir@proton.me\">email</a>.</p>"
 
-# Add new item.
+# Add new item to the feed.
 line="\ \ \ \ <item>\n\ \ \ \ \ \ <link>https://earendelmir.xyz/$filename</link>\n\ \ \ \ \ \ <guid isPermaLink=\"false\">$fname</guid>\n\ \ \ \ \ \ <author>earendelmir@proton.me</author>\n\ \ \ \ \ \ <title>$title</title>\n\ \ \ \ \ \ <description><![CDATA[$descr]]></description>\n\ \ \ \ \ \ <pubDate>$pubDate</pubDate>\n\ \ \ \ </item>\n"
 line_nr="$(grep -n -m 1 "<item>" "$_FILE_RSS_FEED" | cut -d':' -f1)"
 sed -i "${line_nr}i\\${line}" "$_FILE_RSS_FEED"

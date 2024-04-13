@@ -78,7 +78,25 @@
             <div class="feed-list">
               <xsl:for-each select="/rss/channel/item">
                 <div class="item">
-                  <span class="title"><a><xsl:attribute name="href"><xsl:value-of select="link"/></xsl:attribute><xsl:value-of select="title"/></a></span>
+                  <span class="title">
+                    <a><xsl:attribute name="href"><xsl:value-of select="link"/></xsl:attribute>
+                      <xsl:choose>
+                        <xsl:when test="string-length(title) &gt; 0">
+                          <xsl:value-of select="title"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:choose>
+                            <xsl:when test="string-length(description) &gt; 40">
+                              <xsl:value-of select="substring(description, 4, 40)"/> ...
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:value-of select="substring(description, 4)"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </a>
+                  </span>
                   <span class="pub-date">Published: <xsl:value-of select="pubDate"/></span>
                 </div>
               </xsl:for-each>
