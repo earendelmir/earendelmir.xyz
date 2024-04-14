@@ -20,7 +20,7 @@ main h2:not(#tags) {
 .posts-list li time {
   color: var(--color-text2);
   width: 6rem;
-  font-size: smaller;
+  font-size: 0.9em;
   margin: auto;
 }
 .posts-list li a {

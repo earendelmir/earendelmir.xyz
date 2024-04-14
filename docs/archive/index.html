@@ -56,8 +56,6 @@
 
   <main>
     <h1>Archive</h1>
-    <q id="q-t" style="display: none;">Thou whoreson zed, thou unnecessary letter!</q>
-    <p id="q-a" style="display: none;">William Shakespeare</p>
 
     <h2 id="tags">Tags</h2>
     <ul id="tags-list">
@@ -164,32 +162,5 @@
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
-<script>
-const quotes = [
-  {"a": "C.S. Lewis", "t": "Friendship is born at the moment when one man says to another 'What! You too? I thought that no one but myself...'"},
-  {"a": "Dead Poets Society", "t": "That the powerful play goes on, and you may contribute a verse."},
-  {"a": "Dead Poets Society", "t": "No matter what people tell you, words and ideas can change the world."},
-  {"a": "Dead Poets Society", "t": "I sound my barbaric YAWP over the rooftops of the world."},
-  {"a": "Emily Dickinson", "t": "Saying nothing... sometimes says the most."},
-  {"a": "Emily Dickinson", "t": "Truth is so rare, it is delightful to tell it."},
-  {"a": "Emily Dickinson", "t": "I know nothing in the world that has as much power as a word. Sometimes I write one, and I look at it, until it begins to shine."},
-  {"a": "Emily Dickinson", "t": "This is my letter to the world\n That never wrote to me."},
-  {"a": "Frank Herbert", "t": "The mystery of life isn't a problem to solve, but a reality to experience."},
-  {"a": "Frank Herbert", "t": "Deep in the human unconscious is a pervasive need for a logical universe that makes sense. But the real universe is always one step beyond logic."},
-  {"a": "Frank Herbert", "t": "A process cannot be understood by stopping it. Understanding must move with the flow of the process, must join it and flow with it."},
-  {"a": "J.R.R. Tolkien", "t": "The wise speak only of what they know."},
-  {"a": "J.R.R. Tolkien", "t": "In doubt a man of worth will trust to his own wisdom."},
-  {"a": "William Shakespeare", "t": "Thou whoreson zed, thou unnecessary letter!"},
-]
-const rq = quotes[Math.floor(Math.random() * quotes.length)];
-var a = document.getElementById("q-a");
-var t = document.getElementById("q-t");
-a.innerText = rq.a;
-a.style.display = "";
-t.innerText = rq.t;
-t.style.display = "";
-</script>
-<noscript><style>
-  #q-a, #q-t { display: block !important; }
-</style></noscript>
+
 </html>

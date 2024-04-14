@@ -43,9 +43,6 @@
   <main>
     <article>
       <h1>Gallery</h1>
-      <q id="q-t" style="display: none">Nature is a haunted house — but Art — is a house that tries to be haunted.</q>
-      <p id="q-a" style="display: none">Emily Dickinson</p>
-
       <p>I'll use these pages to collect and showcase some of my photographs, grouped by capture date or location.<br>
         I am no photographer, you'll see, but these are my memories and I'm fond of them.</p>
       <ul>
@@ -62,25 +59,5 @@
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
-<script>
-const quotes = [
-  {"a": "Donna Tartt", "t": "There are such things as ghosts. People everywhere have always known that. And we believe in them every bit as much as Homer did. Only now, we call them by different names. Memory. The unconscious."},
-  {"a": "Donna Tartt", "t": "Beauty is rarely soft or consolatory. Quite the contrary. Genuine beauty is always quite alarming."},
-  {"a": "Donna Tartt", "t": "Beauty is terror. Whatever we call beautiful, we quiver before it."},
-  {"a": "Emily Dickinson", "t": "Nature is a haunted house — but Art — is a house that tries to be haunted."},
-  {"a": "Emily Dickinson", "t": "Beauty is not caused. It is."},
-  {"a": "Homer", "t": "Any moment might be our last. Everything is more beautiful because we're doomed. You will never be lovelier than you are now. We will never be here again."},
-  {"a": "J.R.R. Tolkien", "t": "The world is indeed full of peril, and in it there are many dark places, but still there is much that is fair."},
-]
-const rq = quotes[Math.floor(Math.random() * quotes.length)];
-var a = document.getElementById("q-a");
-var t = document.getElementById("q-t");
-a.innerText = rq.a;
-a.style.display = "";
-t.innerText = rq.t;
-t.style.display = "";
-</script>
-<noscript><style>
-  #q-a, #q-t { display: block !important; }
-</style></noscript>
+
 </html>

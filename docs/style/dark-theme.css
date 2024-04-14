@@ -3,6 +3,8 @@ switch based on CSS media query. */
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --image-shadow: 2px 4px 16px #101112;
+    --quote-shadow: 2px 4px 10px #101112;
     --icon-search: url("/images/icon-search-dark.svg");
     --color-background: #18191A;
     --color-code-bg: #18191A;
@@ -18,6 +20,7 @@ switch based on CSS media query. */
     --color-border: #555D66;
     --color-note-border: #555D6699;
     --color-sticky-title-underline: #555D6699;
+    --color-quote-background: #1b1c1d;
   }
 
   /* ***** CODE SYNTAX ***** */
