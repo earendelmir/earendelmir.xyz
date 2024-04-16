@@ -36,7 +36,7 @@ _trap_exit() {
         _print_err "Create file." ; _exit $1
     fi
     if [[ -n $__ok_add_homepage ]]; then
-        sed -i "/${post_file//\//\\/}/d" "$_FILE_HOMEPAGE"
+        sed -i "/${post_filename//\//\\/}/d" "$_FILE_HOMEPAGE"
     else
         _print_err "Add post to $_FILE_HOMEPAGE." ; _exit $1
     fi
@@ -47,12 +47,12 @@ _trap_exit() {
         _print_err "Remove oldest entry from $_FILE_HOMEPAGE." ; _exit $1
     fi
     if [[ -n $__ok_add_archive ]]; then
-        sed -i "/${post_file//\//\\/}/d" "$_FILE_ARCHIVE"
+        sed -i "/${post_filename//\//\\/}/d" "$_FILE_ARCHIVE"
     else
         _print_err "Add post to $_FILE_ARCHIVE." ; _exit $1
     fi
     if [[ -n $__ok_add_archive_tags ]]; then
-        sed -i "/${post_file//\//\\/}/d" "$_FILE_ARCHIVE_TAGS"
+        sed -i "/${post_filename//\//\\/}/d" "$_FILE_ARCHIVE_TAGS"
     else
         _print_err "Add post to $_FILE_ARCHIVE_TAGS." ; _exit $1
     fi
@@ -65,7 +65,7 @@ _trap_exit() {
         _print_err "Add page to XML sitemap." ; _exit $1
     fi
     if [[ -n $__ok_add_sitemap_txt ]]; then
-        sed -i "/${post_file//\//\\/}/d" "$_FILE_SITEMAP_TXT"
+        sed -i "/${post_filename//\//\\/}/d" "$_FILE_SITEMAP_TXT"
     else
         _print_err "Add page to TXT sitemap." ; _exit $1
     fi
@@ -261,7 +261,7 @@ _print_ok "Add post to $_FILE_ARCHIVE."
 ###  ADD TO /archive/tags/tag.html
 ################################################################################
 
-line="\ \ \ \ \ \ \ \ <li class=\"h-entry $lang\"><a class=\"u-url\" href=\"/$post_filename\"><span class=\"p-name\" lang=\"$lang\">$title</span></a></li>"
+line="\ \ \ \ \ \ \ \ <li class=\"h-entry\"><time class=\"dt-published\" datetime=\"$curr_datetime\">${curr_date:3:3} ${curr_date::2}</time><a class=\"u-url\" href=\"/$post_filename\"><span class=\"p-name\" lang=\"$lang\">$title</span></a></li>"
 
 # Get line number where to insert this new line: 1 line above the first h-entry.
 line_nr="$(grep -n -m 1 "h-entry" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)"
@@ -278,7 +278,7 @@ _print_ok "Add post to $_FILE_ARCHIVE_TAGS."
 sed -i "/<\/urlset>/d" "$_FILE_SITEMAP_XML"
 echo "  <url>" >> "$_FILE_SITEMAP_XML"
 echo "    <loc>https://earendelmir.xyz/$post_filename</loc>" >> "$_FILE_SITEMAP_XML"
-echo "    <lastmod>$(date -u +"%Y-%m-%dT%H:%M:%S+00:00")</lastmod>" >> "$_FILE_SITEMAP_XML"
+echo "    <lastmod>$(date -u +"%Y-%m-%d")</lastmod>" >> "$_FILE_SITEMAP_XML"
 echo "    <priority>0.80</priority>" >> "$_FILE_SITEMAP_XML"
 echo "  </url>" >> "$_FILE_SITEMAP_XML"
 echo "</urlset>" >> "$_FILE_SITEMAP_XML"

@@ -69,9 +69,9 @@ PATH_ARCHIVE = os.path.dirname(os.path.abspath(__file__)) + "/../docs/archive/"
 
 FILES = []
 for path, subdir, files in os.walk(PATH_ARCHIVE):
+    if path.find("tags") != -1: continue
     for name in files:
-        if name in ["index.html", "tags.html"]:
-            continue
+        if name == "index.html": continue
         FILES.append(os.path.join(path, name))
 
 FILES.sort(key=sort_numerically)

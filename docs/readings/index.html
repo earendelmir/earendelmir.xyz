@@ -93,12 +93,18 @@
       display: block;
       margin: 0.4rem 0;
     }
+    .books-list li span:first-child {
+      padding-left: 0.8rem;
+    }
     @media screen and (max-width: 650px) {
       .books-list li {
         display: flow-root;
       }
       .books-list li>*:nth-child(2) {
         font-size: small;
+      }
+      .books-list li span:first-child {
+        padding-left: 0;
       }
     }
   </style>
