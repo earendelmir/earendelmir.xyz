@@ -36,6 +36,7 @@ trap _exit EXIT
 pushd "${0%/*}/../docs" &>/dev/null
 
 readonly _FILE_ARCHIVE="archive/index.html"
+readonly _FILE_ARCHIVE_TAGS="archive/tags/index.html"
 readonly _FILE_SITEMAP_XML="sitemap-xml.xml"
 readonly _FILE_SITEMAP_TXT="sitemap.txt"
 readonly _FILE_RSS="feed.xml"
@@ -53,8 +54,8 @@ esac
 ###  CHECKS FOR INDIVIDUAL POST FILES
 ################################################################################
 
-for file in $(find archive/ -name "20*" | sort -r \
-                | xargs -rI {} find {} -type f | sort -Vr); do
+for file in $(find archive/ -mindepth 1 -maxdepth 1 -type d ! -path "*tags*" \
+                | sort -r | xargs -rI {} find {} -type f | sort -Vr); do
     fname="${file#*archive/}" ; fname="${fname%.html}"
     # Check for reading time inside post.
     if grep -q "NUM min" "$file" ; then
@@ -72,9 +73,13 @@ for file in $(find archive/ -name "20*" | sort -r \
     if grep -q "TAG" "$file" ; then
         _print_err "No tag for $fname"
     fi
-    # Check post is in /archive page.
+    # Check post is in /archive/ page.
     if ! grep -q "$fname" "$_FILE_ARCHIVE" ; then
-        _print_err "Post $fname not in /archive"
+        _print_err "Post $fname not in /archive/"
+    fi
+    # Check post is in /archive/tags/ page.
+    if ! grep -q "$fname" "$_FILE_ARCHIVE_TAGS" ; then
+        _print_err "Post $fname not in /archive/tags/"
     fi
     # Check post is in sitemap XML.
     if ! grep -q "$fname" "$_FILE_SITEMAP_XML" ; then
@@ -85,6 +90,33 @@ for file in $(find archive/ -name "20*" | sort -r \
         _print_err "Post $fname not in sitemap TXT"
     fi
 done
+
+
+################################################################################
+###  CHECKS FOR TAGS COUNT
+################################################################################
+
+# Get all lines declaring tags with their count.
+lines=$(grep "<li id=" "$_FILE_ARCHIVE_TAGS")
+while IFS= read -r line; do
+    # Tag name.
+    tag="$(echo "$line" | cut -c 19- | cut -d'"' -f1)"
+    # Number of posts for current tag, declared in the filters section.
+    num_tag=$(echo "$line" | cut -d'(' -f2 | cut -d')' -f1)
+    # Count the number of entries in the list.
+    start_line_nr=$(grep -n "<h2 id=\"$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)
+    end_line_nr=$(awk -v a="<h2 id=\"$tag\"" -v b="</ul>" '
+      $0 ~ a { found_a = 1; next }
+      found_a && $0 ~ b { print NR; exit }
+      found_a { count++ }
+      ' "$_FILE_ARCHIVE_TAGS")
+    num_posts=$((end_line_nr-start_line_nr-2))
+
+    # Number in the filters section must match actual post count.
+    if [[ $num_tag -ne $num_posts ]]; then
+        _print_err "Post count for #$tag. Says $num_tag but are $num_posts."
+    fi
+done <<< "$lines"
 
 
 ################################################################################

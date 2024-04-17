@@ -23,21 +23,41 @@
   <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#18191A" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="/style/style.css">
-  <link rel="stylesheet" href="/style/posts-list.css">
   <noscript><link rel="stylesheet" href="/style/dark-theme.css"></noscript>
   <script type="text/javascript" src="/scripts/theme.js"></script>
   <title>Archive - earendelmir</title>
 
   <style>
-    #tags-list {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      margin: 1.2rem 0;
+    main h2 {
+      margin: 2.4rem 0 0;
+      padding: 1.2rem 0 0.8rem;
+      top: 0;
+      position: sticky;
+      border-bottom: 1px solid var(--color-sticky-title-underline);
+      background-color: var(--color-background);
     }
-    #tags-list li {
-      margin: 0 2rem 0 0;
+    .posts-list {
+      margin: 1.2rem 0 0;
+    }
+    .posts-list:last-of-type {
+      margin-bottom: 0;
+    }
+    .posts-list li {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-gap: 0.4rem;
+    }
+    .posts-list li time {
+      color: var(--color-text2);
+      width: 6rem;
+      font-size: 0.9em;
+      margin: auto;
+    }
+    .posts-list li a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
     }
   </style>
 </head>
@@ -56,20 +76,7 @@
 
   <main>
     <h1>Archive</h1>
-
-    <h2 id="tags">Tags</h2>
-    <ul id="tags-list">
-      <li id="tag-books"><a href="/archive/tags/books">#books</a></li>
-      <li id="tag-cinema"><a href="/archive/tags/cinema">#cinema</a></li>
-      <li id="tag-development"><a href="/archive/tags/development">#development</a></li>
-      <li id="tag-journaling"><a href="/archive/tags/journaling">#journaling</a></li>
-      <li id="tag-miscellany"><a href="/archive/tags/miscellany">#miscellany</a></li>
-      <li id="tag-music"><a href="/archive/tags/music">#music</a></li>
-      <li id="tag-personal"><a href="/archive/tags/personal">#personal</a></li>
-      <li id="tag-travels"><a href="/archive/tags/travels">#travels</a></li>
-      <li id="tag-web"><a href="/archive/tags/web">#web</a></li>
-      <li id="tag-website"><a href="/archive/tags/website">#website</a></li>
-    </ul>
+    <p>You might prefer the <a href="/archive/tags/">tags</a> view.</p>
 
     <div class="h-feed">
       <div class="p-author h-card" hidden>

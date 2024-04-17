@@ -8,7 +8,7 @@
   color: var(--color-text2);
   display: inline-table;
   font-size: 0.9em;
-  margin: 0.8rem 0 2.4rem;
+  margin: 0.8rem 0 2rem;
 }
 .post-info a {
   color: var(--color-text2);
@@ -117,6 +117,7 @@ figcaption {
 }
 .footnotes {
   margin-top: 5.2rem;
+  line-height: 1.6;
 }
 .footnotes hr {
   margin: inherit;
