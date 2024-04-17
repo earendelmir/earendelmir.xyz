@@ -3,7 +3,7 @@
 # File:   compressimg.sh
 # Author: earendelmir
 # Date:   25 Aug 2023
-# Brief:  Resize image and convet it to webp format.
+# Brief:  Convert image to webp and resize.
 
 
 _die() {
@@ -12,13 +12,13 @@ _die() {
 }
 
 _help() {
-    printf "Usage: $(basename $0) IMAGE [OPTION]...
-Resize image and convet it to webp format.
+    printf "Usage: $(basename $0) IMAGE [OPTION]
+Convert image to webp and resize.
 
 -h, --help          Show this guide and exit.
 IMAGE               Path to image to compress.
---size WxH          New size. Default is 300x300.
---noresize          Do not resize image. Only convert to webp.
+--size WxH          Convert and resize.
+--noresize          Do not resize image. (deafult)
 "
 }
 
@@ -29,36 +29,26 @@ while [[ -n $1 ]]; do
         -h | --help)
             _help ; exit ;;
         --size)
-            if [[ -z "$2" ]]; then
-                _die "No size specified."
-            fi
+            [[ -z "$2" ]] && _die "No size specified."
             size="$2"
-            shift ; shift ;;
-        --noresize)
-            noresize=1
             shift ;;
+        --noresize)
+            noresize=1 ;;
         *)
             if [[ -z "$img" ]]; then
                 img="$1"
-                shift
             else
                 _die "Argument '$1' not recognized."
             fi ;;
     esac
+    shift
 done
 
 [[ -z "$img" ]] && _die "No image given."
 [[ ! -f "$img" ]] && _die "Image '$img' does not exist."
 
-[[ -z "$size" ]] && size="300x300"
+img_webp="${img%.*}".webp
+cwebp -quiet -preset photo -m 6 "$img" -o "$img_webp" || _die "Could not convert."
 
-
-# Resize.
-if [[ -z $noresize ]]; then
-    if ! convert "$img" -resize "$size" "$img" ; then
-        _die "Could not resize img."
-    fi
-fi
-
-# Convert to WEBP.
-cwebp -quiet -preset photo -m 6 "$img" -o "${img%.*}".webp
+[[ -z "$size" || -n $noresize ]] && exit
+convert "$img_webp" -resize "$size" "$img_webp" || _die "Could not resize."
