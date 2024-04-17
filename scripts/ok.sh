@@ -53,9 +53,8 @@ esac
 ###  CHECKS FOR INDIVIDUAL POST FILES
 ################################################################################
 
-for file in $(find archive/ -maxdepth 2 -type f | sort -Vr); do
-    [[ "$file" == *"index.html" ]] && continue
-    [[ "$file" == *"tags/"* ]] && continue
+for file in $(find archive/ -name "20*" | sort -r \
+                | xargs -rI {} find {} -type f | sort -Vr); do
     fname="${file#*archive/}" ; fname="${fname%.html}"
     # Check for reading time inside post.
     if grep -q "NUM min" "$file" ; then

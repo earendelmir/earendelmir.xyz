@@ -224,6 +224,17 @@ sed "s/DD MMMM YYYY/$curr_date/g" -i "$post_file"
 sed "s/YYYY-MM-DD/$curr_datetime/g" -i "$post_file"
 # Set tag.
 sed "s/TAG/$tag/g" -i "$post_file"
+# Set email subject.
+_MAX_MAILSUBJECT_LEN=35
+if [ ${#title} -gt $_MAX_MAILSUBJECT_LEN ]; then
+    mail_title=$(echo "${title:0:$_MAX_MAILSUBJECT_LEN}" | sed 's/^\(.\{0,'"$_MAX_MAILSUBJECT_LEN"'\}\)[[:space:]].*/\1/')
+    mail_title+="..."
+fi
+mail_title="${mail_title// /%20}"
+mail_title="${mail_title//\"/\'}"
+query="?subject=Re:%20$mail_title"
+sed "s/MAIL-SUBJECT/$query/g" -i "$post_file"
+
 __ok_file_created=1
 _print_ok "Create file $post_file."
 
