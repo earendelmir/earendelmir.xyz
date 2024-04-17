@@ -47,7 +47,7 @@ html.dark {
   --color-border: #555D66;
   --color-note-border: #555D6699;
   --color-sticky-title-underline: #555D6699;
-  --color-quote-background: #1B1C1D;
+  --color-quote-background: #18191A;
 }
 
 /* ***** LOWERCASE ***** */
@@ -132,7 +132,7 @@ main hr {
 header#banner {
   display: flex;
   justify-content: space-between;
-  margin: 1.6rem 0 4rem;
+  margin: 2rem 0 4rem;
 }
 header#banner h1 {
   font-size: 1.4em;
