@@ -135,8 +135,8 @@ if [[ -n $add_note ]]; then
     filename=${file%.html}
     fname="${file#*permalink/}" ; fname="${fname%.html}"
 else
-    file="$(find archive/ -name "20*" | sort -r | head -1 \
-                | xargs -rI {} find {} -type f | sort -Vr | head -1)"
+    file="$(find archive/ -mindepth 1 -maxdepth 1 -type d ! -path "*tags*" \
+                | sort -r | xargs -rI {} find {} -type f | sort -Vr | head -1)"
     filename=${file%.html}
     fname="${file#*archive/}" ; fname="${fname%.html}" ; fname="${fname/\//-}"
 fi

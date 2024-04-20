@@ -96,8 +96,8 @@ file="${file:="../drafts/draft.md"}"
 cp "$file" "$FILE_MARKDOWN"
 
 # Get most recent file = post to modify.
-post_filename="$(find archive/ -name "20*" | sort -r | head -1 \
-                | xargs -rI {} find {} -type f | sort -Vr | head -1)"
+post_filename="$(find archive/ -mindepth 1 -maxdepth 1 -type d ! -path "*tags*" \
+                | sort -r | xargs -rI {} find {} -type f | sort -Vr | head -1)"
 post_title="$(grep post-title "$post_filename")"
 post_title="${post_title:29:-5}"
 

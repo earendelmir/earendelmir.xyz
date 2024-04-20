@@ -30,9 +30,6 @@
 ### travel encounters
 
 + ragazza incinta treno roma-napoli
-+ ragazza islandese aereo reykjavik
-+ ragazza (e ragazzo) panchina reykjavik
-+ 4 ragazzi in partenza islanda + thingvellir + geyser
 
 ### music of the month (october)
 

@@ -293,7 +293,7 @@ _print_ok "Add post to $_FILE_ARCHIVE_TAGS."
 
 # Increase post count for tag in list of tags.
 line_nr_tag="$(grep -n "href=\"#$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)"
-curr_tag_num="$(grep "href=\"#$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d'(' -f2 | cut -d')' -f1)"
+curr_tag_num="$(grep "href=\"#$tag\"" "$_FILE_ARCHIVE_TAGS" | grep -oP "(?<=<sup>)[^<]+")"
 new_tag_num=$((curr_tag_num+1))
 sed -i "$line_nr_tag""s/$curr_tag_num/$new_tag_num/" "$_FILE_ARCHIVE_TAGS"
 __ok_update_tag=1

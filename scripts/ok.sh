@@ -100,9 +100,9 @@ done
 lines=$(grep "<li id=" "$_FILE_ARCHIVE_TAGS")
 while IFS= read -r line; do
     # Tag name.
-    tag="$(echo "$line" | cut -c 19- | cut -d'"' -f1)"
+    tag="$(echo "$line" | grep -oP '(?<=href="#)[^"]+')"
     # Number of posts for current tag, declared in the filters section.
-    num_tag=$(echo "$line" | cut -d'(' -f2 | cut -d')' -f1)
+    num_tag=$(echo "$line" | grep -oP "(?<=<sup>)[^<]+")
     # Count the number of entries in the list.
     start_line_nr=$(grep -n "<h2 id=\"$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)
     end_line_nr=$(awk -v a="<h2 id=\"$tag\"" -v b="</ul>" '
