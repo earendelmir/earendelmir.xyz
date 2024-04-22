@@ -16,6 +16,8 @@ _print_err() {
 }
 
 _exit() {
+    # Save timestamp of this check.
+    echo "$(date +%s)" > "$_FILE_LASTCHECK"
     popd &>/dev/null || true
     exit $1
 }
@@ -35,6 +37,7 @@ trap _exit EXIT
 # Move into website's root folder.
 pushd "${0%/*}/../docs" &>/dev/null
 
+readonly _FILE_LASTCHECK="$HOME/.config/user/last_ok_check"
 readonly _FILE_ARCHIVE="archive/index.html"
 readonly _FILE_ARCHIVE_TAGS="archive/tags/index.html"
 readonly _FILE_SITEMAP_XML="sitemap-xml.xml"
@@ -49,6 +52,14 @@ case "$1" in
     *) _die "Argument '$1' not recognized." ;;
 esac
 
+# Get timestamp of last check.
+if [[ -s "$_FILE_LASTCHECK" ]]; then
+    last_check_time="$(<"$_FILE_LASTCHECK")"
+else
+    last_check_time="0"
+fi
+
+
 
 ################################################################################
 ###  CHECKS FOR INDIVIDUAL POST FILES
@@ -57,6 +68,10 @@ esac
 for file in $(find archive/ -mindepth 1 -maxdepth 1 -type d ! -path "*tags*" \
                 | sort -r | xargs -rI {} find {} -type f | sort -Vr); do
     fname="${file#*archive/}" ; fname="${fname%.html}"
+    # Skip file if not modified since last check.
+    if [[ "$(date -r "$file" +%s)" -lt "$last_check_time" ]]; then
+        continue
+    fi
     # Check for reading time inside post.
     if grep -q "NUM min" "$file" ; then
         _print_err "No reading time for $fname"
