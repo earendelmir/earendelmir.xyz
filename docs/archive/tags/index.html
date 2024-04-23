@@ -28,6 +28,15 @@
   <title>Archive - earendelmir</title>
 
   <style>
+    input[type="checkbox"] {
+      cursor: pointer;
+      accent-color: var(--color-accent);
+      margin: 2rem 0 0;
+    }
+    .checkbox-label {
+      cursor: pointer;
+      margin-left: 0.8rem;
+    }
     #tags-list {
       list-style: none;
       padding: 0;
@@ -87,6 +96,8 @@
   <main>
     <h1>Archive</h1>
     <p>You might prefer the <a href="/archive/">chronological</a> view.</p>
+
+    <input type="checkbox" id="eng-only-checkbox" value="eng-only-checkbox" autocomplete="off" onclick="filterLang(this)"><label class="checkbox-label" for="eng-only-checkbox">English only</label>
 
     <ul id="tags-list">
       <li id="tag-books"><a href="#books">#books</a> <sup>2</sup></li>
@@ -244,5 +255,50 @@
     <p><span translate="no">© 2023-2024 earendelmir</span></p>
   </footer>
 </body>
+<script>
+function filterLang(checkbox) {
+  var posts = document.getElementsByClassName("h-entry")
+  localStorage.setItem("eng-only", checkbox.checked)
 
+  var tags = document.querySelectorAll("#tags-list li");
+  var numTags = tags.length;
+  var numTagsHidden = 0;
+  // For each tag, get list of posts.
+  for (tag of tags) {
+    var tagName = tag.id.substring(4);
+    var posts = document.querySelectorAll(`#list-${tagName} li`);
+    var count = 0;
+    // For each post of this tag, check if language is valid or hide it.
+    // Count number of valid posts.
+    for (post of posts) {
+      // Post is IT but "English only" checkbox selected, hide it.
+      if (checkbox.checked && post.className.includes("it")) {
+        post.style.display = "none";
+        continue;
+      }
+      post.style.display = "";
+      count += 1;
+    }
+    // Hide empty tags or show them if at least one of their post is valid.
+    if (count == 0) {
+      tag.style.display = "none";
+      document.getElementById(tagName).style.display = "none";
+      numTagsHidden++;
+    }
+    else {
+      tag.style.display = "";
+      document.getElementById(tagName).style.display = "";
+      // Update number of valid posts for current tag.
+      tag.querySelector("sup").textContent = count;
+    }
+  }
+}
+var checkbox = document.getElementById("eng-only-checkbox")
+if (localStorage.getItem("eng-only") === "true")
+  checkbox.checked = true
+else
+  checkbox.checked = false
+filterLang(checkbox)
+</script>
+<noscript><style>input[type="checkbox"],.checkbox-label{display:none;}</style></noscript>
 </html>

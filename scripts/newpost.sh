@@ -264,7 +264,7 @@ _print_ok "Remove oldest entry from $_FILE_HOMEPAGE."
 ###  ADD TO /archive/
 ################################################################################
 
-line="\ \ \ \ \ \ \ \ <li class=\"h-entry\"><time class=\"dt-published\" datetime=\"$curr_datetime\">${curr_date:3:3} ${curr_date::2}</time><a class=\"u-url\" href=\"/$post_filename\"><span class=\"p-name\" lang=\"$lang\">$title</span></a></li>"
+line="\ \ \ \ \ \ \ \ <li class=\"h-entry $lang\"><time class=\"dt-published\" datetime=\"$curr_datetime\">${curr_date:3:3} ${curr_date::2}</time><a class=\"u-url\" href=\"/$post_filename\"><span class=\"p-name\" lang=\"$lang\">$title</span></a></li>"
 
 # Get line number where to insert this new line: 1 line above the first h-entry.
 line_nr="$(grep -n -m 1 "h-entry" "$_FILE_ARCHIVE" | cut -d':' -f1)"
