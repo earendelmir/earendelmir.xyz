@@ -294,7 +294,7 @@ footer a {
 /* ***** MOBILE VERSION ***** */
 @media screen and (max-width:600px) {
   header#banner {
-    margin: 1.2rem 0 2.8rem;
+    margin: 2rem 0 2.8rem;
     display: block;
   }
 }

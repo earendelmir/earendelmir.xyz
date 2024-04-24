@@ -74,7 +74,7 @@
     #favourites-list li {
       display: flex;
       align-items: center;
-      gap: 0.8em;
+      gap: 0.56em;
     }
     #favourites-list li svg,
     #favourites-list li span {
@@ -174,7 +174,7 @@
     <ul class="list" id="favourites-list">
       <li>
         <svg aria-label="Music icon" xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 16 16"><path fill="" d="M12 5.21v5.058A2 2 0 1 0 13 12V1.925a.8.8 0 0 0-1.07-.754l-6.4 2.286A.8.8 0 0 0 5 4.21v7.057A2 2 0 1 0 6 13V7.351z" /></svg>
-        <span translate="no">Dalla - Lucio Dalla</span>
+        <span translate="no">Bewitched - Laufey</span>
       </li>
       <li>
         <svg aria-label="Film icon" xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" viewBox="0 0 24 24"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2M9 11V5h6v6zm6 2v6H9v-6zM5 5h2v2H5zm0 4h2v2H5zm0 4h2v2H5zm0 4h2v2H5zm14.002 2H17v-2h2.002zm-.001-4H17v-2h2.001zm0-4H17V9h2.001zM17 7V5h2v2z" /></svg>
@@ -228,7 +228,6 @@
 </body>
 <script>
 const quotes = [
-  {a: "Almost Famous", t: "'So Russell... what do you love about music?'\n 'To begin with, everything.'"},
   {a: "Almost Famous", t: "'I have to go home'\n 'You are home.'"},
   {a: "Almost Famous", t: "The only true currency in this bankrupt world is what you share with someone else when you’re uncool."},
   {a: "Before Sunrise", t: "I think I’m always so much more happy with books and movies and stuff. I think I get more excited about well-done representations of life than life itself."},
@@ -241,16 +240,11 @@ const quotes = [
   {a: "C.S. Lewis", t: "Friendship is unnecessary, like philosophy, like art.... It has no survival value; rather it is one of those things which give value to survival."},
   {a: "C.S. Lewis", t: "Eating and reading are two pleasures that combine admirably."},
   {a: "C.S. Lewis", t: "I can't imagine a man really enjoying a book and reading it only once."},
-  {a: "C.S. Lewis", t: "Crying is all right in its way while it lasts. But you have to stop sooner or later, and then you still have to decide what to do."},
   {a: "C.S. Lewis", t: "It is a good rule after reading a new book, never to allow yourself another new one till you have read an old one in between."},
   {a: "Carlos Ruiz Zafón", t: "Books are mirrors: you only see in them what you already have inside you."},
   {a: "Carlos Ruiz Zafón", t: "Every book has a soul. The soul of the person who wrote it and of those who read it and lived and dreamed with it. Every time a book changes hands, every time someone runs his eyes down its pages, its spirit grows and strengthens."},
-  {a: "Carlos Ruiz Zafón", t: "I was raised among books, making invisible friends in pages that seemed cast from dust and whose smell I carry on my hands to this day."},
   {a: "Carlos Ruiz Zafón", t: "Destiny is usually just around the corner. Like a thief, a hooker, or a lottery vendor: its three most common personifications. But what destiny does not do is home visits. You have to go for it."},
-  {a: "Carlos Ruiz Zafón", t: "The moment you stop to think about whether you love someone, you've already stopped loving that person forever."},
   {a: "Charlotte Brontë", t: "The soul, fortunately, has an interpreter – often an unconscious but still a faithful interpreter – in the eye."},
-  {a: "Charlotte Brontë", t: "Prejudices, it is well known, are most difficult to eradicate from the heart whose soil has never been loosened or fertilised by education: they grow there, firm as weeds among stones."},
-  {a: "Charlotte Brontë", t: "Life appears to me too short to be spent in nursing animosity or registering wrongs."},
   {a: "Dead Poets Society", t: "When you read, don't just consider what the author thinks, consider what you think."},
   {a: "Dead Poets Society", t: "Carpe Diem, seize the day boys, make your lives extraordinary."},
   {a: "Dead Poets Society", t: "That the powerful play goes on, and you may contribute a verse."},
@@ -273,12 +267,10 @@ const quotes = [
   {a: "Emily Dickinson", t: "The soul should always stand ajar, ready to welcome the ecstatic experience."},
   {a: "Emily Dickinson", t: "I am out with lanterns, looking for myself."},
   {a: "Emily Dickinson", t: "I know nothing in the world that has as much power as a word. Sometimes I write one, and I look at it, until it begins to shine."},
-  {a: "Emily Dickinson", t: "Bring me the sunset in a cup."},
   {a: "Emily Dickinson", t: "To live is so startling it leaves little room for other occupations."},
   {a: "Emily Dickinson", t: "Nature is a haunted house – but Art – is a house that tries to be haunted."},
   {a: "Emily Dickinson", t: "I dwell in possibility..."},
   {a: "Emily Dickinson", t: "This is my letter to the world\n That never wrote to me."},
-  {a: "Emily Dickinson", t: "If I read a book and it makes my whole body so cold no fire can ever warm me, I know that is poetry."},
   {a: "Emily Dickinson", t: "That it will never come again is what makes life so sweet."},
   {a: "Emily Dickinson", t: "Forever is composed of nows."},
   {a: "Emily Dickinson", t: "If I can stop one heart from breaking, I shall not live in vain."},
@@ -299,22 +291,18 @@ const quotes = [
   {a: "Frank Herbert", t: "Thou shalt not make a machine in the likeness of a human mind."},
   {a: "Frank Herbert", t: "Science is made up of so many things that appear obvious after they are explained."},
   {a: "Frank Herbert", t: "I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration."},
-  {a: "Homer", t: "The sort of words a man says is the sort he hears in return."},
   {a: "Homer", t: "Hateful to me as the gates of Hades is that man who hides one thing in his heart and speaks another."},
   {a: "Homer", t: "Any moment might be our last. Everything is more beautiful because we're doomed. You will never be lovelier than you are now. We will never be here again."},
   {a: "J.R.R. Tolkien", t: "Time flows ever, from the first note to the last chord."},
   {a: "J.R.R. Tolkien", t: "We are not bound for ever to the circles of the world, and beyond them is more than memory."},
   {a: "J.R.R. Tolkien", t: "Never is too long a word."},
-  {a: "J.R.R. Tolkien", t: "It is not our part to master all the tides of the world, but to do what is in us for the succour of those years wherein we are set."},
   {a: "J.R.R. Tolkien", t: "For your own good do all that you may."},
   {a: "J.R.R. Tolkien", t: "Do not spoil the wonder with haste."},
-  {a: "J.R.R. Tolkien", t: "Ifs are vain."},
   {a: "J.R.R. Tolkien", t: "I don't believe in absolute evil but I believe in absolute good."},
   {a: "J.R.R. Tolkien", t: "In the end the Shadow is only a small and passing thing: there is light and high beauty for ever beyond its reach."},
   {a: "J.R.R. Tolkien", t: "I do not love the bright sword for its sharpness, nor the arrow for its swiftness, nor the warrior for his glory; I love only that which they defend."},
   {a: "J.R.R. Tolkien", t: "Things will go as they will; and there is no need to hurry to meet them."},
   {a: "J.R.R. Tolkien", t: "The wise speak only of what they know."},
-  {a: "J.R.R. Tolkien", t: "In doubt a man of worth will trust to his own wisdom."},
   {a: "J.R.R. Tolkien", t: "Few can foresee whither their road will lead them, till they come to its end."},
   {a: "J.R.R. Tolkien", t: "Memory is not what the heart desires."},
   {a: "J.R.R. Tolkien", t: "Time does not tarry ever, but change and growth is not in all things and places alike."},
@@ -324,9 +312,7 @@ const quotes = [
   {a: "J.R.R. Tolkien", t: "The world is indeed full of peril, and in it there are many dark places, but still there is much that is fair."},
   {a: "J.R.R. Tolkien", t: "All that is gold does not glitter. Not all those who wander are lost."},
   {a: "J.R.R. Tolkien", t: "The wide world is all about you: you can fence yourselves in, but you cannot forever fence it out."},
-  {a: "J.R.R. Tolkien", t: "You step into the Road, and if you don't keep your feet, there is no knowing where you might be swept off to."},
   {a: "J.R.R. Tolkien", t: "If more of us valued food and cheer and song above hoarded gold, it would be a merrier world."},
-  {a: "J.R.R. Tolkien", t: "There is nothing like looking, if you want to find something."},
   {a: "J.R.R. Tolkien", t: "Great as your affairs may seem to you, they are only a small strand in the great web."},
   {a: "J.R.R. Tolkien", t: "Let the unseen days be. Today is more than enough."},
   {a: "J.R.R. Tolkien", t: "All we have to decide is what to do with the time that is given us."},

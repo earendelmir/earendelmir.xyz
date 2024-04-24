@@ -260,36 +260,36 @@ function filterLang(checkbox) {
   var posts = document.getElementsByClassName("h-entry")
   localStorage.setItem("eng-only", checkbox.checked)
 
-  var tags = document.querySelectorAll("#tags-list li");
-  var numTags = tags.length;
-  var numTagsHidden = 0;
+  var tags = document.querySelectorAll("#tags-list li")
+  var numTags = tags.length
+  var numTagsHidden = 0
   // For each tag, get list of posts.
   for (tag of tags) {
-    var tagName = tag.id.substring(4);
-    var posts = document.querySelectorAll(`#list-${tagName} li`);
-    var count = 0;
+    var tagName = tag.id.substring(4)
+    var posts = document.querySelectorAll(`#list-${tagName} li`)
+    var count = 0
     // For each post of this tag, check if language is valid or hide it.
     // Count number of valid posts.
     for (post of posts) {
       // Post is IT but "English only" checkbox selected, hide it.
       if (checkbox.checked && post.className.includes("it")) {
-        post.style.display = "none";
-        continue;
+        post.style.display = "none"
+        continue
       }
-      post.style.display = "";
-      count += 1;
+      post.style.display = ""
+      count += 1
     }
     // Hide empty tags or show them if at least one of their post is valid.
     if (count == 0) {
-      tag.style.display = "none";
-      document.getElementById(tagName).style.display = "none";
-      numTagsHidden++;
+      tag.style.display = "none"
+      document.getElementById(tagName).style.display = "none"
+      numTagsHidden++
     }
     else {
       tag.style.display = "";
-      document.getElementById(tagName).style.display = "";
+      document.getElementById(tagName).style.display = ""
       // Update number of valid posts for current tag.
-      tag.querySelector("sup").textContent = count;
+      tag.querySelector("sup").textContent = count
     }
   }
 }
