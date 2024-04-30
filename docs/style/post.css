@@ -135,6 +135,34 @@ figcaption {
 }
 
 
+/* ***** PREV & NEXT LINKS ***** */
+.prevnext {
+  text-transform: lowercase;
+  grid-column-gap: 2rem;
+  grid-row-gap: 2rem;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  justify-content: space-between;
+  display: grid;
+  margin: 1.2rem 0;
+}
+.prevnext-next {
+  text-align: right;
+}
+.prevnext p {
+  text-align: unset;
+  font-size: 0.9em;
+}
+.prevnext a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+
 /* ***** DESKTOP VERSION ***** */
 @media screen and (min-width:770px) {
   .two-imgs-container {

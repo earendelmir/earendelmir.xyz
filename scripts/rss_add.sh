@@ -84,9 +84,7 @@ _get_note_title() {
     echo ""
 }
 _get_post_title() {
-    title="$(grep -m 1 post-title "$file")"
-    title="${title#*\">}"
-    echo "${title::-5}"
+    grep -m 1 post-title "$file" | cut -d'>' -f2 | cut -d'<' -f1
 }
 _get_note_descr() {
     start_linenr="$(grep -m 1 -n e-content "$file")"

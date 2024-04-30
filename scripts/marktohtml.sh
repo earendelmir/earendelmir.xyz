@@ -98,8 +98,7 @@ cp "$file" "$FILE_MARKDOWN"
 # Get most recent file = post to modify.
 post_filename="$(find archive/ -mindepth 1 -maxdepth 1 -type d ! -path "*tags*" \
                 | sort -r | xargs -rI {} find {} -type f | sort -Vr | head -1)"
-post_title="$(grep post-title "$post_filename")"
-post_title="${post_title:29:-5}"
+post_title="$(grep -m 1 post-title "$post_filename" | cut -d'>' -f2 | cut -d'<' -f1)"
 
 # Translate markdown to html.
 python3 -c "$TRANSLATE_CODE"

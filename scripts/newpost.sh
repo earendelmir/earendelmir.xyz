@@ -61,6 +61,18 @@ _trap_exit() {
     else
         _print_err "Update tag post count." ; _exit $1
     fi
+    if [[ -n $__ok_link_prev ]]; then
+        true
+    else
+        _print_err "Link prev post." ; _exit $1
+    fi
+    if [[ -n $__ok_link_next ]]; then
+        next_linenr="$(grep -n "prevnext-next" "archive/$year/$latest_post" | cut -d: -f1)"
+        next_line="      <div class=\"prevnext-next\"></div>"
+        sed -i "${next_linenr}s|.*|${next_line}|" "archive/$year/$latest_post"
+    else
+        _print_err "Link next post." ; _exit $1
+    fi
     if [[ -n $__ok_add_sitemap_xml ]]; then
         num_lines="$(wc -l < $_FILE_SITEMAP_XML)"
         begin_line_nr=$((num_lines-5))
@@ -291,13 +303,34 @@ _print_ok "Add post to $_FILE_ARCHIVE_TAGS."
 ###  INCREASE TAG COUNT IN /archive/tags/
 ################################################################################
 
-# Increase post count for tag in list of tags.
 line_nr_tag="$(grep -n "href=\"#$tag\"" "$_FILE_ARCHIVE_TAGS" | cut -d':' -f1)"
 curr_tag_num="$(grep "href=\"#$tag\"" "$_FILE_ARCHIVE_TAGS" | grep -oP "(?<=<sup>)[^<]+")"
 new_tag_num=$((curr_tag_num+1))
 sed -i "$line_nr_tag""s/$curr_tag_num/$new_tag_num/" "$_FILE_ARCHIVE_TAGS"
 __ok_update_tag=1
 _print_ok "Update tag count in tags list."
+
+
+################################################################################
+###  ADD prev LINK IN THIS NEW POST
+################################################################################
+
+prev_linenr="$(grep -n "Previously</p></div>" "$post_file" | cut -d: -f1)"
+prev_line="      <div><p>Previously</p><a href=\"/archive/$year/$latest_num\">$(grep -m 1 post-title "archive/$year/$latest_post" | cut -d'>' -f2 | cut -d'<' -f1)</a></div>"
+sed -i "${prev_linenr}s|.*|${prev_line}|" "$post_file"
+__ok_link_prev=1
+_print_ok "Link to prev post."
+
+
+################################################################################
+###  ADD next LINK IN LAST POST
+################################################################################
+
+next_linenr="$(grep -n "prevnext-next" "archive/$year/$latest_post" | cut -d: -f1)"
+next_line="      <div class=\"prevnext-next\"><p>Up next</p><a href=\"/archive/$year/$num\">$title</a></div>"
+sed -i "${next_linenr}s|.*|${next_line}|" "archive/$year/$latest_post"
+__ok_link_next=1
+_print_ok "Link to next post."
 
 
 ################################################################################
