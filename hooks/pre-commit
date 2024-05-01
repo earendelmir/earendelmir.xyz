@@ -55,6 +55,8 @@ fi
 
 trap _exit EXIT
 
+LANG=en_us_8859_1
+
 # Parse command-line argument.
 case "$1" in
     '') ;;
@@ -211,8 +213,9 @@ for file in "${files[@]}"; do
         # Get 'last updated' date declared in the file.
         lud="$(grep "last updated" "$file" | cut -d':' -f2 | cut -d'<' -f1)"
         lud="$(echo "$lud" | xargs echo)"  # Trim whitespace.
-        # Check if date is today.
-        if [[ "$lud" != "$(date '+%d %b %Y')" ]]; then
+        today="$(date '+%d %b %Y')"
+        today="${today,,}"
+        if [[ "$lud" != "$today" ]]; then
             _print_err "Wrong 'last update' date for: $file"
         fi
     fi
