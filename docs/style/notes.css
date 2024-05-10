@@ -1,3 +1,13 @@
+input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: var(--color-accent);
+  margin: 0 0 4rem 0;
+}
+.checkbox-label {
+  cursor: pointer;
+  margin-left: 0.8rem;
+}
+
 .h-entry {
   padding: 2.8rem 2.4rem;
   display: grid;
