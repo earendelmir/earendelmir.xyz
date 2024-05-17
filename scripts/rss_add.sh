@@ -164,7 +164,6 @@ else
     descr="$(_get_post_descr)"
 fi
 # Format string.
-descr="${descr//\"/\\\"}"
 descr="${descr//          /}"
 descr="${descr//         /}"
 descr="${descr//        /}"
