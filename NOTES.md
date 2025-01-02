@@ -85,15 +85,15 @@ https://webaim.org/resources/linkcontrastchecker/
 + Per le pagine normali e i post degli anni passati.  
 Search and Replace:  
 ```html
--2024 earendelmir</span>
--2025 earendelmir\</span>
+-2025 earendelmir</span>
+-2026 earendelmir\</span>
 ```
 
 + Per i post nuovi.  
 Search and Replace: (nota lo spazio iniziale)  
 ```html
- 2024 earendelmir\</span>
- 2024-2025 earendelmir\</span>
+ 2025 earendelmir</span>
+ 2025-2026 earendelmir</span>
 ```
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
