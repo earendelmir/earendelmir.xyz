@@ -184,7 +184,7 @@ else
     descr+="<br><hr><p>Want to get in touch? Reach out via <a href=\"mailto:earendelmir@proton.me\">email</a>.</p>"
 fi
 __ok_description=1
-_print_ok "Descrition:" ; _print_descr "$descr"
+_print_ok "Description:" ; _print_descr "$descr"
 
 # Add new item to the feed.
 line="\ \ \ \ <item>\n\ \ \ \ \ \ <link>https://earendelmir.xyz/$filename</link>\n\ \ \ \ \ \ <guid isPermaLink=\"false\">$fname</guid>\n\ \ \ \ \ \ <author>earendelmir@proton.me</author>\n\ \ \ \ \ \ <title>$title</title>\n\ \ \ \ \ \ <description><![CDATA[$descr]]></description>\n\ \ \ \ \ \ <pubDate>$pubDate</pubDate>\n\ \ \ \ </item>\n"

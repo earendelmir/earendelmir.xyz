@@ -14,7 +14,7 @@ def sort_numerically(lista):
     end_non_digits = (re.search(r'(?x)\D+$    ', lista) or re.search(   '',    '')).group()
     start_lower = (re.search(r'(?x)^[a-z]+ ', lista) or re.search(   '',    '')).group()
     start_upper = (re.search(r'(?x)^[A-Z]+ ', lista) or re.search(   '',    '')).group()
-    all_digits = [float(n) for n in re.findall('\d+', lista) or ['inf']]
+    all_digits = [float(n) for n in re.findall(r'\d+', lista) or ['inf']]
     return (float(start_digits), start_non_digits.casefold(), start_upper, start_lower, end_non_digits, all_digits)
 
 
