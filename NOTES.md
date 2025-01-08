@@ -86,7 +86,7 @@ https://webaim.org/resources/linkcontrastchecker/
 Search and Replace:  
 ```html
 -2025 earendelmir</span>
--2026 earendelmir\</span>
+-2026 earendelmir</span>
 ```
 
 + Per i post nuovi.  
