@@ -107,12 +107,12 @@
     </div>
     <br><br> -->
 
-    <p>Good news: you can be the first person ever to leave a mark on this website!</p><br>
-    <!-- <p id="form-begin">Add your message to the list.</p> -->
+    <p id="form-begin">Good news: you can be the first person ever to leave a mark on this website!</p><br>
     <form name="form-guestbook" method="POST" action="/guestbook/confirmed" netlify-honeypot="bot-field" netlify>
       <p><label for="name">Name</label><input required type="text" maxlength="30" autocomplete="name" id="name" name="name"/></p>
       <p><label for="website">Website (optional)</label><input type="text" maxlength="50" autocomplete="url" id="website" name="website"/></p>
       <p><label for="message">Message</label><textarea required maxlength="600" rows="6" id="message" name="message"></textarea></p>
+      <p><label for="recommendation">Book/Film recommendation (optional)</label><textarea maxlength="200" rows="2" id="recommendation" name="recommendation"></textarea></p>
       <p class="fake-field"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
       <p><button type="submit">Sign guestbook</button></p>
     </form>
