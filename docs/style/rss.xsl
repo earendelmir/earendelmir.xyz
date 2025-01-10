@@ -59,7 +59,7 @@
 
       <body id="top">
         <header id="banner">
-          <h1 translate="no" title="Jewel of the Morning Star">earendelmir</h1>
+          <h1><a href="/" translate="no" title="Jewel of the Morning Star">earendelmir</a></h1>
           <nav>
             <a class="navbar-item" href="/">Home</a>
             <a class="navbar-item" href="/about/">About</a>
