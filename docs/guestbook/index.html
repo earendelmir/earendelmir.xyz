@@ -26,6 +26,64 @@
   <noscript><link rel="stylesheet" href="/style/dark-theme.css"></noscript>
   <script type="text/javascript" src="/scripts/theme.js"></script>
   <title>Guestbook - earendelmir</title>
+
+  <style>
+    .signature {
+      margin-top: 1.6em;
+      padding: 0.4em 0.4em;
+      border-bottom: 1px solid var(--color-text2);
+    }
+    .sig-name {
+      font-weight: bold;
+    }
+    .fake-field {
+      display: none;
+    }
+    input[type="text"],
+    textarea {
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-sans-serif);
+      font-size: inherit;
+      width: 28em;
+      outline: none;
+      border-radius: 0;
+      border: 1px solid var(--color-text2);
+      padding: 0.4em 0.4em 0.4em;
+      display: flex;
+      margin-bottom: 1.2em;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      cursor: pointer;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font-size: inherit;
+      outline: none;
+      border-radius: 0;
+      border: 1px solid var(--color-text2);
+      padding: 0.8em;
+    }
+    button:hover,
+    button:focus,
+    button:active {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+    @media screen and (max-width:530px) {
+      input[type="text"],
+      textarea {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body id="top">
@@ -42,7 +100,22 @@
 
   <main>
     <h1>Guestbook</h1>
-    <p>Coming soon...</p>
+    <!-- <p>Form is at the <a href="#form-begin">bottom of the page ↓</a></p>
+    <div class="signature">
+      <p><span class="sig-name"><a href="https://earendelmir.xyz">earendelmir</a></span><br>
+      Just a test for CSS! Remove the &lt;a&gt; from the name &lt;span&gt; if the user submits no website.</p>
+    </div>
+    <br><br> -->
+
+    <p>Good news: you can be the first person ever to leave a mark on this website!</p><br>
+    <!-- <p id="form-begin">Add your message to the list.</p> -->
+    <form name="form-guestbook" method="POST" action="/guestbook/confirmed" netlify-honeypot="bot-field" netlify>
+      <p><label for="name">Name</label><input required type="text" maxlength="30" autocomplete="name" id="name" name="name"/></p>
+      <p><label for="website">Website (optional)</label><input type="text" maxlength="50" autocomplete="url" id="website" name="website"/></p>
+      <p><label for="message">Message</label><textarea required maxlength="600" rows="6" id="message" name="message"></textarea></p>
+      <p class="fake-field"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+      <p><button type="submit">Sign guestbook</button></p>
+    </form>
   </main>
 
   <footer>
