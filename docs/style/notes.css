@@ -21,6 +21,7 @@ input[type="checkbox"] {
   font-size: smaller;
   font-style: italic;
   color: var(--color-text2);
+  text-decoration: underline;
   margin-left: auto;
 }
 @media screen and (max-width: 450px) {
