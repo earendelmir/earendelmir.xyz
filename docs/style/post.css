@@ -157,8 +157,6 @@ figcaption {
 .prevnext a {
   color: var(--color-accent);
   text-decoration: none;
-  text-decoration-color: var(--color-accent);
-  text-underline-offset: 3px;
 }
 .prevnext a:hover,
 .prevnext a:focus {
