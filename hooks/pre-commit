@@ -192,6 +192,7 @@ files=(
     "favourites/index.html"
     "readings/index.html"
     "todo/index.html"
+    "uses/index.html"
 )
 for file in "${files[@]}"; do
     # Check if file is being committed.

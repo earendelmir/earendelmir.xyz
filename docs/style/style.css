@@ -196,6 +196,9 @@ header#banner h1 a:focus {
 header#banner h1 a:visited {
   text-decoration: none;
 }
+main p a {
+  text-decoration: underline;
+}
 
 
 /* ***** LIST ***** */

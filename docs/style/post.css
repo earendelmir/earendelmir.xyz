@@ -156,16 +156,6 @@ figcaption {
 }
 .prevnext a {
   color: var(--color-accent);
-  text-decoration: none;
-}
-.prevnext a:hover,
-.prevnext a:focus {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-}
-.prevnext a:visited {
-  text-decoration: none;
-  text-decoration-thickness: 1px;
 }
 
 
