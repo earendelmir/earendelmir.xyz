@@ -268,13 +268,15 @@ const quotes = [
   {a: "Winnie The Pooh", t: "Could be worse. Not sure how, but it could be."},
   {a: "Winnie The Pooh", t: "It isn’t much good having anything exciting, if you can’t share it with somebody."},
 ]
-const rq = quotes[Math.floor(Math.random() * quotes.length)];
-var a = document.getElementById("q-a");
-var t = document.getElementById("q-t");
-a.innerText = rq.a;
-t.innerText = rq.t;
-a.style.display = "";
-t.style.display = "";
+window.addEventListener("pageshow", function(e) {
+  const rq = quotes[Math.floor(Math.random() * quotes.length)];
+  var a = document.getElementById("q-a");
+  var t = document.getElementById("q-t");
+  a.innerText = rq.a;
+  t.innerText = rq.t;
+  a.style.display = "";
+  t.style.display = "";
+});
 </script>
 <noscript><style>
   #q-a, #q-t { display: block !important; }
