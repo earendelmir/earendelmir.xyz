@@ -32,7 +32,7 @@ html.dark {
   --color-text2: #89949D;
   --color-placeholder: #89949D;
   --color-text2-underline: #89949DDD;
-  --color-accent: #DF9568;
+  --color-accent: #64B1FF;
   --color-highlight-bg: #502205;
   --color-hr: #555D66;
   --color-footer-hr: #555D66;
@@ -42,8 +42,6 @@ html.dark {
   --color-quote-background: var(--color-background);
   --color-code-bg: var(--color-background);
   --color-code-fg: var(--color-text);
-
-
 }
 
 /* ***** LOWERCASE ***** */
@@ -92,6 +90,13 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
+/* Selected text. */
+/* ::-moz-selection,
+::selection {
+  background-color: color-mix(in srgb, var(--color-text), transparent 12%);
+  color: var(--color-background);
+} */
 
 h1 { font-size: 1.64em; }
 h2 { font-size: 1.4em; }
