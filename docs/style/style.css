@@ -174,7 +174,8 @@ a:active:not(#navbar-curr-page) {
   filter: brightness(80%);
 }
 
-a[target="_blank"]::after {
+/* Mark external links. */
+main a[href^="http"]:not([href*="earendelmir.xyz"])::after {
   content:"↗"/" (external)";
   font-size: .9em;
   white-space: pre;
@@ -184,15 +185,13 @@ a[target="_blank"]::after {
 
 a:hover,
 a:focus,
-a[target="_blank"]:hover::after,
-a[target="_blank"]:focus::after {
+a:hover::after,
+a:focus::after {
   text-decoration: underline;
   text-decoration-thickness: 1px;
 }
-a:visited,
-a[target="_blank"]:visited::after {
+a:visited {
   text-decoration: none;
-  text-decoration-thickness: 1px;
 }
 header#banner h1 a:hover,
 header#banner h1 a:focus {
@@ -201,7 +200,8 @@ header#banner h1 a:focus {
 header#banner h1 a:visited {
   text-decoration: none;
 }
-main p a {
+main p a,
+main p a::after {
   text-decoration: underline;
 }
 

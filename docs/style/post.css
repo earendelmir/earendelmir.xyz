@@ -156,6 +156,7 @@ figcaption {
 }
 .prevnext a {
   color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
 }
 
 
