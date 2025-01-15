@@ -29,15 +29,28 @@
 
   <style>
     .signature {
-      margin-top: 1.6em;
-      padding: 0.4em 0.4em;
+      display: grid;
+      padding: 0.4em 0;
       border-bottom: 1px solid var(--color-text2);
+      margin: 1.6em 0;
     }
-    .sig-name {
-      font-weight: bold;
+    .sig-text {
+      font-style: italic;
+    }
+    .signature p + p {
+      margin-top: 0.4em;
+    }
+    .sig-footer {
+      margin-top: 0.8rem;
+      display: flex;
+      color: var(--color-text2);
+      margin-left: auto;
     }
     .fake-field {
       display: none;
+    }
+    label {
+      font-weight: bold;
     }
     input[type="text"],
     textarea {
@@ -69,7 +82,7 @@
       outline: none;
       border-radius: 0;
       border: 1px solid var(--color-text2);
-      padding: 0.8em;
+      padding: 0.4em 0.6em;
     }
     button:hover,
     button:focus,
@@ -100,21 +113,34 @@
 
   <main>
     <h1>Guestbook</h1>
-    <!-- <p>Form is at the <a href="#form-begin">bottom of the page ↓</a></p>
-    <div class="signature">
-      <p><span class="sig-name"><a href="https://earendelmir.xyz">earendelmir</a></span><br>
-      Just a test for CSS! Remove the &lt;a&gt; from the name &lt;span&gt; if the user submits no website.</p>
-    </div>
-    <br><br> -->
+    <p>Thanks for stopping by! Here you can leave your personal mark on this website, as a reminder for you, me and any future visitor that you were here at some point!<br>
+    Write a few words of feedback, a poem, a riddle... anything you like! You can also offer a book/film recommendation.<br>
+    The input form is at the <a href="#form-section">bottom of the page</a>.</p>
 
-    <p id="form-begin">Good news: you can be the first person ever to leave a mark on this website!</p><br>
+    <h2>Entries</h2>
+
+    <div class="signature">
+      <p class="sig-text">Ciaooo</p>
+      <p class="sig-footer"><span class="sig-name">Alberto</span></p>
+    </div>
+
+    <div class="signature">
+      <p class="sig-text">Glad you're back! Keep up the great work! Love the minimal look of this website.</p>
+      <p class="sig-book"><b>book:</b> Crime and Punishment</p>
+      <p class="sig-footer"><span class="sig-name">James</span></p>
+    </div>
+
+    <br>
+
+    <h2 id="form-section">Contribute your verse</h2>
     <form name="form-guestbook" method="POST" action="/guestbook/confirmed" netlify-honeypot="bot-field" netlify>
-      <p><label for="name">Name</label><input required type="text" maxlength="30" autocomplete="name" id="name" name="name"/></p>
-      <p><label for="website">Website (optional)</label><input type="text" maxlength="50" autocomplete="url" id="website" name="website"/></p>
-      <p><label for="message">Message</label><textarea required maxlength="600" rows="6" id="message" name="message"></textarea></p>
-      <p><label for="recommendation">Book/Film recommendation (optional)</label><textarea maxlength="200" rows="2" id="recommendation" name="recommendation"></textarea></p>
-      <p class="fake-field"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
-      <p><button type="submit">Sign guestbook</button></p>
+      <p><label for="name">name</label><input required type="text" maxlength="30" autocomplete="name" id="name" name="name"/></p>
+      <p><label for="website">website</label> (optional)<input type="text" maxlength="50" autocomplete="url" id="website" name="website"/></p>
+      <p><label for="message">message</label><textarea required maxlength="600" rows="6" id="message" name="message"></textarea></p>
+      <p><label for="book-recommendation">book recommendation</label> (optional)<textarea maxlength="200" rows="1" id="book-recommendation" name="book-recommendation"></textarea></p>
+      <p><label for="film-recommendation">film recommendation</label> (optional)<textarea maxlength="200" rows="1" id="film-recommendation" name="film-recommendation"></textarea></p>
+      <p class="fake-field"><label>DON'T fill this out if you’re human: <input name="bot-field" /></label></p>
+      <p><button type="submit">sign</button></p>
     </form>
   </main>
 
