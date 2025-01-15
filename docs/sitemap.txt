@@ -1,5 +1,11 @@
 https://earendelmir.xyz/
 https://earendelmir.xyz/about/
+https://earendelmir.xyz/contact/
+https://earendelmir.xyz/guestbook/
+https://earendelmir.xyz/bookmarks/
+https://earendelmir.xyz/favourites/
+https://earendelmir.xyz/readings/
+https://earendelmir.xyz/uses/
 https://earendelmir.xyz/notes/
 https://earendelmir.xyz/archive/
 https://earendelmir.xyz/archive/2023/1
@@ -79,3 +85,4 @@ https://earendelmir.xyz/archive/2025/2
 https://earendelmir.xyz/archive/2025/3
 https://earendelmir.xyz/archive/2025/4
 https://earendelmir.xyz/archive/2025/5
+https://earendelmir.xyz/archive/2025/6

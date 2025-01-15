@@ -62,6 +62,22 @@ blockquote {
 }
 
 
+/* ***** TABLE ***** */
+.table-container {
+  overflow-x: auto;
+  margin: 1em 0;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  border: 1px solid var(--color-text2);
+  text-align: center;
+  padding: 0.4rem 0.8rem;
+}
+
+
 /* ***** MUSIC CHORD ***** */
 .chord {
   font-family: var(--font-monospace);
