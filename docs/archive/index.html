@@ -36,11 +36,6 @@
       border-bottom: 1px solid var(--color-sticky-title-underline);
       background-color: var(--color-background);
     }
-    input[type="checkbox"] {
-      cursor: pointer;
-      accent-color: var(--color-accent);
-      margin: 3.2rem 0 0;
-    }
     .checkbox-label {
       cursor: pointer;
       margin-left: 0.8rem;
@@ -91,8 +86,6 @@
     <p>You might prefer the <a href="/archive/tags/">tags</a> view.</p>
 
     <p>Expect to find anything: journal entries, tutorials, rants, and random thoughts (some deeply intimate, inherently stupid, or stolen from the internet).</p>
-
-    <input type="checkbox" id="eng-only-checkbox" value="eng-only-checkbox" autocomplete="off" onclick="filterLang(this)"><label class="checkbox-label" for="eng-only-checkbox">English only</label>
 
     <div class="h-feed">
       <div class="p-author h-card" hidden>
@@ -203,27 +196,4 @@
     <p><span translate="no">© 2023-2025 earendelmir</span></p>
   </footer>
 </body>
-<script>
-function filterLang(checkbox) {
-  var posts = document.getElementsByClassName("h-entry")
-  localStorage.setItem("eng-only", checkbox.checked)
-  if (checkbox.checked) {
-    for (post of posts)
-      if (post.className.includes("it"))
-        post.style.display = "none"
-      else
-        post.style.display = ""
-  } else {
-    for (post of posts)
-      post.style.display = ""
-  }
-}
-var checkbox = document.getElementById("eng-only-checkbox")
-if (localStorage.getItem("eng-only") === "true")
-  checkbox.checked = true
-else
-  checkbox.checked = false
-filterLang(checkbox)
-</script>
-<noscript><style>input[type="checkbox"],.checkbox-label{display:none;}</style></noscript>
 </html>
