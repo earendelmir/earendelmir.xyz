@@ -32,9 +32,6 @@
           svg {
             fill: var(--color-text);
           }
-          #p-about {
-            font-size: smaller;
-          }
           .feed-list {
             margin-top: 4rem;
           }
@@ -77,7 +74,6 @@
             </h1>
 
             <p>Subscribe by copying the URL from the address bar into your newsreader.</p>
-            <p id="p-about">Visit <a href="https://aboutfeeds.com">About Feeds</a> to learn more and get started with subscribing to your favorite websites. It’s free.</p>
 
             <div class="feed-list">
               <xsl:for-each select="/rss/channel/item">
