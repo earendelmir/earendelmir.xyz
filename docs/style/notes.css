@@ -15,6 +15,17 @@
   text-decoration: underline;
   margin-left: auto;
 }
+@media screen and (min-width: 501px) {
+  .h-entry img {
+    max-width: 440px;
+    max-height: 440px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .h-entry img {
+    max-width: 100%;
+  }
+}
 @media screen and (max-width: 450px) {
   .h-entry {
     padding: 1.2em 0;
