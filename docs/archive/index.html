@@ -83,9 +83,10 @@
 
   <main>
     <h1>Archive</h1>
-    <p>You might prefer the <a href="/archive/tags/">tags</a> view.</p>
-
     <p>Expect to find anything: journal entries, tutorials, rants, and random thoughts (some deeply intimate, inherently stupid, or stolen from the internet).</p>
+
+    <p>You might prefer the <a href="/archive/tags/">tags</a> view.
+    <br>If you're feeling lucky, read a <a id="random-post-link" onclick="loadRandomPost(this)" href="">random</a> post.</p>
 
     <div class="h-feed">
       <div class="p-author h-card" hidden>
@@ -200,4 +201,19 @@
     <p><span translate="no">© 2023-2025 earendelmir</span></p>
   </footer>
 </body>
+<script>
+function loadRandomPost(linkElem) {
+  const years = [2023, 2024, 2025];
+  const numPosts = {
+    "2023": 47,
+    "2024": 25,
+    "2025": 9
+  };
+  const randomYear = years[Math.floor(Math.random() * years.length)];
+  const randomNum = Math.floor(Math.random() * numPosts[randomYear]) + 1;
+  const url = window.location.origin + "/archive/" + randomYear + "/" + randomNum;
+  linkElem.href = url;
+  linkElem.click();
+}
+</script>
 </html>

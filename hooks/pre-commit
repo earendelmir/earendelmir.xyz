@@ -105,6 +105,40 @@ done
 
 
 ################################################################################
+###  CHECK FOR POST COUNT IN ARCHIVE FOR RANDOM POST FETCHING
+################################################################################
+
+declare -A numPosts
+
+# Extract declared post counts from JavaScript object.
+while IFS=': ' read -r year count; do
+    numPosts[$year]=$count
+done < <(grep -oP '"\d{4}": \d+' "$_FILE_ARCHIVE" | sed -E 's/"([0-9]+)": ([0-9]+)/\1 \2/')
+
+# Extract actual numbers from the first <li> element of each year's list.
+declare -A actualCounts
+currentYear=""
+while IFS= read -r line; do
+    if [[ $line =~ \<h2\>([0-9]{4})\<\/h2\> ]]; then
+        currentYear=${BASH_REMATCH[1]}
+    elif [[ $line =~ href=\"\/archive\/[0-9]{4}\/([0-9]+)\" ]]; then
+        if [[ -z "${actualCounts[$currentYear]}" ]]; then
+            actualCounts[$currentYear]=${BASH_REMATCH[1]}
+        fi
+    fi
+done < "$_FILE_ARCHIVE"
+
+# Compare declared numbers with extracted ones.
+for year in "${!numPosts[@]}"; do
+    expected=${numPosts[$year]}
+    actual=${actualCounts[$year]:-0}
+    if [[ ! $expected -eq $actual ]]; then
+        _print_err "Found $actual posts for $year, not $expected (for random link generation)"
+    fi
+done
+
+
+################################################################################
 ###  CHECK FOR TAGS COUNT
 ################################################################################
 

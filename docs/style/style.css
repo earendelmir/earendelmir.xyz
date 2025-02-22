@@ -175,7 +175,7 @@ a:active:not(#navbar-curr-page) {
 }
 
 /* Mark external links. */
-main a[href^="http"]:not([href*="earendelmir.xyz"])::after {
+main a[href^="http"]:not([href*="earendelmir.xyz"]):not(#random-post-link)::after {
   content:"↗"/" (external)";
   font-size: .9em;
   white-space: pre;
