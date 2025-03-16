@@ -1,11 +1,5 @@
 # Personal Notes
 
-## TODO
-
-[ ] RSS feed for notes (or notes in main feed)
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 ## Write about
 
 + radio che mi fa pensare all'autostrada Fisciano - Casa e i fari delle macchine la sera
@@ -26,10 +20,6 @@
 + islanda
 + wurzburg
 + londra
-
-### travel encounters
-
-+ ragazza incinta treno roma-napoli
 
 ### music of the month (october)
 

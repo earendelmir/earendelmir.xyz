@@ -6,7 +6,7 @@
 
   <url>
     <loc>https://earendelmir.xyz/</loc>
-    <lastmod>2025-02-16</lastmod>
+    <lastmod>2025-03-16</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://earendelmir.xyz/guestbook/</loc>
-    <lastmod>2025-02-02</lastmod>
+    <lastmod>2025-03-15</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
@@ -36,12 +36,12 @@
   </url>
   <url>
     <loc>https://earendelmir.xyz/readings/</loc>
-    <lastmod>2025-02-16</lastmod>
+    <lastmod>2025-03-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://earendelmir.xyz/uses/</loc>
-    <lastmod>2025-02-02</lastmod>
+    <lastmod>2025-02-16</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -51,7 +51,7 @@
   </url>
   <url>
     <loc>https://earendelmir.xyz/archive/</loc>
-    <lastmod>2025-02-16</lastmod>
+    <lastmod>2025-03-16</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
@@ -361,7 +361,7 @@
   </url>
   <url>
     <loc>https://earendelmir.xyz/archive/2024/15</loc>
-    <lastmod>2025-02-02</lastmod>
+    <lastmod>2025-02-16</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
@@ -456,7 +456,12 @@
   </url>
   <url>
     <loc>https://earendelmir.xyz/archive/2025/9</loc>
-    <lastmod>2025-02-16</lastmod>
+    <lastmod>2025-03-16</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://earendelmir.xyz/archive/2025/10</loc>
+    <lastmod>2025-03-16</lastmod>
     <priority>0.80</priority>
   </url>
 </urlset>
