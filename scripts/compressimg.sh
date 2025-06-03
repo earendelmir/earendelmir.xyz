@@ -51,4 +51,4 @@ img_webp="${img%.*}".webp
 cwebp -quiet -preset photo -m 6 "$img" -o "$img_webp" || _die "Could not convert."
 
 [[ -z "$size" || -n $noresize ]] && exit
-convert "$img_webp" -resize "$size" "$img_webp" || _die "Could not resize."
+magick "$img_webp" -resize "$size" "$img_webp" || _die "Could not resize."
