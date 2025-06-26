@@ -209,16 +209,23 @@ curr_date=($curr_date)
 curr_date=$(echo ${curr_date[@]^})
 
 # Create directory to store posts for this year.
-[[ ! -d archive/$year ]] && mkdir -p archive/$year
+[[ ! -d "archive/$year" ]] && mkdir -p "archive/$year"
 
 # Determine post number by adding 1 to the latest post number. I can't count the
 # number of files in the directory in case I delete some of them.
+# This also works if the post is the first of a new year (if the folder is
+# empty).
 latest_post="$(ls archive/$year/ | sort -gr | head -1)"
 latest_num="${latest_post#archive/$year/}"
 latest_num="${latest_num%.html}"
 num="$((latest_num+1))"
 post_file="archive/$year/$num.html"
 post_filename="archive/$year/$num"
+if [[ $latest_num -eq 0 || -z $latest_num ]]; then
+    latest_year=$((year-1))
+else
+    latest_year=$year
+fi
 
 
 ################################################################################
@@ -278,8 +285,31 @@ _print_ok "Remove oldest entry from $_FILE_HOMEPAGE."
 
 line="\ \ \ \ \ \ \ \ <li class=\"h-entry $lang\"><time class=\"dt-published\" datetime=\"$curr_datetime\">${curr_date:3:3} ${curr_date::2}</time><a class=\"u-url\" href=\"/$post_filename\"><span class=\"p-name\" lang=\"$lang\">$title</span></a></li>"
 
-# Get line number where to insert this new line: 1 line above the first h-entry.
-line_nr="$(grep -n -m 1 "h-entry" "$_FILE_ARCHIVE" | cut -d':' -f1)"
+# Check if a list of posts for the current year already exists.
+if ! grep -n -m 1 "h2>$year" "$_FILE_ARCHIVE" &>/dev/null 2>&1 ; then
+    # Insert new list section for current year.
+    new_section_string=$"      <section>
+      <h2>$year</h2>
+      <ul class=\"list posts-list\">
+      </ul>
+      </section>
+"
+    # Get line number where to insert this new line: above first <section>
+    line_nr="$(grep -n -m 1 "<section>" "$_FILE_ARCHIVE" | cut -d':' -f1)"
+    line_nr=$((line_nr-1))
+    # To insert multiple lines with sed I need a tmp file.
+    tmpfile=$(mktemp)
+    printf '%s\n' "$new_section_string" > "$tmpfile"
+    sed -i "${line_nr}r $tmpfile" "$_FILE_ARCHIVE"
+    rm "$tmpfile"
+    # Get line number where to insert new post line: under first <ul> section.
+    line_nr="$(grep -n -m 1 " posts-list" "$_FILE_ARCHIVE" | cut -d':' -f1)"
+    line_nr=$((line_nr+1))
+else
+    # Get line number where to insert new post line: 1 line above the first
+    # h-entry of current year.
+    line_nr="$(grep -n -m 1 "h-entry" "$_FILE_ARCHIVE" | cut -d':' -f1)"
+fi
 sed -i "${line_nr}i\\${line}" "$_FILE_ARCHIVE"
 __ok_add_archive=1
 _print_ok "Add post to $_FILE_ARCHIVE."
@@ -316,7 +346,7 @@ _print_ok "Update tag count in tags list."
 ################################################################################
 
 prev_linenr="$(grep -n "Previously</p></div>" "$post_file" | cut -d: -f1)"
-prev_line="      <div><p>Previously</p><a href=\"/archive/$year/$latest_num\">$(grep -m 1 post-title "archive/$year/$latest_post" | cut -d'>' -f2 | cut -d'<' -f1)</a></div>"
+prev_line="      <div><p>Previously</p><a href=\"/archive/$latest_year/$latest_num\">$(grep -m 1 post-title "archive/$year/$latest_post" | cut -d'>' -f2 | cut -d'<' -f1)</a></div>"
 sed -i "${prev_linenr}s|.*|${prev_line}|" "$post_file"
 __ok_link_prev=1
 _print_ok "Link to prev post."
@@ -326,9 +356,9 @@ _print_ok "Link to prev post."
 ###  ADD next LINK IN LAST POST
 ################################################################################
 
-next_linenr="$(grep -n "prevnext-next" "archive/$year/$latest_post" | cut -d: -f1)"
+next_linenr="$(grep -n "prevnext-next" "archive/$latest_year/$latest_post" | cut -d: -f1)"
 next_line="      <div class=\"prevnext-next\"><p>Up next</p><a href=\"/archive/$year/$num\">$title</a></div>"
-sed -i "${next_linenr}s|.*|${next_line}|" "archive/$year/$latest_post"
+sed -i "${next_linenr}s|.*|${next_line}|" "archive/$latest_year/$latest_post"
 __ok_link_next=1
 _print_ok "Link to next post."
 
