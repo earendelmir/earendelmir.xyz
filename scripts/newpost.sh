@@ -195,6 +195,9 @@ while [[ -n $1 ]]; do
     shift
 done
 
+# title="Nuovo post"  # DELETE
+# tag="personal"  # DELETE
+# lang="it"  # DELETE
 _ask_title
 _ask_lang
 _ask_tag
@@ -203,6 +206,7 @@ _ask_tag
 # Use English language to get first 3 letters of current month (%b).
 LANG=en_us_8859_1
 year=$(date +%Y)
+#year=2026  # DELETE
 curr_datetime=$(date +%Y-%m-%d)
 curr_date=$(date +%d' '%b' '%Y)
 curr_date=($curr_date)
@@ -313,6 +317,54 @@ fi
 sed -i "${line_nr}i\\${line}" "$_FILE_ARCHIVE"
 __ok_add_archive=1
 _print_ok "Add post to $_FILE_ARCHIVE."
+
+
+################################################################################
+###  INCREASE YEAR POST COUNT IN /archive/
+################################################################################
+
+_tmp_file="tmp.html"
+
+awk -v year="$year" '
+BEGIN {
+  year_exists = 0
+  in_years_array = 0
+  in_numPosts = 0
+}
+{
+  # Check if the line contains the year in numPosts
+  pattern = "\"" year "\": *([0-9]+)"
+  if ($0 ~ pattern) {
+    match($0, pattern, m)
+    new_value = m[1] + 1
+    sub(pattern, "\"" year "\": " new_value)
+    year_exists = 1
+  }
+
+  # Capture and modify the years array
+  if ($0 ~ /const years *= *\[.*\]/) {
+    in_years_array = 1
+    if ($0 ~ year) {
+      year_exists = 1
+    } else {
+      sub(/\]/, ", " year "]")
+    }
+  }
+
+  print
+
+  # After printing the numPosts block, if year was missing, insert it
+  if ($0 ~ /const numPosts *= *{/) {
+    in_numPosts = 1
+  } else if (in_numPosts && $0 ~ /^ *};/) {
+    if (!year_exists) {
+      print "  \"" year "\": 1,"
+    }
+    in_numPosts = 0
+  }
+}
+' "$_FILE_ARCHIVE" > "$_tmp_file" && mv "$_tmp_file" "$_FILE_ARCHIVE"
+
 
 
 ################################################################################
